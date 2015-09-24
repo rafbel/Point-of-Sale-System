@@ -8,9 +8,9 @@ public class salesItem {
 	private int amount; //amount of items on inventory
 	
 	//methods
-	public salesItem(int itemID,String itemName, float price)
+	public salesItem(int itemID,String itemName, float price, int amount)
 	{
-		this.itemID = itemID; this.itemName = itemName; this.price = price;
+		this.itemID = itemID; this.itemName = itemName; this.price = price; this.amount = amount;
 	}
 	
 	String getItemName() {return itemName;}

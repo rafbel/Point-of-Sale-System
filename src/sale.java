@@ -1,11 +1,12 @@
 import java.io.*;
 import java.util.Scanner;
 
-public class sale {
+public class sale extends pointOfSale {
 
 	//attributes
 	private float runningTotal;
 	private int numItem;
+	private int databaseItems;
 	private static final String databaseFile = "itemDatabase.txt";
 	private salesItem[] item = null; //creates an array of all items in the database
 	private salesItem[] itemsOnSale = null; //this array will store all items to be used in this sale
@@ -26,11 +27,12 @@ public class sale {
 			while ((line = textReader.readLine()) != null)
 			{
 				lineSort = line.split(" "); //separates words
-				item[numLine] = new salesItem(Integer.parseInt(lineSort[0]),lineSort[1],Float.parseFloat(lineSort[2]));
+				item[numLine] = new salesItem(Integer.parseInt(lineSort[0]),lineSort[1],Float.parseFloat(lineSort[2]), Integer.parseInt(lineSort[3]));
 				numLine++;
 			}
 			
 			textReader.close();
+			databaseItems = numLine;
 		}
 		
 		//catches exceptions
@@ -67,18 +69,19 @@ public class sale {
 			amount = Integer.parseInt(cashierInput.next());
 			
 			//Calls the enterItem method
-			enterItem(itemID,amount);
+			if (enterItem(itemID,amount, item,itemsOnSale, numItem, databaseItems) == false)
+				System.out.println("Item not found. Press e to try again");
+			
 			
 			
 		} while (cashierInput.next() == "e"); //press e to add more items
 		
 		cashierInput.close();
 	}
-	private void enterItem(int itemID, int amount)
-	{
 	
-		
-			
+	private void updateRunningTotal()
+	{
+		//shows runningtotal on screen and item info
 	}
 		
 		

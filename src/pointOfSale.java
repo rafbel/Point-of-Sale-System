@@ -83,7 +83,7 @@ public class PointOfSale {
 		cashierInput.close();
 	}
 	
-	public boolean enterItem(int itemID, int amount) //might include in a "mother class" in the future
+	private boolean enterItem(int itemID, int amount) //might include in a "mother class" in the future
 	{
 		boolean foundItem = false;
 		

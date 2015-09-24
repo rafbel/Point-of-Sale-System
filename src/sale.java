@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Sale extends PointOfSale{
 
 	//attributes
-	private static final String databaseFile = "itemDatabase.txt"; //determines the name of the databaseFile for sale
+	private static final String databaseFile = "Database/itemDatabase.txt"; //determines the name of the databaseFile for sale
 	
 	//methods
 	

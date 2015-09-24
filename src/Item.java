@@ -1,5 +1,5 @@
 
-public class salesItem {
+public class Item {
 	
 	//attributes
 	private int itemID;
@@ -8,7 +8,7 @@ public class salesItem {
 	private int amount; //amount of items on inventory
 	
 	//methods
-	public salesItem(int itemID,String itemName, float price, int amount)
+	public Item(int itemID,String itemName, float price, int amount)
 	{
 		this.itemID = itemID; this.itemName = itemName; this.price = price; this.amount = amount;
 	}
@@ -18,6 +18,6 @@ public class salesItem {
 	float getPrice() {return price;}
 	int getAmount() {return amount;} 
 	
-	public void updateInventory(int amount) {this.amount = amount;}
+	public void updateAmount(int amount) {this.amount = amount;}
 					
 }

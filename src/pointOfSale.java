@@ -8,7 +8,7 @@ public class PointOfSale {
 	private double totalPrice;
 	
 	private List<Item> databaseItem = new ArrayList<Item>(); //creates a list of all items in the database
-	private List<Item> transactionItem = new ArrayList<Item>(); //this array will store all items to be used in this sale
+	private List<Item> transactionItem = new ArrayList<Item>(); //this list will store all items to be used in this sale
 	
 	//constructor
 	public PointOfSale(){
@@ -159,4 +159,3 @@ public class PointOfSale {
 		
 }
 
-//in development

@@ -19,7 +19,7 @@ public class Sale extends PointOfSale{
 	
 	public void salePayment()
 	{
-		//payment 
+		//no idea if there is actually necessary
 	}
 
 		

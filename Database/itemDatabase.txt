@@ -6,3 +6,5 @@
 1005 Tomato 0.80 150
 1006 Pineapple 2.0 201
 1007 Apple 0.60 9
+1008 Pumpkin 1.50 28
+1009 GreenApple 0.70 170

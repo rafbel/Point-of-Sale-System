@@ -5,13 +5,17 @@ import java.util.*;
 public class PointOfSale {
 
 	//attributes
-	private float totalPrice;
+	private double totalPrice;
 	
 	private List<Item> databaseItem = new ArrayList<Item>(); //creates a list of all items in the database
 	private List<Item> transactionItem = new ArrayList<Item>(); //this array will store all items to be used in this sale
+	private double tax;
 	
 	//constructor
-	public PointOfSale(){}
+	public PointOfSale(){
+		tax = 1.06;
+		
+	}
 	
 	public boolean accessInventory(String databaseFile)
 	{
@@ -57,7 +61,7 @@ public class PointOfSale {
 	}
 	
 	
-	public void startNew() //might turn this into a method called startNew in a POS mother class
+	public void startNew() 
 	{
 		totalPrice = 0;
 		
@@ -102,21 +106,51 @@ public class PointOfSale {
 		return foundItem;
 	}
 	
-	private void updateTotal() //might move to a mother class
+	private void updateTotal() 
 	{
+		
 		//updates total value to be displayed on the screen
-		totalPrice += transactionItem.get(transactionItem.size() - 1).getPrice()*transactionItem.get(transactionItem.size() - 1).getAmount();
+		totalPrice += transactionItem.get(transactionItem.size() - 1).getPrice()
+				*transactionItem.get(transactionItem.size() - 1).getAmount();
 		
 		//shows running total on screen and item info
 		for (int counter = 0; counter < transactionItem.size(); counter++)
 			//prints item name - price
-			System.out.format("%s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemName(), transactionItem.get(counter).getAmount(), transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());
+			System.out.format("%s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemName(),
+					transactionItem.get(counter).getAmount(), 
+					transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());
 			
-		System.out.format("Total: %.2f\n", totalPrice);
 		//prints running total
+		System.out.format("Subtotal: %.2f\n", totalPrice);
+
+	}
+	
+	public void endPOS()
+	{
+		
+		//shows running total on screen and item info
+				for (int counter = 0; counter < transactionItem.size(); counter++)
+					//prints item name - price
+					System.out.format("%s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemName(),
+							transactionItem.get(counter).getAmount(), 
+							transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());
+				
+				//prints total without taxes
+				System.out.format("Total: %.2f\n", totalPrice);
+				
+				totalPrice = totalPrice*tax; //calculates price with tax
+				//prints total with taxes
+				System.out.format("Total with taxes: %.2f\n", totalPrice);
+		
+	}
+	
+	public void updateInventory(String databaseFile)
+	{
+		//updates inventory list
+		
+		//save into database.txt file
 	}
 		
-	
 }
 
 //in development

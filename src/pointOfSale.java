@@ -31,7 +31,8 @@ public class PointOfSale {
 			while ((line = textReader.readLine()) != null)
 			{
 				lineSort = line.split(" "); //separates words
-				databaseItem.add(new Item(Integer.parseInt(lineSort[0]),lineSort[1],Float.parseFloat(lineSort[2]), Integer.parseInt(lineSort[3])));
+				databaseItem.add(new Item(Integer.parseInt(lineSort[0]),lineSort[1],Float.parseFloat(lineSort[2]),
+						Integer.parseInt(lineSort[3])));
 				numLine++;
 			}
 			
@@ -134,9 +135,26 @@ public class PointOfSale {
 	
 	public void updateInventory(String databaseFile)
 	{
-		//updates inventory list
+		int counter2;
+		int newAmount; //stores new amount (num of items in database - num of items in transaction)
 		
-		//save into database.txt file
+		
+		//updates inventory list
+		for (int counter = 0 ; counter < transactionItem.size(); counter++) //for every item on this transaction
+		{
+			for (counter2 = 0; counter2 < databaseItem.size(); counter2++) //for every item on the database
+			{
+				if (transactionItem.get(counter) == databaseItem.get(counter2)) //if itemIDs are equal, update new amount on the list
+				{
+					newAmount = databaseItem.get(counter2).getAmount() - transactionItem.get(counter).getAmount();
+					databaseItem.get(counter2).updateAmount(newAmount);
+					break; //breaks when item is found
+				}
+			}
+		}
+		
+		
+		//save into database.txt file (to implement)
 	}
 		
 }

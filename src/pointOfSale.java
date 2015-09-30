@@ -9,11 +9,9 @@ public class PointOfSale {
 	
 	private List<Item> databaseItem = new ArrayList<Item>(); //creates a list of all items in the database
 	private List<Item> transactionItem = new ArrayList<Item>(); //this array will store all items to be used in this sale
-	private double tax;
 	
 	//constructor
 	public PointOfSale(){
-		tax = 1.06;
 		
 	}
 	
@@ -121,22 +119,12 @@ public class PointOfSale {
 					transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());
 			
 		//prints running total
-		System.out.format("Subtotal: %.2f\n", totalPrice);
+		System.out.format("Total: %.2f\n", totalPrice);
 
 	}
 	
-	public void endPOS()
+	public void endPOS(double tax)
 	{
-		
-		//shows running total on screen and item info
-				for (int counter = 0; counter < transactionItem.size(); counter++)
-					//prints item name - price
-					System.out.format("%s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemName(),
-							transactionItem.get(counter).getAmount(), 
-							transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());
-				
-				//prints total without taxes
-				System.out.format("Total: %.2f\n", totalPrice);
 				
 				totalPrice = totalPrice*tax; //calculates price with tax
 				//prints total with taxes

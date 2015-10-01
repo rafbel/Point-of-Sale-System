@@ -136,7 +136,7 @@ public class PointOfSale {
 	public void updateInventory(String databaseFile)
 	{
 		int counter2;
-		int newAmount; //stores new amount (num of items in database - num of items in transaction)
+		int newAmount; //stores new amount (number of items in database - number of items in transaction)
 		
 		
 		//updates inventory list

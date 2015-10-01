@@ -17,11 +17,6 @@ public class Sale extends PointOfSale{
 			startNew();
 	}
 	
-	public void salePayment()
-	{
-		//no idea if there is actually necessary
-	}
-
 		
 }
 	

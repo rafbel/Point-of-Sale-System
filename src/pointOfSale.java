@@ -6,6 +6,7 @@ public class PointOfSale {
 
 	//attributes
 	private double totalPrice;
+	Inventory inventory = new Inventory();
 	
 	private List<Item> databaseItem = new ArrayList<Item>(); //creates a list of all items in the database
 	private List<Item> transactionItem = new ArrayList<Item>(); //this list will store all items to be used in this sale
@@ -15,75 +16,39 @@ public class PointOfSale {
 		
 	}
 	
-	public boolean accessInventory(String databaseFile)
-	{
-		boolean ableToOpen = true;
-		
-		String line = null;
-		String[] lineSort;
-		int numLine = 0;
-		
-		//Checks database file for the item		
-		try {
-			FileReader fileR = new FileReader(databaseFile);
-			BufferedReader textReader = new BufferedReader(fileR);
-			//reads the entire database
-			while ((line = textReader.readLine()) != null)
-			{
-				lineSort = line.split(" "); //separates words
-				databaseItem.add(new Item(Integer.parseInt(lineSort[0]),lineSort[1],Float.parseFloat(lineSort[2]),
-						Integer.parseInt(lineSort[3])));
-				numLine++;
-			}
-			
-			textReader.close();
-		}
-		
-		//catches exceptions
-		 catch(FileNotFoundException ex) {
-	            System.out.println(
-	                "Unable to open file '" + 
-	                		databaseFile + "'"); 
-	            ableToOpen = false;
-	        }
-	        catch(IOException ex) {
-	            System.out.println(
-	                "Error reading file '" 
-	                + databaseFile + "'");  
-	            ableToOpen = false;
-	        }
-		
-		
-		
-		
-		return ableToOpen;
-	}
 	
-	
-	public void startNew() 
+	public void startNew(String databaseFile) 
 	{
 		totalPrice = 0;
 		
 		int itemID; int amount;
 		
-		Scanner cashierInput = new Scanner(System.in); //determines if there is more items to be added
-		
-		do //must register at least one item
+		if (inventory.accessInventory(databaseFile, databaseItem) == true) //if can access inventory
 		{
-			//Cashier enters itemID and amount
-			System.out.println("Enter itemID");
-			itemID = Integer.parseInt(cashierInput.next());
+			Scanner cashierInput = new Scanner(System.in); //determines if there is more items to be added
 			
-			System.out.println("Enter amount");
-			amount = Integer.parseInt(cashierInput.next());
+			do //must register at least one item
+			{
+				//Cashier enters itemID and amount
+				System.out.println("Enter itemID");
+				itemID = Integer.parseInt(cashierInput.next());
+				
+				System.out.println("Enter amount");
+				amount = Integer.parseInt(cashierInput.next());
+				
+				//Calls the enterItem method
+				if (enterItem(itemID,amount) == false)
+					System.out.println("Item not found. Press e to try again");
+				
+			} while (cashierInput.next().equals("e")); //press e to add more items
 			
-			//Calls the enterItem method
-			if (enterItem(itemID,amount) == false)
-				System.out.println("Item not found. Press e to try again");
-			
-		} while (cashierInput.next().equals("e")); //press e to add more items
+			cashierInput.close();
 		
-		cashierInput.close();
+		}
+		
+		else
+		{
+			System.out.println("Can't access database.");		}
 	}
 	
 	private boolean enterItem(int itemID, int amount) //might include in a "mother class" in the future
@@ -133,29 +98,6 @@ public class PointOfSale {
 		
 	}
 	
-	public void updateInventory(String databaseFile)
-	{
-		int counter2;
-		int newAmount; //stores new amount (number of items in database - number of items in transaction)
-		
-		
-		//updates inventory list
-		for (int counter = 0 ; counter < transactionItem.size(); counter++) //for every item on this transaction
-		{
-			for (counter2 = 0; counter2 < databaseItem.size(); counter2++) //for every item on the database
-			{
-				if (transactionItem.get(counter) == databaseItem.get(counter2)) //if itemIDs are equal, update new amount on the list
-				{
-					newAmount = databaseItem.get(counter2).getAmount() - transactionItem.get(counter).getAmount();
-					databaseItem.get(counter2).updateAmount(newAmount);
-					break; //breaks when item is found
-				}
-			}
-		}
-		
-		
-		//save into database.txt file (to implement)
-	}
 		
 }
 

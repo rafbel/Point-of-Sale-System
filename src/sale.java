@@ -13,8 +13,7 @@ public class Sale extends PointOfSale{
 	
 	public void newSale()
 	{
-		if (accessInventory(databaseFile) == true)
-			startNew();
+		startNew(databaseFile);
 	}
 	
 		

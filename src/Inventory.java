@@ -3,6 +3,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.io.PrintWriter;
+import java.io.FileWriter;
 
 public class Inventory 
 {
@@ -75,8 +77,30 @@ public class Inventory
 		}
 		
 		
-		//save into database.txt file (to implement)
+		//saves databaseItem list -> database.txt file (to implement)
+		//overwrites file and reinserts all items (with amount updated)
+		try
+		{
+			PrintWriter writer = new PrintWriter(new FileWriter(databaseFile));
+			
+			for (int wCounter = 0; wCounter < databaseItem.size() ; ++wCounter)
+			{
+				writer.println(databaseItem.get(wCounter).getItemID() + " " + databaseItem.get(wCounter).getItemName() + " "
+						+ databaseItem.get(wCounter).getPrice() + " " + databaseItem.get(wCounter).getAmount());
+			}
+			
+			writer.close(); //closes writer
+		}
+		
+		catch(IOException e){}
+		{
+			System.out.println("Unable to find database file :" + databaseFile);
+		}
+		
+	
 	}
 	
+}	
 	
-}
+
+		

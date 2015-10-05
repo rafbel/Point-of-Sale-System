@@ -78,8 +78,6 @@ public class Inventory
 			}
 		}
 		
-		for (int counter = 0; counter < databaseItem.size(); counter++)
-			System.out.format("%d\n",databaseItem.get(counter).getAmount());
 		
 		//saves databaseItem list -> database.txt file (to implement)
 		//overwrites file and reinserts all items (with amount updated)

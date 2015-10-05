@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.*;
 import java.io.PrintWriter;
 import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.File;
 
 public class Inventory 
 {
@@ -32,8 +34,8 @@ public class Inventory
 						Integer.parseInt(lineSort[3])));
 				numLine++;
 			}
-			
 			textReader.close();
+			
 		}
 		
 		//catches exceptions
@@ -67,7 +69,7 @@ public class Inventory
 		{
 			for (counter2 = 0; counter2 < databaseItem.size(); counter2++) //for every item on the database
 			{
-				if (transactionItem.get(counter) == databaseItem.get(counter2)) //if itemIDs are equal, update new amount on the list
+				if (transactionItem.get(counter).getItemID() == databaseItem.get(counter2).getItemID()) //if itemIDs are equal, update new amount on the list
 				{
 					newAmount = databaseItem.get(counter2).getAmount() - transactionItem.get(counter).getAmount();
 					databaseItem.get(counter2).updateAmount(newAmount);
@@ -76,25 +78,30 @@ public class Inventory
 			}
 		}
 		
+		for (int counter = 0; counter < databaseItem.size(); counter++)
+			System.out.format("%d\n",databaseItem.get(counter).getAmount());
 		
 		//saves databaseItem list -> database.txt file (to implement)
 		//overwrites file and reinserts all items (with amount updated)
 		try
 		{
-			PrintWriter writer = new PrintWriter(new FileWriter(databaseFile));
+			File file = new File(databaseFile);		
+			FileWriter fileR = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bWriter = new BufferedWriter(fileR);
+			PrintWriter writer = new PrintWriter(bWriter);
 			
 			for (int wCounter = 0; wCounter < databaseItem.size() ; ++wCounter)
 			{
-				writer.println(databaseItem.get(wCounter).getItemID() + " " + databaseItem.get(wCounter).getItemName() + " "
-						+ databaseItem.get(wCounter).getPrice() + " " + databaseItem.get(wCounter).getAmount());
+				writer.println(String.valueOf(databaseItem.get(wCounter).getItemID()) + " " + databaseItem.get(wCounter).getItemName() + " "
+						+ String.valueOf(databaseItem.get(wCounter).getPrice() ) + " " +
+						String.valueOf( databaseItem.get(wCounter).getAmount()) );
 			}
 			
-			writer.close(); //closes writer
+			bWriter.close(); //closes writer
 		}
 		
 		catch(IOException e){}
 		{
-			System.out.println("Unable to find database file :" + databaseFile);
 		}
 		
 	

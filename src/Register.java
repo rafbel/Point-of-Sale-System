@@ -15,7 +15,7 @@ public class Register {
 /* Notes
 Missing:
 	1.Customer asks to cancel sale
-	2.System cancels (make system add an item to a log.txt after each item is added)
+	2.System shut down (make system add an item to a log.txt after each item is added)
 	3.Customer asks for a item to be removed
 	4.Customer says they are eligible for a discount
 	5.Customer presents coupons

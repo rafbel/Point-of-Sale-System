@@ -89,12 +89,13 @@ public class PointOfSale {
 
 	}
 	
-	public void endPOS(double tax)
+	public void endPOS(double tax, String databaseFile)
 	{
 				
 				totalPrice = totalPrice*tax; //calculates price with tax
 				//prints total with taxes
 				System.out.format("Total with taxes: %.2f\n", totalPrice);
+				inventory.updateInventory(databaseFile, transactionItem, databaseItem);
 		
 	}
 	

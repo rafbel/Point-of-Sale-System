@@ -53,8 +53,6 @@ public class Inventory
 	        }
 		
 		
-		
-		
 		return ableToOpen;
 	}
 	

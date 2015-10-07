@@ -5,6 +5,8 @@ public class PointOfSale {
   
   //attributes
   private double totalPrice;
+  private float discount = 0.95f;
+  
   Inventory inventory = new Inventory();
   
   private List<Item> databaseItem = new ArrayList<Item>(); //creates a list of all items in the database
@@ -122,7 +124,7 @@ public class PointOfSale {
     System.out.println("your sale has been cancelled.");
     System.exit(1);
   }
-  private boolean enterItem(int itemID, int amount) //might include in a "mother class" in the future
+  public boolean enterItem(int itemID, int amount) //might include in a "mother class" in the future
   {
     boolean foundItem = false;
     
@@ -165,7 +167,8 @@ public class PointOfSale {
   
   public void endPOS(double tax, String databaseFile)
   {
-   
+	  String discountChoice;
+	  Scanner discountInput = new Scanner(System.in);
     
     totalPrice = totalPrice*tax; //calculates price with tax
     //prints total with taxes
@@ -174,7 +177,8 @@ public class PointOfSale {
     
   }
   
-  public static int checkInt(){
+  //Checks if the value inserted is an integer
+  private static int checkInt(){
     Scanner scan=new Scanner(System.in);
     while(!scan.hasNextInt()){
       System.out.println("The input is not valid. Please try again."); 
@@ -182,6 +186,7 @@ public class PointOfSale {
     }
     return scan.nextInt();
   }
+
 
   
 }

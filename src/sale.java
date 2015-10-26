@@ -1,6 +1,4 @@
 //latest push added operating system detection for pathing
-import java.io.*;
-import java.util.Scanner;
 
 public class Sale extends PointOfSale{
 

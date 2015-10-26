@@ -5,7 +5,7 @@ public class PointOfSale {
   
   //attributes
   private double totalPrice;
-  private float discount = 0.95f;
+  private static float discount = 0.90f;
   
   Inventory inventory = new Inventory();
   
@@ -101,7 +101,7 @@ public class PointOfSale {
       }
       }
       if(valid){
-        totalPrice=totalPrice*0.9;
+        totalPrice=totalPrice*discount;
         System.out.format("Total: %.2f\n", totalPrice);
       }
     }
@@ -167,13 +167,14 @@ public class PointOfSale {
   
   public void endPOS(double tax, String databaseFile)
   {
-	  String discountChoice;
 	  Scanner discountInput = new Scanner(System.in);
     
     totalPrice = totalPrice*tax; //calculates price with tax
     //prints total with taxes
     System.out.format("Total with taxes: %.2f\n", totalPrice);
     inventory.updateInventory(databaseFile, transactionItem, databaseItem);
+    
+    discountInput.close();
     
   }
   
@@ -184,6 +185,7 @@ public class PointOfSale {
       System.out.println("The input is not valid. Please try again."); 
       scan.next();
     }
+    scan.close();
     return scan.nextInt();
   }
 

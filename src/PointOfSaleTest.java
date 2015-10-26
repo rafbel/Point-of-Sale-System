@@ -1,4 +1,4 @@
-import org.junit.*; 
+/*import org.junit.*; 
 import static org.junit.Assert.*;  
 public class PointOfSaleTest {  
 
@@ -10,4 +10,4 @@ public void testEnterItem(){
 }
 
 
-}
+}*/

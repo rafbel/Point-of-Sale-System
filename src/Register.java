@@ -1,11 +1,30 @@
+import java.util.Scanner;
 
 public class Register {
 	
 	public static void main(String[] args)
 	{
 		Sale sale = new Sale();
+		String choice;
 		
-		sale.newSale();
+		System.out.println("Welcome to SG Technologies POS System");
+		System.out.println("Press s to start new sale");
+		System.out.println("Press q to shut down system");
+		
+		Scanner cashierInput = new Scanner(System.in);
+		
+		while ( !(choice = cashierInput.next() ).equals("q"))
+		{
+			if (choice.equals("s")) //starts new sale
+				sale.newSale();
+			
+			System.out.println("Welcome to SG Technologies POS System");
+			System.out.println("Press s to start new sale");
+			System.out.println("Press q to shut down system");
+			
+		}
+		
+		System.out.println("System shutting down");
 	}
 	
 }

@@ -1,20 +1,72 @@
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.io.FileNotFoundException;
+import java.io.*; 
+
+import java.util.*;
+
 
 public class Rental extends PointOfSale{
  
  //Note: Still needs to create Database file for rental
- 
+ Long phone;
+  
  private static String databaseFile = "..\\Database\\rentalDatabase.txt"; //Currently assumes windows OS, need to add OS detection
  
  public Rental(){}
  
  public void newRental()
  {
-  startNew(databaseFile);
-  endPOS(1.06,databaseFile);
-  returnDate();
+   System.out.println("Enter customer's phone number");//assumes customer is in the database, we'll need to add an add customer method later
+   Scanner s = new Scanner(System.in);
+   while (((phone = s.nextLong())>9999999999l)||(phone<1000000000l)){ //checks to make sure phone is a 10 digit integer
+     System.out.println("invalid phone num, please try a 10 digit integer");
+   }
+   if (!checkUser(phone)){
+     System.out.println("user doesnt exist in userDatabase");
+   }
+   else{
+     //returnDate();
+     startNew(databaseFile);
+     endPOS(1.06,databaseFile);
+     returnDate();
+   }
+   
+   }
+ 
+ public Boolean checkUser(Long phoneNumber){ //returns true if user phone is in DB, false if not
+   //needs to be cleaned up.. written with terrible style right now but *at least it works*
+  //check user will open the user database and check to see if user's phone number is on the list
+   try{
+     FileReader fileR = new FileReader("..\\Database\\userDatabase.txt");
+     BufferedReader textReader = new BufferedReader(fileR);
+     String line;
+     //reads the entire database
+     line = textReader.readLine(); //skips the first line, which explains how the DB is formatted. 
+     while ((line = textReader.readLine()) != null){
+       long nextPh = Long.parseLong(line.split(" ")[0]);
+       if(nextPh==phone){
+         textReader.close();
+         fileR.close();
+         //System.out.println("user phone number found in userDatabase");
+         return true;
+       }
+       //System.out.println(line.split(" ")[0]);
+     }
+     textReader.close();
+     fileR.close();
+     //System.out.println("reached end of userDatabase, phone number not found");
+     return false; 
+   }
+   //catches exceptions
+   catch(FileNotFoundException ex) {
+     System.out.println("cannot open userDB"); 
+    
+   }
+   catch(IOException ex) {
+     System.out.println("ioexception");
+   }
+   return true;
  }
  
  

@@ -4,11 +4,29 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Register {
+
 	
 	public static void main(String[] args)
 	{
 		DateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, ''yy");
 		Calendar cal = Calendar.getInstance();
+		 //1) prompt user login using logIn() method
+   
+		//2) print out menu of functionalities and wait for user to select one.. those include:
+		//SALE : should redirect to sale class and the sale process used in prototype.. we need to add logging to the sale process
+		//RENTAL: redirect to rental class, needs logging and customer user management (add custmer, edit customer, verify customer) 
+		//RETURN: redirect to return class, needs logging
+		//LOGOUT: saves cashier's log files, calls logIn to override user globals
+		//
+		//if logged in user is an admin:
+		//EDIT USER DATABASE : add/delete users, overwrite passwords, change privelages
+		//EDIT ITEM DATABASE : add new items, delete existing items, override price, quantity 
+		//EDIT COUPON DATABASE: add coupons, delete coupons, change coupons
+		//EDIT CUSTOMER DATABASE: should have the same functionality as a regular cashier during a 
+   
+   
+   
+		//for prototype
 		Sale sale = new Sale();
 		Rental rental = new Rental();
 		String choice;
@@ -42,18 +60,8 @@ public class Register {
 		cashierInput.close();
 	}
 	
+ 
 }
 
-//in development
 
-/* Notes
-To be added in the future: 
-	1.System shut down (make system add an item to a log.txt after each item is added)
-	2.Customer asks for an item to be removed
-	3.Create Tax Calculator
-	4.Make system return return date for items
-	
-Please comment everything that you added so others understand your code
-
-*/
-	
+ 

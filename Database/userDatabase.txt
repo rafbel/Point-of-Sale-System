@@ -1,0 +1,2 @@
+#format:
+#(String username) (String password) (bool isAdmin) 

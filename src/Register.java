@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Register {
-
  
  public static void main(String[] args)
  {
@@ -50,7 +49,7 @@ public class Register {
    System.out.print("Welcome to SG Technologies POS System  ");
    System.out.println(dateFormat.format(cal.getTime())); 
    System.out.println("Press s to start new sale");
-   System.out.println("Press s to start new rental");
+   System.out.println("Press r to start new rental");
    System.out.println("Press q to shut down system");
    
    

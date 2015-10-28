@@ -7,7 +7,7 @@ public class PointOfSale {
   private double totalPrice;
   private static float discount = 0.90f;
   
-  Inventory inventory = new Inventory();
+  Inventory inventory = Inventory.getInstance();
   
   private List<Item> databaseItem = new ArrayList<Item>(); //creates a list of all items in the database
   private List<Item> transactionItem = new ArrayList<Item>(); //this list will store all items to be used in this sale
@@ -180,12 +180,13 @@ public class PointOfSale {
   
   //Checks if the value inserted is an integer
   private static int checkInt(){
+	  
     Scanner scan=new Scanner(System.in);
     while(!scan.hasNextInt()){
       System.out.println("The input is not valid. Please try again."); 
       scan.next();
     }
-    scan.close();
+    
     return scan.nextInt();
   }
 

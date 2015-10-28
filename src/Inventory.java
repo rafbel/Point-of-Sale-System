@@ -10,8 +10,16 @@ import java.io.File;
 
 public class Inventory 
 {
+	private static Inventory uniqueInstance = null;
 	//constructor
-	public Inventory() {}
+	private Inventory() {}
+	
+	public static synchronized Inventory getInstance()
+	{
+		if (uniqueInstance == null)
+			uniqueInstance = new Inventory();
+		return uniqueInstance;
+	}
 	
 	//methods
 	public boolean accessInventory(String databaseFile, List <Item> databaseItem)

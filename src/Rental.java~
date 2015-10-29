@@ -24,16 +24,15 @@ public class Rental extends PointOfSale{
    }
    if (!checkUser(phone)){
      System.out.println("user doesnt exist in userDatabase");
-     System.exit(0);
+   }
+   else{
+     //returnDate();
+     startNew(databaseFile);
+     endPOS(1.06,databaseFile);
+     returnDate();
    }
    
-   returnDate();
-    
-    
-  startNew(databaseFile);
-  endPOS(1.06,databaseFile);
-  returnDate();
- }
+   }
  
  public Boolean checkUser(Long phoneNumber){ //returns true if user phone is in DB, false if not
    //needs to be cleaned up.. written with terrible style right now but *at least it works*

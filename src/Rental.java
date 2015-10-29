@@ -26,13 +26,21 @@ public class Rental extends PointOfSale{
      System.out.println("user doesnt exist in userDatabase");
    }
    else{
+
      //returnDate();
      startNew(databaseFile);
      endPOS(1.06,databaseFile,true);
      returnDate();
+	 //to do:
+     //1) query user for item id
+     //2) check to see if item id exists in rentalDatabase, if not go back to 1
+     //3) produce total$ to rent (no tax.. I'm pretty sure you dont pay tax for renting things
+     //4) add the item to the users line on the userDB
+
+
    }
    
-   }
+ }
  
  public Boolean checkUser(Long phoneNumber){ //returns true if user phone is in DB, false if not
    //needs to be cleaned up.. written with terrible style right now but *at least it works*

@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.io.*;
 
 public class Register {
 
@@ -33,11 +34,48 @@ public class Register {
   
   System.out.print("Welcome to SG Technologies POS System ");
   System.out.println(dateFormat.format(cal.getTime()));
+  Scanner cashierInput = new Scanner(System.in);
+  
+  //retrieve the incomplete transaction
+  boolean ableToOpen = true;
+  File f=new File("temp.txt");
+  if(f.exists() && !f.isDirectory()) { 
+    System.out.println(" There is an incomplete transaction. Do you want to retrieve it? y- Yes");
+    String retrieve=cashierInput.next();
+    if(retrieve.equals("y")){
+      try{
+      FileReader fileR = new FileReader("temp.txt");
+        BufferedReader textReader = new BufferedReader(fileR);
+        String type= textReader.readLine();
+        if(type.equals("Sale")){
+         sale.continueT(); 
+        }
+        else if(type.equals("Rental")){
+         rental.continueT(); 
+        }
+        else{
+         System.out.println("The log file is not valid"); 
+        }
+        textReader.close();
+      }
+       catch(FileNotFoundException ex) {
+        System.out.println(
+                           "Unable to open file 'temp'"); 
+        ableToOpen = false;
+      }
+      catch(IOException ex) {
+        System.out.println(
+                           "Error reading file 'temp'");  
+        ableToOpen = false;
+      }
+    }
+}
+  
   System.out.println("Press s to start new sale");
   System.out.println("Press r to start new rental");
   System.out.println("Press q to shut down system");
   
-  Scanner cashierInput = new Scanner(System.in);
+
   
   while ( !(choice = cashierInput.next() ).equals("q"))
   {
@@ -59,7 +97,6 @@ public class Register {
   System.out.println("System shutting down");
   cashierInput.close();
  }
- 
  
 }
 

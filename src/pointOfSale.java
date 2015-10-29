@@ -27,9 +27,9 @@ public class PointOfSale {
     if (inventory.accessInventory(databaseFile, databaseItem) == true) //if can access inventory
     {
       Scanner cashierInput = new Scanner(System.in); //determines if there is more items to be added
-      
       do //must register at least one item
       {
+    	
         //Cashier enters itemID and amount
         System.out.println("Enter itemID");
         itemID=checkInt();
@@ -44,7 +44,6 @@ public class PointOfSale {
       } while (cashierInput.next().equals("e")); //press e to add more items
       
       //ask for coupon
-    //Scanner cashierInput = new Scanner(System.in);
     String coupon="";
     String couponNo="";
     System.out.println("Do you have a coupon? y-Yes");
@@ -108,8 +107,6 @@ public class PointOfSale {
        System.out.println("Do you want to keep the sale?");
         if (cashierInput.next().equals("no")){
           cancelSales();}
-
-      cashierInput.close();
       
     }
     
@@ -174,8 +171,6 @@ public class PointOfSale {
     System.out.format("Total with taxes: %.2f\n", totalPrice);
     inventory.updateInventory(databaseFile, transactionItem, databaseItem);
     
-    discountInput.close();
-    
   }
   
   //Checks if the value inserted is an integer
@@ -187,7 +182,7 @@ public class PointOfSale {
       scan.next();
     }
     
-    return scan.nextInt();
+    return Integer.parseInt(scan.nextLine());
   }
 
 

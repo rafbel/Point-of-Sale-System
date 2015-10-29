@@ -7,7 +7,7 @@ public class PointOfSale {
   private double totalPrice;
   private static float discount = 0.90f;
   
-  Inventory inventory = new Inventory();
+  Inventory inventory = Inventory.getInstance();
   
   private List<Item> databaseItem = new ArrayList<Item>(); //creates a list of all items in the database
   private List<Item> transactionItem = new ArrayList<Item>(); //this list will store all items to be used in this sale
@@ -27,9 +27,9 @@ public class PointOfSale {
     if (inventory.accessInventory(databaseFile, databaseItem) == true) //if can access inventory
     {
       Scanner cashierInput = new Scanner(System.in); //determines if there is more items to be added
-      
       do //must register at least one item
       {
+    	
         //Cashier enters itemID and amount
         System.out.println("Enter itemID");
         itemID=checkInt();
@@ -44,6 +44,7 @@ public class PointOfSale {
       } while (cashierInput.next().equals("e")); //press e to add more items
       
       //ask for coupon
+<<<<<<< HEAD
       coupon();
       
       //cancel sale
@@ -62,6 +63,8 @@ public class PointOfSale {
   
   public void coupon(){
     Scanner cashierInput = new Scanner(System.in);
+=======
+>>>>>>> origin/master
     String coupon="";
     String couponNo="";
     System.out.println("Do you have a coupon? y-Yes");
@@ -122,7 +125,19 @@ public class PointOfSale {
         System.out.format("Total: %.2f\n", totalPrice);
       }
     }
+<<<<<<< HEAD
     cashierInput.close();
+=======
+       System.out.println("Do you want to keep the sale?");
+        if (cashierInput.next().equals("no")){
+          cancelSales();}
+      
+    }
+    
+    else
+    {
+      System.out.println("Can't access database.");  }
+>>>>>>> origin/master
   }
   
   public void cancelSales(){
@@ -167,33 +182,38 @@ public class PointOfSale {
     //prints running total
     System.out.format("Total: %.2f\n", totalPrice);
     
-    
-    
-    
   }
   
-  public void endPOS(double tax, String databaseFile)
+  public void endPOS(double tax, String databaseFile, Boolean takeFromInventory)
   {
     Scanner discountInput = new Scanner(System.in);
     
-    totalPrice = totalPrice*tax; //calculates price with tax
-    //prints total with taxes
-    System.out.format("Total with taxes: %.2f\n", totalPrice);
-    inventory.updateInventory(databaseFile, transactionItem, databaseItem);
-    
-    discountInput.close();
+	if (takeFromInventory) {
+	    totalPrice = totalPrice*tax; //calculates price with tax
+	    //prints total with taxes
+	    System.out.format("Total with taxes: %.2f\n", totalPrice);
+	    inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
+	}
+	else
+	{
+		System.out.format("Total: %.2f\n",totalPrice);
+		inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
+	}
+	
+	
     
   }
   
   //Checks if the value inserted is an integer
   private static int checkInt(){
+	  
     Scanner scan=new Scanner(System.in);
     while(!scan.hasNextInt()){
       System.out.println("The input is not valid. Please try again."); 
       scan.next();
     }
-    scan.close();
-    return scan.nextInt();
+    
+    return Integer.parseInt(scan.nextLine());
   }
   
   public void continueTrans(String databaseFile){

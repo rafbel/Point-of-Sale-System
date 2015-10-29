@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.io.*;
 
 public class Register {
-
  
  public static void main(String[] args)
  {
@@ -30,7 +29,7 @@ public class Register {
   //for prototype
   Sale sale = new Sale();
   Rental rental = new Rental();
-  String choice;
+  String choice = null;
   
   System.out.print("Welcome to SG Technologies POS System ");
   System.out.println(dateFormat.format(cal.getTime()));
@@ -77,20 +76,24 @@ public class Register {
   
 
   
-  while ( !(choice = cashierInput.next() ).equals("q"))
+  while (true)
   {
-   if (choice.equals("s")) //starts new sale
-    sale.newSale();
+	  choice = cashierInput.nextLine();
+	  
+	  if (choice.equals("s")) //starts new sale
+		  sale.newSale();
    
-   if (choice.equals("r"))
-    rental.newRental();
+	  if (choice.equals("r"))
+		  rental.newRental();
+   
+	  if (choice.equals("q"))
+		  break;
     
    System.out.print("Welcome to SG Technologies POS System  ");
    System.out.println(dateFormat.format(cal.getTime())); 
    System.out.println("Press s to start new sale");
-   System.out.println("Press s to start new rental");
+   System.out.println("Press r to start new rental");
    System.out.println("Press q to shut down system");
-   
    
   }
   

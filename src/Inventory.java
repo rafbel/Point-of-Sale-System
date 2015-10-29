@@ -10,7 +10,7 @@ import java.io.File;
 
 public class Inventory 
 {
-
+	//Singleton design pattern applied
 	private static Inventory uniqueInstance = null;
 	//constructor
 	private Inventory() {}
@@ -65,7 +65,7 @@ public class Inventory
 		return ableToOpen;
 	}
 	
-	public void updateInventory(String databaseFile, List <Item> transactionItem, List <Item> databaseItem)
+	public void updateInventory(String databaseFile, List <Item> transactionItem, List <Item> databaseItem,boolean takeFromInventory)
 	{
 		int counter2;
 		int newAmount; //stores new amount (number of items in database - number of items in transaction)
@@ -78,7 +78,11 @@ public class Inventory
 			{
 				if (transactionItem.get(counter).getItemID() == databaseItem.get(counter2).getItemID()) //if itemIDs are equal, update new amount on the list
 				{
-					newAmount = databaseItem.get(counter2).getAmount() - transactionItem.get(counter).getAmount();
+					if (takeFromInventory) //rental or sale
+						newAmount = databaseItem.get(counter2).getAmount() - transactionItem.get(counter).getAmount();
+					
+					else //handling returns
+						newAmount = databaseItem.get(counter2).getAmount() + transactionItem.get(counter).getAmount();
 					databaseItem.get(counter2).updateAmount(newAmount);
 					break; //breaks when item is found
 				}

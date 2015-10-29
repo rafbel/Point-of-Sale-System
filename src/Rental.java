@@ -28,7 +28,7 @@ public class Rental extends PointOfSale{
    else{
      //returnDate();
      startNew(databaseFile);
-     endPOS(1.06,databaseFile);
+     endPOS(1.06,databaseFile,true);
      returnDate();
    }
    

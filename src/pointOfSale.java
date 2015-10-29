@@ -157,19 +157,25 @@ public class PointOfSale {
     //prints running total
     System.out.format("Total: %.2f\n", totalPrice);
     
-    
-    
-    
   }
   
-  public void endPOS(double tax, String databaseFile)
+  public void endPOS(double tax, String databaseFile, Boolean takeFromInventory)
   {
 	  Scanner discountInput = new Scanner(System.in);
     
-    totalPrice = totalPrice*tax; //calculates price with tax
-    //prints total with taxes
-    System.out.format("Total with taxes: %.2f\n", totalPrice);
-    inventory.updateInventory(databaseFile, transactionItem, databaseItem);
+	if (takeFromInventory) {
+	    totalPrice = totalPrice*tax; //calculates price with tax
+	    //prints total with taxes
+	    System.out.format("Total with taxes: %.2f\n", totalPrice);
+	    inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
+	}
+	else
+	{
+		System.out.format("Total: %.2f\n",totalPrice);
+		inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
+	}
+	
+	
     
   }
   

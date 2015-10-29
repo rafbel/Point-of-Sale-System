@@ -25,10 +25,10 @@ public class Register {
   //EDIT CUSTOMER DATABASE: should have the same functionality as a regular cashier during a 
    
    
-   
   //for prototype
   Sale sale = new Sale();
   Rental rental = new Rental();
+  HandleReturns returns = new HandleReturns();
   String choice = null;
   
   System.out.print("Welcome to SG Technologies POS System ");
@@ -85,6 +85,9 @@ public class Register {
    
 	  if (choice.equals("r"))
 		  rental.newRental();
+	  
+	  if (choice.equals("h"))
+		  returns.newReturn();
    
 	  if (choice.equals("q"))
 		  break;

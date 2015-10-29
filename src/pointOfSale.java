@@ -3,6 +3,8 @@ import java.util.*;
 
 public class PointOfSale {
   
+	//Polymorphism design pattern applied
+	
   //attributes
   private double totalPrice;
   private static float discount = 0.90f;
@@ -44,7 +46,6 @@ public class PointOfSale {
       } while (cashierInput.next().equals("e")); //press e to add more items
       
       //ask for coupon
-<<<<<<< HEAD
       coupon();
       
       //cancel sale
@@ -52,7 +53,6 @@ public class PointOfSale {
       if (cashierInput.next().equals("no")){
         cancelSales();}
       
-      cashierInput.close();
       
     }
     
@@ -63,8 +63,7 @@ public class PointOfSale {
   
   public void coupon(){
     Scanner cashierInput = new Scanner(System.in);
-=======
->>>>>>> origin/master
+
     String coupon="";
     String couponNo="";
     System.out.println("Do you have a coupon? y-Yes");
@@ -125,19 +124,6 @@ public class PointOfSale {
         System.out.format("Total: %.2f\n", totalPrice);
       }
     }
-<<<<<<< HEAD
-    cashierInput.close();
-=======
-       System.out.println("Do you want to keep the sale?");
-        if (cashierInput.next().equals("no")){
-          cancelSales();}
-      
-    }
-    
-    else
-    {
-      System.out.println("Can't access database.");  }
->>>>>>> origin/master
   }
   
   public void cancelSales(){
@@ -281,7 +267,6 @@ public class PointOfSale {
       if (cashierInput.next().equals("no")){
         cancelSales();}
       
-      cashierInput.close();
     }
      else
     {

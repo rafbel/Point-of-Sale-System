@@ -30,5 +30,9 @@ public class Rental extends PointOfSale{
   System.out.println(dateFormat.format(cal.getTime()));
   
  }
+ 
+ public void continueT(){
+   continueTrans(databaseFile);
+ }
 
 }

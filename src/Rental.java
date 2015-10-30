@@ -8,7 +8,6 @@ import java.util.*;
 
 public class Rental extends PointOfSale{
  
- //Note: Still needs to create Database file for rental
  Long phone;
   
  private static String databaseFile = "..\\Database\\rentalDatabase.txt"; //Currently assumes windows OS, need to add OS detection
@@ -82,12 +81,23 @@ public class Rental extends PointOfSale{
  {
   DateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, ''yy");
   Calendar cal = Calendar.getInstance();
+  int year,month,day;
   
   System.out.print("Today's date: ");
-  System.out.println(dateFormat.format(cal.getTime()));
+  System.out.println(dateFormat.format(cal.getTime())); //prints today's date
+  
   System.out.print("Return Date: ");
+  
   cal.add(Calendar.DAY_OF_MONTH, 14);
-  System.out.println(dateFormat.format(cal.getTime()));
+  
+  System.out.println(dateFormat.format(cal.getTime())); //prints return date
+  
+  year = cal.get(Calendar.YEAR); //stores return day
+  month = cal.get(Calendar.MONTH) + 1; //stores return month
+  day = cal.get(Calendar.DAY_OF_MONTH); //stores return year
+  
+  //Matt add the return date values for the user rented items in your database. We decided to assume the return date will be fixed:
+  //2 weeks from now
   
  }
  

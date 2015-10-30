@@ -8,9 +8,11 @@ import java.util.*;
 
 public class Rental extends PointOfSale{
  
- Long phone;
+ private Long phone;
   
  private static String databaseFile = "..\\Database\\rentalDatabase.txt"; //Currently assumes windows OS, need to add OS detection
+ 
+ Management management = new Management();
  
  public Rental(){}
  
@@ -21,7 +23,7 @@ public class Rental extends PointOfSale{
    while (((phone = s.nextLong())>9999999999l)||(phone<1000000000l)){ //checks to make sure phone is a 10 digit integer
      System.out.println("invalid phone num, please try a 10 digit integer");
    }
-   if (!checkUser(phone)){
+   if (!management.checkUser(phone)){
      System.out.println("user doesnt exist in userDatabase");
    }
    else{
@@ -41,40 +43,7 @@ public class Rental extends PointOfSale{
    
  }
  
- public Boolean checkUser(Long phoneNumber){ //returns true if user phone is in DB, false if not
-   //needs to be cleaned up.. written with terrible style right now but *at least it works*
-  //check user will open the user database and check to see if user's phone number is on the list
-   try{
-     FileReader fileR = new FileReader("..\\Database\\userDatabase.txt");
-     BufferedReader textReader = new BufferedReader(fileR);
-     String line;
-     //reads the entire database
-     line = textReader.readLine(); //skips the first line, which explains how the DB is formatted. 
-     while ((line = textReader.readLine()) != null){
-       long nextPh = Long.parseLong(line.split(" ")[0]);
-       if(nextPh==phone){
-         textReader.close();
-         fileR.close();
-         //System.out.println("user phone number found in userDatabase");
-         return true;
-       }
-       //System.out.println(line.split(" ")[0]);
-     }
-     textReader.close();
-     fileR.close();
-     //System.out.println("reached end of userDatabase, phone number not found");
-     return false; 
-   }
-   //catches exceptions
-   catch(FileNotFoundException ex) {
-     System.out.println("cannot open userDB"); 
-    
-   }
-   catch(IOException ex) {
-     System.out.println("ioexception");
-   }
-   return true;
- }
+ 
  
  
  private void returnDate()

@@ -72,6 +72,7 @@ public class Register {
   
   System.out.println("Press s to start new sale");
   System.out.println("Press r to start new rental");
+  System.out.println("Press h to handle returns");
   System.out.println("Press q to shut down system");
   
 
@@ -96,6 +97,7 @@ public class Register {
    System.out.println(dateFormat.format(cal.getTime())); 
    System.out.println("Press s to start new sale");
    System.out.println("Press r to start new rental");
+   System.out.println("Press h to handle returns");
    System.out.println("Press q to shut down system");
    
   }

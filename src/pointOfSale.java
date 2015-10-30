@@ -170,9 +170,8 @@ public class PointOfSale {
     
   }
   
-  public void endPOS(double tax, String databaseFile, Boolean takeFromInventory)
+  public double endPOS(double tax, String databaseFile, Boolean takeFromInventory)
   {
-    Scanner discountInput = new Scanner(System.in);
     
 	if (takeFromInventory) {
 	    totalPrice = totalPrice*tax; //calculates price with tax
@@ -186,7 +185,7 @@ public class PointOfSale {
 		inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
 	}
 	
-	
+	return totalPrice;
     
   }
   

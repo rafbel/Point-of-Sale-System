@@ -1,14 +1,14 @@
-Phone number (rentedItem1ID,rentedItem1Date, returned1Bool), (rentedItem2ID,rentedItem2Date, returned2Bool)...etc
-6096515668 (1000, 6/30/09, True), (1022, 6/31/11, True)
-7282941912 (1011, 7/11/12, False)
-4801239021 (1022, 3/02/13, True)
+Phone number rentedItem1ID,rentedItem1Date,returned1Bool rentedItem2ID,rentedItem2Date,returned2Bool...etc
+6096515668 1000,6/30/09,true 1022,6/31/11,true
+7282941912 1011,7/11/12,false
+4801239021 1022,3/02/13,true
 3939182031
-5893013292 (1018, 2/19/14, True)
+5893013292 1018,2/19/14,true
 5819284323
 3298320192
 3292390193
 8948013932
-3948219384 (1006, 7/07/11, True)
+3948219384 1006,7/07/11,true
 4123849394
 2940394032
 4093409034

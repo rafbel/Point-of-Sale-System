@@ -31,11 +31,14 @@ public class Rental extends PointOfSale{
      s = new Scanner(System.in);
      String newUser = s.nextLine();
      s.close();
+     
      if(newUser.equals("y")){
        //System.out.println("creating new user..");
        if(management.createUser(phone)){
          System.out.println("New user created, continuing with rental..");
          //this will have the same body as the last else block (succeseful rental scenario) of this method
+         //checking last rented item:
+         management.getLatestReturnDate(phone);
          startNew(rentalDatabaseFile);
          endPOS(1.06,rentalDatabaseFile,true);
          returnDate();
@@ -53,6 +56,8 @@ public class Rental extends PointOfSale{
    else{
 
      //returnDate();
+     //checking last rented item:
+     management.getLatestReturnDate(phone);
      startNew(rentalDatabaseFile);
      endPOS(1.06,rentalDatabaseFile,true);
      returnDate();

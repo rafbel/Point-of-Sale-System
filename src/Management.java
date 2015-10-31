@@ -43,7 +43,7 @@ public class Management {
            //System.out.println("user phone number found in userDatabase");
            return true;
          }
-         System.out.println(line.split(" ")[0]);
+         //System.out.println(line.split(" ")[0]);
        }
        textReader.close();
        fileR.close();
@@ -63,6 +63,8 @@ public class Management {
  
  public void getLatestReturnDate(Long phone) //In development
  {
+   long nextPh = 0;
+   boolean outstandingReturns = false;
   //Read from database:
    try{
        FileReader fileR = new FileReader(userDatabase);
@@ -73,12 +75,44 @@ public class Management {
        line = textReader.readLine(); //skips the first line, which explains how the DB is formatted. 
        while ((line = textReader.readLine()) != null){
         
-         long nextPh = Long.parseLong(line.split(" ")[0]);
+         try {  
+           nextPh = Long.parseLong(line.split(" ")[0]);    
+         } catch (NumberFormatException e) {  
+           continue;  
+         } 
          if(nextPh == phone)//finds the user in the database
          { 
+           
+           //System.out.println("getLatestReturnDate: found phone..");
+           
+           if(line.split(" ").length >1){
+            //System.out.println("you've rented with us before"); 
+             //System.out.print("here are the items you've rented before: ");
+             for(int i =1; i<line.split(" ").length; i++){
+               //line.split(" ")[i] represents 1022,6/31/11,true for example
+               String returnedBool = (line.split(" ")[i]).split(",")[2];
+               //System.out.print(line.split(" ")[i]);
+               //System.out.print(returnedBool);
+               boolean b = returnedBool.equalsIgnoreCase("true");
+               if (!b){
+                 outstandingReturns = true; 
+                 System.out.println("You still haven't returned item id: "+(line.split(" ")[i]).split(",")[0]+", due: "+(line.split(" ")[i]).split(",")[1]);
+               }
+
+             
+             
+             }
+             
+           
+           }
+           if (!outstandingReturns){
+            System.out.println("No outstanding returns"); 
+           }
+           
+           
            //Retrieves the latest rental date
-        //Then calculates the number of days passed since that return date
-        //Returns that integer
+           //Then calculates the number of days passed since that return date
+           //Returns that integer
          }
        }
        

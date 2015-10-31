@@ -10,11 +10,13 @@ public class Rental extends PointOfSale{
  
  private Long phone;
   
- private static String databaseFile = "..\\Database\\rentalDatabase.txt"; //Currently assumes windows OS, need to add OS detection
+ //private static String databaseFile = "..\\Database\\rentalDatabase.txt"; //Currently assumes windows OS, need to add OS detection
  
  Management management = new Management();
  
- public Rental(){}
+ public Rental(){
+   
+ }
  
  public void newRental()
  {
@@ -29,10 +31,10 @@ public class Rental extends PointOfSale{
    else{
 
      //returnDate();
-     startNew(databaseFile);
-     endPOS(1.06,databaseFile,true);
+     startNew(rentalDatabaseFile);
+     endPOS(1.06,rentalDatabaseFile,true);
      returnDate();
-	 //to do:
+  //to do:
      //1) query user for item id
      //2) check to see if item id exists in rentalDatabase, if not go back to 1
      //3) produce total$ to rent (no tax.. I'm pretty sure you dont pay tax for renting things
@@ -71,7 +73,7 @@ public class Rental extends PointOfSale{
  }
  
  public void continueT(){
-   continueTrans(databaseFile);
+   continueTrans(rentalDatabaseFile);
  }
 
 }

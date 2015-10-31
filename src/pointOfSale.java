@@ -3,11 +3,16 @@ import java.util.*;
 
 public class PointOfSale {
   
-	//Polymorphism design pattern applied
-	
+ //Polymorphism design pattern applied
+ 
   //attributes
   private double totalPrice;
   private static float discount = 0.90f;
+  public boolean unixOS = true; 
+  
+  public static String rentalDatabaseFile = "../Database/rentalDatabase.txt"; 
+  public static String couponNumber = "../Database/couponNumber.txt";
+  public static String itemDatabaseFile = "../Database/itemDatabase.txt"; //determines the name of the databaseFile for sale
   
   Inventory inventory = Inventory.getInstance();
   
@@ -16,7 +21,13 @@ public class PointOfSale {
   
   //constructor
   public PointOfSale(){
-    
+    //detects windows OS, changes databaseFile string to use "\" protocol
+   if (System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
+     unixOS = false; 
+     couponNumber= "..\\Database\\couponNumber.txt"; 
+     rentalDatabaseFile = "..\\Database\\rentalDatabase.txt"; 
+     itemDatabaseFile = "..\\Database\\itemDatabase.txt";
+   }
   }
   
   
@@ -31,7 +42,7 @@ public class PointOfSale {
       Scanner cashierInput = new Scanner(System.in); //determines if there is more items to be added
       do //must register at least one item
       {
-    	
+     
         //Cashier enters itemID and amount
         System.out.println("Enter itemID");
         itemID=checkInt();
@@ -78,7 +89,7 @@ public class PointOfSale {
       int numLine = 0;
       String[] coupons=new String[1000];
       try {
-        FileReader fileR = new FileReader("Database/couponNumber.txt");
+        FileReader fileR = new FileReader(couponNumber);
         BufferedReader textReader = new BufferedReader(fileR);
         //reads the entire database
         while ((line = textReader.readLine()) != null)
@@ -173,25 +184,25 @@ public class PointOfSale {
   public double endPOS(double tax, String databaseFile, Boolean takeFromInventory)
   {
     
-	if (takeFromInventory) {
-	    totalPrice = totalPrice*tax; //calculates price with tax
-	    //prints total with taxes
-	    System.out.format("Total with taxes: %.2f\n", totalPrice);
-	    inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
-	}
-	else
-	{
-		System.out.format("Total: %.2f\n",totalPrice);
-		inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
-	}
-	
-	return totalPrice;
+ if (takeFromInventory) {
+     totalPrice = totalPrice*tax; //calculates price with tax
+     //prints total with taxes
+     System.out.format("Total with taxes: %.2f\n", totalPrice);
+     inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
+ }
+ else
+ {
+  System.out.format("Total: %.2f\n",totalPrice);
+  inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
+ }
+ 
+ return totalPrice;
     
   }
   
   //Checks if the value inserted is an integer
   private static int checkInt(){
-	  
+   
     Scanner scan=new Scanner(System.in);
     while(!scan.hasNextInt()){
       System.out.println("The input is not valid. Please try again."); 

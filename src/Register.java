@@ -37,7 +37,13 @@ public class Register {
   
   //retrieve the incomplete transaction
   boolean ableToOpen = true;
-  File f=new File("temp.txt");
+  
+  String temp = "../Database/temp.txt";
+  if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
+   temp = "..\\Database\\temp.txt"; 
+  }
+  
+  File f=new File(temp);
   if(f.exists() && !f.isDirectory()) { 
     System.out.println(" There is an incomplete transaction. Do you want to retrieve it? y- Yes");
     String retrieve=cashierInput.next();
@@ -79,19 +85,19 @@ public class Register {
   
   while (true)
   {
-	  choice = cashierInput.nextLine();
-	  
-	  if (choice.equals("s")) //starts new sale
-		  sale.newSale();
+   choice = cashierInput.nextLine();
    
-	  if (choice.equals("r"))
-		  rental.newRental();
-	  
-	  if (choice.equals("h"))
-		  returns.newReturn();
+   if (choice.equals("s")) //starts new sale
+    sale.newSale();
    
-	  if (choice.equals("q"))
-		  break;
+   if (choice.equals("r"))
+    rental.newRental();
+   
+   if (choice.equals("h"))
+    returns.newReturn();
+   
+   if (choice.equals("q"))
+    break;
     
    System.out.print("Welcome to SG Technologies POS System  ");
    System.out.println(dateFormat.format(cal.getTime())); 

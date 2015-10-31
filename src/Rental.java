@@ -25,8 +25,30 @@ public class Rental extends PointOfSale{
    while (((phone = s.nextLong())>9999999999l)||(phone<1000000000l)){ //checks to make sure phone is a 10 digit integer
      System.out.println("invalid phone num, please try a 10 digit integer");
    }
+   s.close();
    if (!management.checkUser(phone)){
-     System.out.println("user doesnt exist in userDatabase");
+     System.out.println("user doesnt exist in userDatabase, create new user? y - yes");
+     s = new Scanner(System.in);
+     String newUser = s.nextLine();
+     s.close();
+     if(newUser.equals("y")){
+       //System.out.println("creating new user..");
+       if(management.createUser(phone)){
+         System.out.println("New user created, continuing with rental..");
+         //this will have the same body as the last else block (succeseful rental scenario) of this method
+         startNew(rentalDatabaseFile);
+         endPOS(1.06,rentalDatabaseFile,true);
+         returnDate();
+       }
+       else{
+        System.out.println("Couldn't create new user.."); 
+         
+       }
+     }
+     else{
+       System.out.println("You need an account to rent something.");
+     }
+       
    }
    else{
 

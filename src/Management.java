@@ -1,7 +1,6 @@
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
+import java.util.*;
 
 public class Management {
  
@@ -25,18 +24,26 @@ public class Management {
        FileReader fileR = new FileReader(userDatabase);
        BufferedReader textReader = new BufferedReader(fileR);
        String line;
-       
+       long nextPh = 0;
        //reads the entire database
        line = textReader.readLine(); //skips the first line, which explains how the DB is formatted. 
        while ((line = textReader.readLine()) != null){
-         long nextPh = Long.parseLong(line.split(" ")[0]);
+         
+         
+         try {  
+           nextPh = Long.parseLong(line.split(" ")[0]);    
+         } catch (NumberFormatException e) {  
+           continue;  
+         } 
+         
+         
          if(nextPh==phone){
            textReader.close();
            fileR.close();
            //System.out.println("user phone number found in userDatabase");
            return true;
          }
-         //System.out.println(line.split(" ")[0]);
+         System.out.println(line.split(" ")[0]);
        }
        textReader.close();
        fileR.close();
@@ -87,6 +94,25 @@ public class Management {
      catch(IOException ex) {
        System.out.println("ioexception");
      }
+   
+ }
+ 
+ public boolean createUser(Long phone){
+
+   String strPhone = Long.toString(phone);
+   File file = new File (userDatabase);
+   try {
+    PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
+    out.println();
+    out.print(strPhone);
+    out.close();
+    return true;
+   } catch (IOException e) {
+     System.out.println("cannot write to userDB");
+     return false;
+   }
+   
+   
    
  }
 }

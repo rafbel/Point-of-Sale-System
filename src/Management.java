@@ -1,6 +1,6 @@
-
 import java.io.*;
 import java.util.*;
+import java.text.*;
 
 public class Management {
  
@@ -61,7 +61,7 @@ public class Management {
      return true;
    }
  
- public void getLatestReturnDate(Long phone) //In development
+ public void getLatestReturnDate(Long phone) 
  {
    long nextPh = 0;
    boolean outstandingReturns = false;
@@ -97,22 +97,12 @@ public class Management {
                if (!b){
                  outstandingReturns = true; 
                  System.out.println("You still haven't returned item id: "+(line.split(" ")[i]).split(",")[0]+", due: "+(line.split(" ")[i]).split(",")[1]);
-               }
-
-             
-             
+               }     
              }
-             
-           
            }
            if (!outstandingReturns){
             System.out.println("No outstanding returns"); 
            }
-           
-           
-           //Retrieves the latest rental date
-           //Then calculates the number of days passed since that return date
-           //Returns that integer
          }
        }
        
@@ -145,8 +135,51 @@ public class Management {
      System.out.println("cannot write to userDB");
      return false;
    }
+ }
+ 
+ public void addRental(Long phone, int ID){ //in development. need to figure out how to append to a specific line and also how to call this from pointofsale but only when its a rental
+   //will parse userDatabase until it gets to the line with the phone number, then append the rented item in correct 1022,6/31/11,true format
+   long nextPh = 0;
+   try{
+       FileReader fileR = new FileReader(userDatabase);
+       BufferedReader textReader = new BufferedReader(fileR);
+       String line;
+       //reads the entire database
+       line = textReader.readLine(); //skips the first line, which explains how the DB is formatted. 
+       while ((line = textReader.readLine()) != null){
+        
+         try {  
+           nextPh = Long.parseLong(line.split(" ")[0]);    
+         } catch (NumberFormatException e) {  
+           continue;  
+         } 
+         if(nextPh == phone)//finds the user in the database
+         { 
+           Date date = new Date();
+           Format formatter = new SimpleDateFormat("MM/dd/yy");
+           String dateFormat = formatter.format(date);
+           String thisSale = ID + ","+dateFormat+","+"true";
+           //System.out.println("adding.. "+thisSale);
+           //to do: append thisSale to the end of current line
+           break; //stops it from reading the rest of the userDB after.
+         }
+       }
+       
+       textReader.close();
+       fileR.close();
+    }
    
-   
+   //catches exceptions
+     catch(FileNotFoundException ex) {
+       System.out.println("cannot open userDB"); 
+      
+     }
+     catch(IOException ex) {
+       System.out.println("ioexception");
+     }
    
  }
+ 
+ 
+ 
 }

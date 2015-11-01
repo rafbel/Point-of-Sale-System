@@ -154,6 +154,17 @@ public class PointOfSale {
     databaseItem.clear();
     transactionItem.clear();
     System.out.println("your sale has been cancelled.");
+     try{
+      
+      File file = new File("..\\Database\\temp.txt");
+         
+      file.delete();
+        
+     }catch(Exception e){
+      
+      e.printStackTrace();
+      
+     }
     System.exit(1);
   }
   public boolean enterItem(int itemID, int amount) //might include in a "mother class" in the future
@@ -229,6 +240,17 @@ public class PointOfSale {
       }
       inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
     }
+ try{
+      
+      File file = new File("..\\Database\\temp.txt");
+         
+      file.delete();
+        
+     }catch(Exception e){
+      
+      e.printStackTrace();
+      
+     }
     return totalPrice;
   }
   

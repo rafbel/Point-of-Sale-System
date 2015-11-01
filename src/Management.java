@@ -6,6 +6,7 @@ public class Management {
  
  private static String userDatabase;
  
+ 
  public Management(){
    
    if (System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
@@ -61,10 +62,17 @@ public class Management {
      return true;
    }
  
- public void getLatestReturnDate(Long phone) 
+ public List<ReturnItem> getLatestReturnDate(Long phone) 
  {
    long nextPh = 0;
    boolean outstandingReturns = false;
+   
+   SimpleDateFormat formatter =  new SimpleDateFormat("MM/dd/yyyy");
+   List<ReturnItem> returnList = new ArrayList<ReturnItem>(); //this list will store all items to be used in this sale
+   
+   String thisReturnDate = null;
+   int numberDaysPassed = 0;
+   
   //Read from database:
    try{
        FileReader fileR = new FileReader(userDatabase);
@@ -94,9 +102,26 @@ public class Management {
                //System.out.print(line.split(" ")[i]);
                //System.out.print(returnedBool);
                boolean b = returnedBool.equalsIgnoreCase("true");
-               if (!b){
+               if (!b){ //if item wasn't returned already
                  outstandingReturns = true; 
                  System.out.println("You still haven't returned item id: "+(line.split(" ")[i]).split(",")[0]+", due: "+(line.split(" ")[i]).split(",")[1]);
+                 thisReturnDate = line.split(" ")[i].split(",")[1];
+                 
+                 try {
+					Date returnDate = formatter.parse(thisReturnDate);
+					Calendar with = Calendar.getInstance();
+					with.setTime(returnDate);
+					numberDaysPassed = daysBetween (with);
+					ReturnItem returnItem = new ReturnItem(Integer.parseInt(line.split(" ")[i].split(",")[0]) , numberDaysPassed );
+					returnList.add(returnItem);
+					
+				} 
+                 catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+                 
+                 
                }     
              }
            }
@@ -119,7 +144,39 @@ public class Management {
        System.out.println("ioexception");
      }
    
+   return returnList;
+   
  }
+ 
+ private static int daysBetween(Calendar day1){
+	    
+	 Calendar day2 = Calendar.getInstance();
+	 
+	 Calendar dayOne = (Calendar) day1.clone(),
+	            dayTwo = (Calendar) day2.clone();
+
+	    if (dayOne.get(Calendar.YEAR) == dayTwo.get(Calendar.YEAR)) {
+	        return Math.abs(dayOne.get(Calendar.DAY_OF_YEAR) - dayTwo.get(Calendar.DAY_OF_YEAR));
+	    } else {
+	        if (dayTwo.get(Calendar.YEAR) > dayOne.get(Calendar.YEAR)) {
+	            //swap them
+	            Calendar temp = dayOne;
+	            dayOne = dayTwo;
+	            dayTwo = temp;
+	        }
+	        int extraDays = 0;
+
+	        int dayOneOriginalYearDays = dayOne.get(Calendar.DAY_OF_YEAR);
+
+	        while (dayOne.get(Calendar.YEAR) > dayTwo.get(Calendar.YEAR)) {
+	            dayOne.add(Calendar.YEAR, -1);
+	            // getActualMaximum() important for leap years
+	            extraDays += dayOne.getActualMaximum(Calendar.DAY_OF_YEAR);
+	        }
+
+	        return extraDays - dayTwo.get(Calendar.DAY_OF_YEAR) + dayOneOriginalYearDays ;
+	    }
+	}
  
  public boolean createUser(Long phone){
 

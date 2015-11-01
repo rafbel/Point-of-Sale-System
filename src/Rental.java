@@ -90,9 +90,9 @@ public class Rental extends PointOfSale{
   
   System.out.println(dateFormat.format(cal.getTime())); //prints return date
   
-  year = cal.get(Calendar.YEAR); //stores return day
+  year = cal.get(Calendar.YEAR); //stores return year
   month = cal.get(Calendar.MONTH) + 1; //stores return month
-  day = cal.get(Calendar.DAY_OF_MONTH); //stores return year
+  day = cal.get(Calendar.DAY_OF_MONTH); //stores return day
   
   //Matt add the return date values for the user rented items in your database. We decided to assume the return date will be fixed:
   //2 weeks from now

@@ -22,7 +22,7 @@ public class HandleReturns extends PointOfSale{
 		{
 			//rented items (check return date)
 			startNew(rentedDatabaseFile);
-			totalPrice = endPOS(noTax,rentedDatabaseFile,false);
+			endPOS(noTax,rentedDatabaseFile,false);
 			
 			//Check user database to check if user delivered items after the return date
 			//If did add a rate to the total to be paid
@@ -32,7 +32,7 @@ public class HandleReturns extends PointOfSale{
 		{
 			//Items not satisfied with
 			startNew(saleDatabaseFile);
-			endPOS(noTax, saleDatabaseFile,false);
+			totalPrice = endPOS(noTax, saleDatabaseFile,false);
 		}
 		
 		else

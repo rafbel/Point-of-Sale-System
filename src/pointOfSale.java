@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class PointOfSale {
-  
+
  //Polymorphism design pattern applied
  
   //attributes

@@ -10,4 +10,7 @@ public class ReturnItem {
 		{
 			this.itemID = itemID; this.daysSinceReturn = daysSinceReturn;
 		}
+		
+		public int getItemID(){return itemID;}
+		public int getDays(){return daysSinceReturn;}
 }

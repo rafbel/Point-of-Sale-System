@@ -31,7 +31,7 @@ public class PointOfSale {
   }
   
   
-  public void startNew(String databaseFile) 
+  public List<Item> startNew(String databaseFile) 
   {
      totalPrice = 0;
     
@@ -52,7 +52,9 @@ public class PointOfSale {
         
         //Calls the enterItem method
         if (enterItem(itemID,amount) == false)
-          System.out.println("Item not found. Press e to try again");
+          System.out.println("Item not found. Press 'e' to try again");
+        else
+          System.out.println("Press 'e' to insert another item. Press 'f' to close cart.");
         
       } while (cashierInput.next().equals("e")); //press e to add more items
       
@@ -70,6 +72,8 @@ public class PointOfSale {
     else
     {
       System.out.println("Can't access database.");  }
+    
+    return transactionItem;
   }
   
   public void coupon(){
@@ -181,22 +185,44 @@ public class PointOfSale {
     
   }
   
-  public double endPOS(double tax, String databaseFile, Boolean takeFromInventory)
+  public double endPOS(double tax, String databaseFile, Boolean takeFromInventory, List <ReturnItem> returnList)
   {
     
- if (takeFromInventory) {
-     totalPrice = totalPrice*tax; //calculates price with tax
-     //prints total with taxes
-     System.out.format("Total with taxes: %.2f\n", totalPrice);
-     inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
- }
- else
- {
-  System.out.format("Total: %.2f\n",totalPrice);
-  inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
- }
+	 if (takeFromInventory) {
+	     totalPrice = totalPrice*tax; //calculates price with tax
+	     //prints total with taxes
+	     System.out.format("Total with taxes: %.2f\n", totalPrice);
+	     inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
+	 }
+	 else
+	 {
+		 if (returnList == null) 
+		 {
+		  System.out.format("Total: %.2f\n",totalPrice);
+		 }
+		 else
+		 {
+			 totalPrice = 0;
+			 double itemPrice = 0;
+			 //Calculates the price  
+			 for (int transactionCounter = 0; transactionCounter < transactionItem.size(); transactionCounter++)
+				 for (int returnCounter = 0; returnCounter < returnList.size(); returnCounter++)
+				 {
+					 if (transactionItem.get(transactionCounter).getItemID() == returnList.get(returnCounter).getItemID())
+					 {
+						 //Applies a value to be payed depending on the amount of days it is late. If it is not late, no value is applied
+						 itemPrice = transactionItem.get(transactionCounter).getPrice()* 0.1 * returnList.get(returnCounter).getDays();
+						 totalPrice += itemPrice;
+						 System.out.println("Item Name: " + transactionItem.get(transactionCounter).getItemName() + "Days Late: " 
+						 + returnList.get(returnCounter).getDays() + "To be paid: " + itemPrice);
+						 System.out.println("Total: " + totalPrice);
+					 }
+				 }
+		 }
+		 inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
+	 }
  
- return totalPrice;
+	 return totalPrice;
     
   }
   

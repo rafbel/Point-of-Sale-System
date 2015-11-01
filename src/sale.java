@@ -16,7 +16,7 @@ public class Sale extends PointOfSale{
  public void newSale()
  {
   startNew(itemDatabaseFile);
-  endPOS(1.06,itemDatabaseFile,true);
+  endPOS(1.06,itemDatabaseFile,true,null);
  }
  
  public void continueT(){

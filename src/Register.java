@@ -90,7 +90,6 @@ public class Register {
    if (choice.equals("s")) //starts new sale
     sale.newSale();
 
-   
    if (choice.equals("r"))
     rental.newRental();
    

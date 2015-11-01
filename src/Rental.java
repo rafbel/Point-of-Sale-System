@@ -7,76 +7,92 @@ import java.util.*;
 
 
 public class Rental extends PointOfSale{
- 
- private Long phone;
   
- //private static String databaseFile = "..\\Database\\rentalDatabase.txt"; //Currently assumes windows OS, need to add OS detection
- 
- Management management = new Management();
- 
- public Rental(){
-   
- }
- 
- public void newRental()
- {
-   System.out.println("Enter customer's phone number");//assumes customer is in the database, we'll need to add an add customer method later
-   Scanner s = new Scanner(System.in);
-   while (((phone = s.nextLong())>9999999999l)||(phone<1000000000l)){ //checks to make sure phone is a 10 digit integer
-     System.out.println("invalid phone num, please try a 10 digit integer");
-   }
-   s.close();
-   if (!management.checkUser(phone)){
-     System.out.println("user doesnt exist in userDatabase, create new user? y - yes");
-     s = new Scanner(System.in);
-     String newUser = s.nextLine();
-     s.close();
-     
-     if(newUser.equals("y")){
-       //System.out.println("creating new user..");
-       if(management.createUser(phone)){
-         System.out.println("New user created, continuing with rental..");
-         //this will have the same body as the last else block (succeseful rental scenario) of this method
-         //checking last rented item:
-         management.getLatestReturnDate(phone);
-         startNew(rentalDatabaseFile);
-         endPOS(1.06,rentalDatabaseFile,true,null);
-         returnDate();
-       }
-       else{
-        System.out.println("Couldn't create new user.."); 
-         
-       }
-     }
-     else{
-       System.out.println("You need an account to rent something.");
-     }
-       
-   }
-   else{
+  private Long phone;
+  
+  //private static String databaseFile = "..\\Database\\rentalDatabase.txt"; //Currently assumes windows OS, need to add OS detection
+  
+  Management management = new Management();
+  
+  public Rental(){
+    
+  }
+  
+  public void newRental()
+  {
+    try{ File file = new File("..\\Database\\temp.txt");
+      // if file doesnt exists, then create it
+      if (!file.exists()) {
+        file.createNewFile();
+      }
+      
+      FileWriter fw = new FileWriter(file.getAbsoluteFile());
+      BufferedWriter bw = new BufferedWriter(fw);
+      bw.write("Rental");
+      bw.write(System.getProperty( "line.separator" ));
+      bw.close();
+      
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    System.out.println("Enter customer's phone number");//assumes customer is in the database, we'll need to add an add customer method later
+    Scanner s = new Scanner(System.in);
+    while (((phone = s.nextLong())>9999999999l)||(phone<1000000000l)){ //checks to make sure phone is a 10 digit integer
+      System.out.println("invalid phone num, please try a 10 digit integer");
+    }
+    s.close();
+    if (!management.checkUser(phone)){
+      System.out.println("user doesnt exist in userDatabase, create new user? y - yes");
+      s = new Scanner(System.in);
+      String newUser = s.nextLine();
+      s.close();
+      
+      if(newUser.equals("y")){
+        //System.out.println("creating new user..");
+        if(management.createUser(phone)){
+          System.out.println("New user created, continuing with rental..");
+          //this will have the same body as the last else block (succeseful rental scenario) of this method
+          //checking last rented item:
+          management.getLatestReturnDate(phone);
+          startNew(rentalDatabaseFile);
+          endPOS(1.06,rentalDatabaseFile,true,null);
+          returnDate();
+        }
+        else{
+          System.out.println("Couldn't create new user.."); 
+          
+        }
+      }
+      else{
+        System.out.println("You need an account to rent something.");
+      }
+      
+    }
+    else{
+      
+      //returnDate();
+      //checking last rented item:
+      management.getLatestReturnDate(phone);
+      startNew(rentalDatabaseFile);
+      endPOS(1.06,rentalDatabaseFile,true,null);
+      returnDate();
+      //to do:
+      //1) query user for item id
+      //2) check to see if item id exists in rentalDatabase, if not go back to 1
+      //3) produce total$ to rent (no tax.. I'm pretty sure you dont pay tax for renting things
+      //4) add the item to the users line on the userDB
+      
+      
+    }
+  }
+  
 
-     //returnDate();
-     //checking last rented item:
-     management.getLatestReturnDate(phone);
-     startNew(rentalDatabaseFile);
-     endPOS(1.06,rentalDatabaseFile,true,null);
-     returnDate();
-  //to do:
-     //1) query user for item id
-     //2) check to see if item id exists in rentalDatabase, if not go back to 1
-     //3) produce total$ to rent (no tax.. I'm pretty sure you dont pay tax for renting things
-     //4) add the item to the users line on the userDB
 
 
-   }
-   
- }
- 
- 
- 
- 
- private void returnDate()
- {
+
+
+private void returnDate()
+{
   DateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, ''yy");
   Calendar cal = Calendar.getInstance();
   int year,month,day;
@@ -97,10 +113,10 @@ public class Rental extends PointOfSale{
   //Matt add the return date values for the user rented items in your database. We decided to assume the return date will be fixed:
   //2 weeks from now
   
- }
- 
- public void continueT(){
-   continueTrans(rentalDatabaseFile);
- }
+}
+
+public void continueT(){
+  continueTrans(rentalDatabaseFile);
+}
 
 }

@@ -9,7 +9,7 @@ public class PointOfSale {
   private double totalPrice;
   private static float discount = 0.90f;
   public boolean unixOS = true; 
-  private double tax;
+  private double tax = 1.06;
   
   public static String rentalDatabaseFile = "../Database/rentalDatabase.txt"; 
   public static String couponNumber = "../Database/couponNumber.txt";
@@ -216,7 +216,7 @@ public class PointOfSale {
     
   }
   
-  public double endPOS(double tax, String databaseFile, Boolean takeFromInventory, List <ReturnItem> returnList)
+  public double endPOS(String databaseFile, Boolean takeFromInventory, List <ReturnItem> returnList)
   {
     
     if (takeFromInventory) {
@@ -408,15 +408,15 @@ public class PointOfSale {
 	    System.out.println("Please select your state: 1. PA 2. NJ 3. NY");
 	    int state = in.nextInt();
 	    if (state == 1 ){
-	      tax = 0.06;
+	      tax = 1.06;
 	    }
 	    else if (state == 2)
 	    {
-	      tax = 0.07;
+	      tax = 1.07;
 	    }
 	    else if (state == 3)
 	    {
-	      tax = 0.04;
+	      tax = 1.04;
 	    }             
 	    else
 	      System.out.println("State is invalid.");

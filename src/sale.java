@@ -32,7 +32,7 @@ public class Sale extends PointOfSale{
    e.printStackTrace();
   }
   startNew(itemDatabaseFile);
-  endPOS(1.06,itemDatabaseFile,true,null);
+  endPOS(itemDatabaseFile,true,null);
  }
  
  public void continueT(){

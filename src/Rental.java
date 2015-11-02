@@ -57,7 +57,7 @@ public class Rental extends PointOfSale{
             bw.close();//end temp log
             management.getLatestReturnDate(phone);
             startNew(rentalDatabaseFile);
-            endPOS(1.06,rentalDatabaseFile,true,null);
+            endPOS(rentalDatabaseFile,true,null);
             returnDate();
           }
           else{
@@ -77,7 +77,7 @@ public class Rental extends PointOfSale{
         //checking last rented item:
         management.getLatestReturnDate(phone);
         startNew(rentalDatabaseFile);
-        endPOS(1.06,rentalDatabaseFile,true,null);
+        endPOS(rentalDatabaseFile,true,null);
         returnDate();
         //to do:
         //1) query user for item id

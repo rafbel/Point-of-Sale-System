@@ -6,7 +6,6 @@ public class HandleReturns extends PointOfSale{
 	
 	private static final String rentedDatabaseFile = "..\\Database\\rentalDatabase.txt";
 	private static final String saleDatabaseFile = "Database/itemDatabase.txt";
-	private static float noTax = 1.0f;
 	private double totalPrice;
 	private Management management = new Management();
 	
@@ -47,7 +46,7 @@ public class HandleReturns extends PointOfSale{
 		 			//rented items (check return date)
 		 			startNew(rentedDatabaseFile);
 		 			returnList = management.getLatestReturnDate(phone);
-		 			endPOS(noTax,rentedDatabaseFile,false,returnList);
+		 			endPOS(rentedDatabaseFile,false,returnList);
 		 			management.updateRentalStatus(phone,returnList);
 		 			
 		 		}
@@ -56,7 +55,7 @@ public class HandleReturns extends PointOfSale{
 		 		{
 		 			//Items not satisfied with
 		 			startNew(saleDatabaseFile);
-		 			endPOS(noTax, saleDatabaseFile,false,null);
+		 			endPOS(saleDatabaseFile,false,null);
 		 		}
 		 		
 		 		else
@@ -85,7 +84,7 @@ public class HandleReturns extends PointOfSale{
 					//rented items (check return date)
 					startNew(rentedDatabaseFile);
 					returnList = management.getLatestReturnDate(phone);
-					endPOS(noTax,rentedDatabaseFile,false,returnList);
+					endPOS(rentedDatabaseFile,false,returnList);
 					management.updateRentalStatus(phone,returnList);
 				}
 				
@@ -93,7 +92,7 @@ public class HandleReturns extends PointOfSale{
 				{
 					//Items not satisfied with
 					startNew(saleDatabaseFile);
-					endPOS(noTax, saleDatabaseFile,false,null);
+					endPOS(saleDatabaseFile,false,null);
 				}
 				
 				else

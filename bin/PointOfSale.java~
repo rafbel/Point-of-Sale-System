@@ -9,7 +9,6 @@ public class PointOfSale {
   private double totalPrice;
   private static float discount = 0.90f;
   public boolean unixOS = true; 
-  private double tax;
   
   public static String rentalDatabaseFile = "../Database/rentalDatabase.txt"; 
   public static String couponNumber = "../Database/couponNumber.txt";
@@ -33,10 +32,11 @@ public class PointOfSale {
   }
   
   
-  public void startNew(String databaseFile) 
+  public List<Item> startNew(String databaseFile) 
   {
     try{
-      
+      FileWriter fw = new FileWriter(tempFile,true);
+      BufferedWriter bw = new BufferedWriter(fw);
       totalPrice = 0;
       int itemID; int amount;
       if (inventory.accessInventory(databaseFile, databaseItem) == true) //if can access inventory
@@ -44,8 +44,7 @@ public class PointOfSale {
         Scanner cashierInput = new Scanner(System.in); //determines if there is more items to be added
         do //must register at least one item
         {
-          FileWriter fw = new FileWriter(tempFile,true);
-          BufferedWriter bw = new BufferedWriter(fw);
+          
           //Cashier enters itemID and amount
           System.out.println("Enter itemID");
           itemID=checkInt();
@@ -56,31 +55,14 @@ public class PointOfSale {
           //Calls the enterItem method
           if (enterItem(itemID,amount) == false)
             System.out.println("Item not found. Press 'e' to try again");
-          else{//add items and amount into temp
+          else{
             bw.write(itemID +" "+ amount);
             bw.write(System.getProperty( "line.separator" ));
             bw.close();
             System.out.println("Press 'e' to insert another item. Press 'f' to close cart.");
           }
         } while (cashierInput.next().equals("e")); //press e to add more items
-        System.out.println("Do you want to remove any item? y-yes");
-        if (cashierInput.next().equals("y")){
-          do{
-            System.out.println("Enter the item number you would like to remove");
-            int remove=checkInt();
-            boolean inTheList=false;
-            for (int i=0; i<transactionItem.size();i++){
-              if (remove==transactionItem.get(i).getItemID())
-                inTheList=true;
-            }
-            if (inTheList==true){
-              removeItems(remove);
-              System.out.println("Press 'e' to insert another item. Press 'f' to close cart.");
-            }
-            else
-              System.out.println("The item is not in your cart.Press 'e' to try again");
-          }while(cashierInput.next().equals("e"));
-        }
+
         //ask for coupon
         coupon();
         
@@ -100,9 +82,10 @@ public class PointOfSale {
       System.err.println("Error: " + e.getMessage());
     }
     
+    return transactionItem;
   }
   
-  private void coupon(){
+  public void coupon(){
     Scanner cashierInput = new Scanner(System.in);
     
     String coupon="";
@@ -167,19 +150,13 @@ public class PointOfSale {
     }
   }
   
-  private void cancelSales(){
+  public void cancelSales(){
     databaseItem.clear();
     transactionItem.clear();
     System.out.println("your sale has been cancelled.");
-    try{
-      File file = new File("..\\Database\\temp.txt");
-      file.delete();
-    }catch(Exception e){
-      e.printStackTrace();
-    }
     System.exit(1);
   }
-  private boolean enterItem(int itemID, int amount) //might include in a "mother class" in the future
+  public boolean enterItem(int itemID, int amount) //might include in a "mother class" in the future
   {
     boolean foundItem = false;
     
@@ -252,17 +229,17 @@ public class PointOfSale {
       }
       inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
     }
-    try{
-      
-      File file = new File("..\\Database\\temp.txt");
-      
-      file.delete();
-      
-    }catch(Exception e){
-      
-      e.printStackTrace();
-      
-    }
+	try{
+    		
+    		File file = new File("..\\Database\\temp.txt");
+        	
+    		file.delete();
+    	   
+    	}catch(Exception e){
+    		
+    		e.printStackTrace();
+    		
+    	}
     return totalPrice;
   }
   
@@ -277,60 +254,8 @@ public class PointOfSale {
     
     return Integer.parseInt(scan.nextLine());
   }
-  private void removeItems(int ID){
-    boolean ableToOpen=true;
-    try{
-      //File inputFile = new File("myFile.txt");
-      File tempFile = new File("..\\Database\\newTemp.txt");
-      FileReader fileR = new FileReader("..\\Database\\temp.txt");
-      BufferedReader reader = new BufferedReader(fileR);
-      BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-      String type= reader.readLine();
-      String phone;
-      if(type.equals("Sale")){
-        writer.write(type);
-        writer.write(System.getProperty("line.separator"));
-        for (int i =0; i<transactionItem.size();i++){
-          if (transactionItem.get(i).getItemID()!=ID){
-            writer.write(transactionItem.get(i).getItemID() +" "+ transactionItem.get(i).getAmount());
-            writer.write(System.getProperty( "line.separator" ));
-          }
-        }
-      }
-      else if(type.equals("Rental")){
-        phone=reader.readLine();
-        writer.write(type);
-        writer.write(System.getProperty("line.separator"));
-        writer.write(phone);
-        writer.write(System.getProperty("line.separator"));
-        for (int i =0; i<transactionItem.size();i++){
-          if (transactionItem.get(i).getItemID()!=ID){
-            writer.write(transactionItem.get(i).getItemID() +" "+ transactionItem.get(i).getAmount());
-            writer.write(System.getProperty( "line.separator" ));
-          }
-        }
-      }
-      fileR.close();
-      writer.close(); 
-      reader.close(); 
-      File file = new File("..\\Database\\temp.txt");
-      file.delete();
-      boolean successful = tempFile.renameTo(new File("..\\Database\\temp.txt"));
-      System.out.println("success");
-    }
-    catch(FileNotFoundException ex) {
-      System.out.println(
-                         "Unable to open file 'temp'"); 
-      ableToOpen = false;
-    }
-    catch(IOException ex) {
-      System.out.println(
-                         "Error reading file 'temp'");  
-      ableToOpen = false;
-    }
-  }
-  public void continueTrans(String databaseFile)
-  {
+  
+  public void continueTrans(String databaseFile){
     boolean ableToOpen=true;
     try{
       FileReader fileR = new FileReader("temp.txt");
@@ -397,30 +322,7 @@ public class PointOfSale {
     }
     else
     {
-      System.out.println("Can't access database.");  
-    }
+      System.out.println("Can't access database.");  }
   } 
-
-
-  public void taxCalculator ()
-	{
-	    Scanner in = new Scanner(System.in);
-	    System.out.println("Please select your state: 1. PA 2. NJ 3. NY");
-	    int state = in.nextInt();
-	    if (state == 1 ){
-	      tax = 0.06;
-	    }
-	    else if (state == 2)
-	    {
-	      tax = 0.07;
-	    }
-	    else if (state == 3)
-	    {
-	      tax = 0.04;
-	    }             
-	    else
-	      System.out.println("State is invalid.");
-	
-	}
-
 }
+

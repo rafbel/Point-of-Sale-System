@@ -237,7 +237,7 @@ public class Management {
    
  }
  
- public void updateRental(long phone, List <ReturnItem> returnedList)
+ public void updateRentalStatus(long phone, List <ReturnItem> returnedList)
  {
 	 long nextPhone = 0;
 	 List <String> fileList = new ArrayList<String>();
@@ -315,7 +315,25 @@ public class Management {
 	     }
 	 
 	 //Now writes to file to make the changes:
-	   
+	 if (ableToRead) //if file has been read throughly
+	 {
+		 try
+			{
+				File file = new File(userDatabase);		
+				FileWriter fileR = new FileWriter(file.getAbsoluteFile());
+				BufferedWriter bWriter = new BufferedWriter(fileR);
+				PrintWriter writer = new PrintWriter(bWriter);
+				
+				for (int wCounter = 0; wCounter < fileList.size() ; ++wCounter)
+					writer.println(fileList.get(wCounter));
+				
+				bWriter.close(); //closes writer
+			}
+			
+			catch(IOException e){}
+			{
+			}
+	 }
 	 
  }
  

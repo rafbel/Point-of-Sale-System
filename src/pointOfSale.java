@@ -32,7 +32,7 @@ public class PointOfSale {
   }
   
   
-  public List<Item> startNew(String databaseFile) 
+  public void startNew(String databaseFile) 
   {
     try{
       
@@ -99,7 +99,6 @@ public class PointOfSale {
       System.err.println("Error: " + e.getMessage());
     }
     
-    return transactionItem;
   }
   
   public void coupon(){

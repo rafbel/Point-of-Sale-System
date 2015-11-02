@@ -19,7 +19,6 @@ public class HandleReturns extends PointOfSale{
 		Scanner input = new Scanner(System.in);
 		String choice;
 		List<ReturnItem> returnList = new ArrayList<ReturnItem>();
-		List<Item> returningNow = new ArrayList<Item>();
 		long phone;
 		
 		System.out.println("Enter customer's phone number");//assumes customer is in the database, we'll need to add an add customer method later
@@ -46,14 +45,11 @@ public class HandleReturns extends PointOfSale{
 		 		if (choice.equals("r"))
 		 		{
 		 			//rented items (check return date)
-		 			returningNow = startNew(rentedDatabaseFile);
+		 			startNew(rentedDatabaseFile);
 		 			returnList = management.getLatestReturnDate(phone);
 		 			endPOS(noTax,rentedDatabaseFile,false,returnList);
-		 			//Takes out items returned in userDB
+		 			management.updateRentalStatus(phone,returnList);
 		 			
-		 			
-		 			//Check user database to check if user delivered items after the return date
-		 			//If did add a rate to the total to be paid
 		 		}
 		 		
 		 		else if (choice.equals("i"))
@@ -90,10 +86,7 @@ public class HandleReturns extends PointOfSale{
 					startNew(rentedDatabaseFile);
 					returnList = management.getLatestReturnDate(phone);
 					endPOS(noTax,rentedDatabaseFile,false,returnList);
-		 			//Takes out items returned in userDB
-					
-					//Check user database to check if user delivered items after the return date
-					//If did add a rate to the total to be paid
+					management.updateRentalStatus(phone,returnList);
 				}
 				
 				else if (choice.equals("i"))

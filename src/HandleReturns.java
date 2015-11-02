@@ -48,6 +48,8 @@ public class HandleReturns extends PointOfSale{
 		 			//rented items (check return date)
 		 			returningNow = startNew(rentedDatabaseFile);
 		 			returnList = management.getLatestReturnDate(phone);
+		 			endPOS(noTax,rentedDatabaseFile,false,returnList);
+		 			//Takes out items returned in userDB
 		 			
 		 			
 		 			//Check user database to check if user delivered items after the return date
@@ -88,6 +90,7 @@ public class HandleReturns extends PointOfSale{
 					startNew(rentedDatabaseFile);
 					returnList = management.getLatestReturnDate(phone);
 					endPOS(noTax,rentedDatabaseFile,false,returnList);
+		 			//Takes out items returned in userDB
 					
 					//Check user database to check if user delivered items after the return date
 					//If did add a rate to the total to be paid

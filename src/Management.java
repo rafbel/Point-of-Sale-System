@@ -237,6 +237,88 @@ public class Management {
    
  }
  
+ public void updateRental(long phone, List <ReturnItem> returnedList)
+ {
+	 long nextPhone = 0;
+	 List <String> fileList = new ArrayList<String>();
+	 String modifiedLine;
+	 Date date = new Date();
+     Format formatter = new SimpleDateFormat("MM/dd/yy");
+     String dateFormat = formatter.format(date);
+     boolean ableToRead = false;
+	 
+     
+     //Reads from file to read the changes to make:
+	 try{
+		   ableToRead = true;
+	       FileReader fileR = new FileReader(userDatabase);
+	       BufferedReader textReader = new BufferedReader(fileR);
+	       String line;
+	       //reads the entire database
+	       line = textReader.readLine(); //skips the first line, which explains how the DB is formatted. 
+	       while ((line = textReader.readLine()) != null)
+	       {
+	        
+	         try {  
+	           nextPhone = Long.parseLong(line.split(" ")[0]);    
+	         } catch (NumberFormatException e) {  
+	           continue;  
+	         } 
+	         if(nextPhone == phone)//finds the user in the database
+	         { 
+	        	 modifiedLine = line.split(" ")[0];
+	        	 if(line.split(" ").length >1)
+	        	 {
+	              
+	                  for(int i =1; i<line.split(" ").length; i++)
+	                  {
+	                	String returnedBool = (line.split(" ")[i]).split(",")[2];
+	
+	                    boolean b = returnedBool.equalsIgnoreCase("true");
+	                    if (!b)//if item wasn't returned already
+	                    { 
+	                    	for (int returnCounter = 0 ; returnCounter < returnedList.size() ; returnCounter++) 
+	                    		if (Integer.parseInt(line.split(" ")[i].split(",")[0]) == returnedList.get(returnCounter).getItemID())
+	                    		{
+	                    			modifiedLine += " " + line.split(" ")[i].split(",")[0] + "," + dateFormat + "," + "true";
+	                    			break;
+	                    		}
+		                     
+	                    }
+	                  
+	                    
+	                    else
+	                    {
+	                    	modifiedLine += " " + line.split(" ")[i];
+	                    }
+	                  }
+	        	 }
+	        	 fileList.add(modifiedLine);
+	         }
+	         else
+	        	 fileList.add(line); //adds the lines that are not modified from the database to the list to be rewritten later
+	        	 
+	      
+	       
+	       textReader.close();
+	       fileR.close();
+	       }
+	 }
+	   
+	   //catches exceptions
+	     catch(FileNotFoundException ex) {
+	       System.out.println("cannot open userDB"); 
+	      
+	     }
+	     catch(IOException ex) {
+	       System.out.println("ioexception");
+	     }
+	 
+	 //Now writes to file to make the changes:
+	   
+	 
+ }
+ 
  
  
 }

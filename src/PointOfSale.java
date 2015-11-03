@@ -166,10 +166,11 @@ abstract class PointOfSale {
     Scanner scan=new Scanner(System.in);
     while(!scan.hasNextInt()){
       System.out.println("The input is not valid. Please try again."); 
+      
       scan.next();
     }
     
-    return Integer.parseInt(scan.nextLine());
+    return Integer.parseInt(scan.next());
   }
   
   public double taxCalculator ()
@@ -216,6 +217,17 @@ abstract class PointOfSale {
     Scanner cashierInput=new Scanner(System.in);
     System.out.println("Do you want to remove any item? y-yes");
     if (cashierInput.next().equals("y")){
+      //cancel transaction
+      System.out.println("Enter c to cancel entire sale, enter anything else to delete one item.");
+      String cancel=cashierInput.next();
+      if(cancel.equals("c")){
+        transactionItem.clear();
+        System.out.println("The cart is empty. Thank you");
+            File file=new File (tempFile);
+            file.delete();
+      }
+      else{
+      
       boolean e =false;
       do{
         System.out.println("Enter the item number you would like to remove");
@@ -247,7 +259,7 @@ abstract class PointOfSale {
           System.out.println("The item is not in your cart.Press 'e' to try again");
       }while(e&&transactionItem.size()>0);
     }
-    
+  }
   }
   
   public void detectSystem(){

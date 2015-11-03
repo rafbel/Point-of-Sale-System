@@ -17,4 +17,8 @@ public class Employee {
  String getName() {return name;}
  String getPosition() {return position;}
  String getPassword() {return password;}      
+ //void setUsername(String usename){this.username = username;};
+ void setName(String name){this.name = name;};
+ void setPosition(String position){this.position = position;};
+ void setPassword(String password){this.password = password;};
 }

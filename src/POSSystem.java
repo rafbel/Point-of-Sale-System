@@ -192,7 +192,7 @@ public class POSSystem{
   }
   
   private void admin(){
-    /*String choice="p";
+    String choice="p";
     Scanner cashierInput=new Scanner(System.in);
     while (!choice.equals("o"))
     {
@@ -219,7 +219,7 @@ public class POSSystem{
         logOutToFile((employees.get(index)).getUsername(),(employees.get(index)).getName(),(employees.get(index)).getPosition(),cal);
       }
     }
-    cashierInput.close();*/
+    cashierInput.close();
   }
   
   private void logInToFile(String username,String name,String position,Calendar cal){

@@ -54,4 +54,6 @@ public class Sale{
     point.coupon();
     point.endPOS(textFile);
   }
+  
+  
 }

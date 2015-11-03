@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class POS extends PointOfSale {
   public POS(){};
@@ -60,7 +62,40 @@ public class POS extends PointOfSale {
     System.out.format("Total with taxes: %.2f\n", totalPrice);
     inventory.updateInventory(textFile, transactionItem, databaseItem,false);
     }
-    databaseItem.clear();
+    File file = new File(tempFile);
+      file.delete();
+    
+    //invoice record file
+    try{
+      DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+  Calendar cal = Calendar.getInstance();
+      String t = "../Database/saleInvoiceRecord.txt";
+      if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
+        t = "..\\Database\\saleInvoiceRecord.txt"; 
+      }
+      FileWriter fw2 = new FileWriter(t,true);
+      BufferedWriter bw2 = new BufferedWriter(fw2);
+      bw2.write(dateFormat.format(cal.getTime()));
+      bw2.write(System.getProperty( "line.separator" ));
+      for(int i=0;i<transactionItem.size();i++){
+       String log=Integer.toString(transactionItem.get(i).getItemID())+" "+transactionItem.get(i).getItemName()+" "+
+                        Integer.toString(transactionItem.get(i).getAmount())+" "+
+                        Double.toString(transactionItem.get(i).getPrice()*transactionItem.get(i).getAmount());
+       bw2.write(log);
+      bw2.write(System.getProperty( "line.separator" ));
+      }
+      bw2.write("Total with tax: "+totalPrice);
+      bw2.newLine();
+      bw2.close();
+      
+    } catch (FileNotFoundException e) {
+      System.out.println("Unable to open file Log File for logout"); 
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }  
+    
+     databaseItem.clear();
     transactionItem.clear();
   }
   
@@ -99,4 +134,5 @@ public class POS extends PointOfSale {
     }
     
   }
+  
 }

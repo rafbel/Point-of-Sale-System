@@ -39,6 +39,7 @@ public class Register {
         startUp=false;
         System.out.println("System is shutting down");
         System.exit(0);
+          
       }
       
     }

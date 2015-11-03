@@ -49,15 +49,13 @@ public class Register {
     String retrieve=cashierInput.next();
     if(retrieve.equals("y")){
       try{
-      FileReader fileR = new FileReader(temp);
+      FileReader fileR = new FileReader("temp.txt");
         BufferedReader textReader = new BufferedReader(fileR);
         String type= textReader.readLine();
         if(type.equals("Sale")){
-          System.out.println("Sale");
          sale.continueT(); 
         }
         else if(type.equals("Rental")){
-          System.out.println("Rental");
          rental.continueT(); 
         }
         else{
@@ -78,6 +76,12 @@ public class Register {
     }
 }
   
+  System.out.println("Press s to start new sale");
+  System.out.println("Press r to start new rental");
+  System.out.println("Press h to start a return");
+  System.out.println("Press q to shut down system");
+  
+
   
   while (true)
   {

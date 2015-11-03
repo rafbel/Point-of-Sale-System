@@ -123,7 +123,9 @@ public class Rental extends PointOfSale{
   }
   
   public void continueT(){
-    continueTrans(rentalDatabaseFile);
-  }
+   continueTrans(rentalDatabaseFile);
+   endPOS(rentalDatabaseFile,true,null);
+   returnDate();
+ }
   
 }

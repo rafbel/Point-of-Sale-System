@@ -69,12 +69,16 @@ public class PointOfSale {
             System.out.println("Enter the item number you would like to remove");
             int remove=checkInt();
             boolean inTheList=false;
+            int index;
             for (int i=0; i<transactionItem.size();i++){
-              if (remove==transactionItem.get(i).getItemID())
+              if (remove==transactionItem.get(i).getItemID()){
+                index=i;
                 inTheList=true;
+              }
             }
             if (inTheList==true){
               removeItems(remove);
+              //transactionItem.delete(index);
               System.out.println("Press 'e' to insert another item. Press 'f' to close cart.");
             }
             else
@@ -207,7 +211,7 @@ public class PointOfSale {
     //shows running total on screen and item info
     for (int counter = 0; counter < transactionItem.size(); counter++)
       //prints item name - price
-      System.out.format("%s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemName(),
+      System.out.format("%d %s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemID(),transactionItem.get(counter).getItemName(),
                         transactionItem.get(counter).getAmount(), 
                         transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());
     
@@ -333,7 +337,7 @@ public class PointOfSale {
   {
     boolean ableToOpen=true;
     try{
-      FileReader fileR = new FileReader("temp.txt");
+      FileReader fileR = new FileReader("../Database/temp.txt");
       BufferedReader textReader = new BufferedReader(fileR);
       String line=null;
       int numLine=0;
@@ -341,20 +345,30 @@ public class PointOfSale {
       List<Integer> itemAmount=new ArrayList<Integer>();
       String[] lineSort;
       line=textReader.readLine();
-      while ((line = textReader.readLine()) != null)
-      {
-        lineSort = line.split(" ");
-        int i = Integer.parseInt(lineSort[0]);
-        int j = Integer.parseInt(lineSort[1]);
-        itemNo.add(i);
-        itemAmount.add(j);
-        numLine++;
-      }
-      for(int k=0;k<itemNo.size();k++){
-        //enterItem(itemNo.get(k),itemAmount.get(k)); 
-        if (enterItem(itemNo.get(k),itemAmount.get(k)) == false)
-          System.out.println("Item not found.");
-      }
+            if(line.equals("Sale")){
+                inventory.accessInventory(itemDatabaseFile, databaseItem);
+            }
+            else if(line.equals("Rental")){
+                inventory.accessInventory(rentalDatabaseFile, databaseItem);
+                line=textReader.readLine();
+                System.out.println("Phone number:");
+                System.out.println(line);
+            }
+            while ((line = textReader.readLine()) != null)
+            {
+                lineSort = line.split(" ");
+                int i = Integer.parseInt(lineSort[0]);
+                int j = Integer.parseInt(lineSort[1]);
+                itemNo.add(i);
+                itemAmount.add(j);
+                numLine++;
+            }
+            for(int k=0;k<numLine;k++){
+                //enterItem(itemNo.get(k),itemAmount.get(k));
+                if (enterItem(itemNo.get(k),itemAmount.get(k)) == false)
+                    System.out.println("Item not found.");
+            }
+
     }
     catch(FileNotFoundException ex) {
       System.out.println(
@@ -366,61 +380,91 @@ public class PointOfSale {
                          "Error reading file 'temp'");  
       ableToOpen = false;
     }
-    
-    int itemID; int amount;
-    
-    if (inventory.accessInventory(databaseFile, databaseItem) == true) //if can access inventory
-    {
-      Scanner cashierInput = new Scanner(System.in);
-      do //must register at least one item
+    try{
+   int itemID; int amount;
+      if (inventory.accessInventory(databaseFile, databaseItem) == true) //if can access inventory
       {
-        //Cashier enters itemID and amount
-        System.out.println("Enter itemID");
-        itemID=checkInt();
+        Scanner cashierInput = new Scanner(System.in);
+        System.out.println("Press 'e' to insert another item. Press 'f' to close cart.");//determines if there is more items to be added
+        while (cashierInput.next().equals("e")) 
+        {
+          FileWriter fw = new FileWriter(tempFile,true);
+          BufferedWriter bw = new BufferedWriter(fw);
+          //Cashier enters itemID and amount
+          System.out.println("Enter itemID");
+          itemID=checkInt();
+          
+          System.out.println("Enter amount");
+          amount =checkInt();
+          
+          //Calls the enterItem method
+          if (enterItem(itemID,amount) == false)
+            System.out.println("Item not found. Press 'e' to try again");
+          else{//add items and amount into temp
+            bw.write(itemID +" "+ amount);
+            bw.write(System.getProperty( "line.separator" ));
+            bw.close();
+            System.out.println("Press 'e' to insert another item. Press 'f' to close cart.");
+          }
+        } //press e to add more items
+        System.out.println("Do you want to remove any item? y-yes");
+        if (cashierInput.next().equals("y")){
+          do{
+            System.out.println("Enter the item number you would like to remove");
+            int remove=checkInt();
+            boolean inTheList=false;
+            for (int i=0; i<transactionItem.size();i++){
+              if (remove==transactionItem.get(i).getItemID())
+                inTheList=true;
+            }
+            if (inTheList==true){
+              removeItems(remove);
+              System.out.println("Press 'e' to insert another item. Press 'f' to close cart.");
+            }
+            else
+              System.out.println("The item is not in your cart.Press 'e' to try again");
+          }while(cashierInput.next().equals("e"));
+        }
+        //ask for coupon
+        coupon();
         
-        System.out.println("Enter amount");
-        amount =checkInt();
-        
-        //Calls the enterItem method
-        if (enterItem(itemID,amount) == false)
-          System.out.println("Item not found. Press e to try again");
-        
-      } while (cashierInput.next().equals("e")); //press e to add more items
-      
-      //ask for coupon
-      coupon();
-      
-      //cancel sale
-      System.out.println("Do you want to keep the sale?");
-      if (cashierInput.next().equals("no")){
-        cancelSales();}
-    }
+        //cancel sale
+        System.out.println("Do you want to keep the sale?");
+        if (cashierInput.next().equals("no")){
+          cancelSales();}
+      }
     else
-    {
-      System.out.println("Can't access database.");  
+      {
+        System.out.println("Can't access database.");  }
     }
-  } 
+    
+    catch (IOException e)
+    {
+      System.err.println("Error: " + e.getMessage());
+    }
+    
+  }
 
 
   public void taxCalculator ()
-	{
-	    Scanner in = new Scanner(System.in);
-	    System.out.println("Please select your state: 1. PA 2. NJ 3. NY");
-	    int state = in.nextInt();
-	    if (state == 1 ){
-	      tax = 1.06;
-	    }
-	    else if (state == 2)
-	    {
-	      tax = 1.07;
-	    }
-	    else if (state == 3)
-	    {
-	      tax = 1.04;
-	    }             
-	    else
-	      System.out.println("State is invalid.");
-	
-	}
+ {
+     Scanner in = new Scanner(System.in);
+     System.out.println("Please select your state: 1. PA 2. NJ 3. NY");
+     int state = in.nextInt();
+     if (state == 1 ){
+       tax = 1.06;
+     }
+     else if (state == 2)
+     {
+       tax = 1.07;
+     }
+     else if (state == 3)
+     {
+       tax = 1.04;
+     }             
+     else
+       System.out.println("State is invalid.");
+ 
+ }
 
 }

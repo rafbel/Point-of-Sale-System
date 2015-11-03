@@ -190,7 +190,34 @@ public class POSSystem{
   }
   
   private void admin(){
-    
+     String choice="p";
+    Scanner cashierInput=new Scanner(System.in);
+    while (!choice.equals("o"))
+    {
+      System.out.println("Press a to add employee information");
+      System.out.println("Press d to delete employee information");
+      System.out.println("Press u to update employee information");
+      System.out.println("Press o to log out");
+      
+      choice = cashierInput.next();
+      
+      if (choice.equals("a")){
+        EmployeeManagement e=new EmployeeManagement();
+        e.add();
+      }
+      else if (choice.equals("d")){
+        EmployeeManagement e=new EmployeeManagement();
+        e.delete();
+      }
+      else if (choice.equals("u")){
+        EmployeeManagement e=new EmployeeManagement();
+        e.update();
+      }
+      else if(choice.equals("o")){
+        logOutToFile(usernames.get(index),names.get(index),positions.get(index),cal);
+      }
+    }
+    cashierInput.close();
   }
   
   private void logInToFile(String username,String name,String position,Calendar cal){

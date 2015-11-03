@@ -39,7 +39,7 @@ public class HandleReturns
 		         System.out.println("New user created, continuing with rental..");
 
 		        System.out.println("Press 'r' if user is returning rented items.");
-		 		System.out.println("Press 'i' if user is returning sale items that is not satisfied with.");
+		 		//System.out.println("Press 'i' if user is returning sale items that is not satisfied with.");
 		 		
 		 		choice = input.nextLine();
 		 		if (choice.equals("r"))
@@ -77,7 +77,7 @@ public class HandleReturns
 		   else{
 			   
 			   System.out.println("Press 'r' if user is returning rented items.");
-			   System.out.println("Press 'i' if user is returning sale items that is not satisfied with.");
+			   //System.out.println("Press 'i' if user is returning sale items that is not satisfied with.");
 				
 				choice = input.nextLine();
 				if (choice.equals("r"))

@@ -86,16 +86,7 @@ public class POH extends PointOfSale
 			            System.out.println("Total: " + totalPrice);
 			          }
 			        }
-			   /* totalPrice = totalPrice*taxCalculator(); //calculates price with tax
-			    //prints total with taxes
-			    for (int counter = 0; counter < transactionItem.size(); counter++){
-			      //prints item name - price
-			      System.out.format("%d %s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemID(),transactionItem.get(counter).getItemName(),
-			                        transactionItem.get(counter).getAmount(), 
-			                        transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());
-			    }
-			    System.out.format("Total with taxes: %.2f\n", totalPrice);*/
-			    
+			
 				inventory.updateInventory(textFile, transactionItem, databaseItem,false);
 				
 				management.updateRentalStatus(phone,returnList);

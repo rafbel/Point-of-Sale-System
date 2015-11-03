@@ -53,7 +53,7 @@ public class Rental{
             bw.write(System.getProperty( "line.separator" ));
             bw.close();//end temp log
             management.getLatestReturnDate(phone);
-            PointOfSale point=new POR();
+            PointOfSale point=new POR(phone);
             point.addItems(textFile);
             point.removeItems();
             point.coupon();
@@ -77,7 +77,7 @@ public class Rental{
         management.getLatestReturnDate(phone);
         
         
-        PointOfSale point=new POR();
+        PointOfSale point=new POR(phone);
         point.detectSystem();
         point.addItems(textFile);
         point.removeItems();
@@ -91,7 +91,7 @@ public class Rental{
   }
   
   public void continueT(String textFile){
-    PointOfSale point=new POR();
+    PointOfSale point=new POR(this.phone);
     point.detectSystem();
     point.retrieveTemp(textFile);
     System.out.println("Do you want to continue adding items? y- Yes");

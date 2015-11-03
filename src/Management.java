@@ -225,6 +225,7 @@ public class Management {
           } catch (NumberFormatException e) {  
             continue;  
           } 
+          System.out.println("comparing "+ nextPhone+" == "+ phone);
           if(nextPhone == phone)//finds the user in the database
           { 
            

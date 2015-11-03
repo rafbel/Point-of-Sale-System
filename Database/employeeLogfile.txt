@@ -2,3 +2,8 @@ Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-03 15:18:36.75
 Debra Cooper (110002 Cashier) logs out of POS System. Time: 2015-11-03 15:18:36.757
 Christy Hughes (110001 Admin) logs into POS System. Time: 2015-11-03 18:18:19.146
 Christy Hughes (110001 Admin) logs out of POS System. Time: 2015-11-03 18:18:19.146
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-03 18:44:15.045
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-03 18:45:07.550
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-03 18:46:13.079
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-03 18:50:19.320
+Debra Cooper (110002 Cashier) logs out of POS System. Time: 2015-11-03 18:50:19.320

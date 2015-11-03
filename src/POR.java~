@@ -19,8 +19,8 @@ public class POR extends PointOfSale {
       BufferedReader reader = new BufferedReader(fileR);
       BufferedWriter writer = new BufferedWriter(new FileWriter(tempF));
       String type= reader.readLine();
-      String phone=reader.readLine
-	  this.phoneNum = Integer.parseInt(phone);
+      String phone=reader.readLine();
+   this.phoneNum = Integer.parseInt(phone);
       writer.write(type);
       writer.write(System.getProperty("line.separator"));
       writer.write(phone);

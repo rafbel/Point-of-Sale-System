@@ -51,6 +51,7 @@ public class POR extends PointOfSale {
   }
   
   public void endPOS(String textFile){
+    detectSystem();
     if (transactionItem.size()>0){
     totalPrice = totalPrice*taxCalculator(); //calculates price with tax
     //prints total with taxes

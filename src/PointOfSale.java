@@ -8,7 +8,7 @@ abstract class PointOfSale {
   public boolean unixOS = true; 
   public double tax=0;
   
-  public static String rentalDatabaseFile = "../Database/rentalDatabase.txt"; 
+  //public static String rentalDatabaseFile = "../Database/rentalDatabase.txt"; 
   public static String couponNumber = "../Database/couponNumber.txt";
   //determines the name of the databaseFile for sale
   public static String tempFile="../Database/temp.txt";
@@ -27,6 +27,7 @@ abstract class PointOfSale {
   public List<Item> transactionItem = new ArrayList<Item>(); //this list will store all items to be used in this sale
   
   public void addItems(String databaseFile){
+    detectSystem();
     int itemID; int amount;
     if (inventory.accessInventory(databaseFile, databaseItem) == true) //if can access inventory
     {
@@ -56,6 +57,7 @@ abstract class PointOfSale {
   
   public boolean enterItem(int itemID, int amount) //might include in a "mother class" in the future
   {
+    detectSystem();
     boolean foundItem = false;
     
     for (int counter = 0; counter < databaseItem.size() && foundItem == false; counter++)
@@ -92,6 +94,7 @@ abstract class PointOfSale {
   }
   
   public void coupon(){
+    detectSystem();
     if (transactionItem.size()>0){
       Scanner cashierInput = new Scanner(System.in);
       
@@ -209,9 +212,11 @@ abstract class PointOfSale {
   }
   
   public void removeItems(){
+    detectSystem();
     Scanner cashierInput=new Scanner(System.in);
     System.out.println("Do you want to remove any item? y-yes");
     if (cashierInput.next().equals("y")){
+      boolean e =false;
       do{
         System.out.println("Enter the item number you would like to remove");
         int remove=checkInt();
@@ -226,13 +231,21 @@ abstract class PointOfSale {
         if (inTheList==true){
           deleteTempItem(remove);
           transactionItem.remove(transactionItem.get(index));
-          if (transactionItem.size()>0){
+          if (transactionItem.size()==0){
+            System.out.println("The cart is empty. Thank you");
+            File file=new File (tempFile);
+            file.delete();
+            e=false;
+          }
+          else if (transactionItem.size()>0){
             updateTotal();
-            System.out.println("Press 'e' to remove another item. Press anything else to close cart.");}
+            System.out.println("Press 'e' to remove another item. Press anything else to close cart.");
+            e=cashierInput.next().equals("e");
+          }
         }
         else
           System.out.println("The item is not in your cart.Press 'e' to try again");
-      }while(cashierInput.next().equals("e")&&transactionItem.size()>0);
+      }while(e&&transactionItem.size()>0);
     }
     
   }

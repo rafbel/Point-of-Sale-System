@@ -1,8 +1,8 @@
 import java.io.*;
 import java.util.*;
 
-public class POS extends PointOfSale {
-  public POS(){};
+public class POR extends PointOfSale {
+  public POR(){};
   
   public void deleteTempItem(int id){
     boolean ableToOpen=true;
@@ -17,13 +17,17 @@ public class POS extends PointOfSale {
       BufferedWriter writer = new BufferedWriter(new FileWriter(tempF));
       String type= reader.readLine();
       String phone;
+      phone=reader.readLine();
       writer.write(type);
+      writer.write(System.getProperty("line.separator"));
+      writer.write(phone);
       writer.write(System.getProperty("line.separator"));
       for (int i =0; i<transactionItem.size();i++){
         if (transactionItem.get(i).getItemID()!=id){
           writer.write(transactionItem.get(i).getItemID() +" "+ transactionItem.get(i).getAmount());
           writer.write(System.getProperty( "line.separator" ));
         }
+        
       }
       fileR.close();
       writer.close(); 
@@ -47,7 +51,6 @@ public class POS extends PointOfSale {
   }
   
   public void endPOS(String textFile){
-    detectSystem();
     if (transactionItem.size()>0){
     totalPrice = totalPrice*taxCalculator(); //calculates price with tax
     //prints total with taxes
@@ -58,7 +61,7 @@ public class POS extends PointOfSale {
                         transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());
     }
     System.out.format("Total with taxes: %.2f\n", totalPrice);
-    inventory.updateInventory(textFile, transactionItem, databaseItem,false);
+    inventory.updateInventory(textFile, transactionItem, databaseItem,true);
     }
     databaseItem.clear();
     transactionItem.clear();
@@ -71,10 +74,12 @@ public class POS extends PointOfSale {
       BufferedReader textReader = new BufferedReader(fileR);
       String line=null;
       int numLine=0;
-     
       String[] lineSort;
       line=textReader.readLine();
       inventory.accessInventory(textFile, databaseItem);
+      line=textReader.readLine();
+      System.out.println("Phone number:");
+      System.out.println(line);
       
       while ((line = textReader.readLine()) != null)
       {
@@ -84,7 +89,7 @@ public class POS extends PointOfSale {
         enterItem(itemNo,itemAmount);
         numLine++;
       }
-      
+
       updateTotal();
     }
     catch(FileNotFoundException ex) {

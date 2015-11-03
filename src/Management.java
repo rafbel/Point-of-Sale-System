@@ -104,7 +104,7 @@ public class Management {
                boolean b = returnedBool.equalsIgnoreCase("true");
                if (!b){ //if item wasn't returned already
                  outstandingReturns = true; 
-                 System.out.println("You still haven't returned item id: "+(line.split(" ")[i]).split(",")[0]+", due: "+(line.split(" ")[i]).split(",")[1]);
+                 //System.out.println("You still haven't returned item id: "+(line.split(" ")[i]).split(",")[0]+", due: "+(line.split(" ")[i]).split(",")[1]);
                  thisReturnDate = line.split(" ")[i].split(",")[1];
                  
                  try {
@@ -156,7 +156,7 @@ public class Management {
 	            dayTwo = (Calendar) day2.clone();
 
 	    if (dayOne.get(Calendar.YEAR) == dayTwo.get(Calendar.YEAR)) {
-	        return Math.abs(dayOne.get(Calendar.DAY_OF_YEAR) - dayTwo.get(Calendar.DAY_OF_YEAR));
+	        return (dayTwo.get(Calendar.DAY_OF_YEAR) - dayOne.get(Calendar.DAY_OF_YEAR));
 	    } else {
 	        if (dayTwo.get(Calendar.YEAR) > dayOne.get(Calendar.YEAR)) {
 	            //swap them
@@ -254,8 +254,10 @@ public class Management {
 	       FileReader fileR = new FileReader(userDatabase);
 	       BufferedReader textReader = new BufferedReader(fileR);
 	       String line;
+	       int returnCounter = 0;
 	       //reads the entire database
 	       line = textReader.readLine(); //skips the first line, which explains how the DB is formatted. 
+	       fileList.add(line); //but stores it since it is the first line of the DB
 	       while ((line = textReader.readLine()) != null)
 	       {
 	        
@@ -277,13 +279,14 @@ public class Management {
 	                    boolean b = returnedBool.equalsIgnoreCase("true");
 	                    if (!b)//if item wasn't returned already
 	                    { 
-	                    	for (int returnCounter = 0 ; returnCounter < returnedList.size() ; returnCounter++) 
+	                    	for (returnCounter = 0 ; returnCounter < returnedList.size() ; returnCounter++) 
 	                    		if (Integer.parseInt(line.split(" ")[i].split(",")[0]) == returnedList.get(returnCounter).getItemID())
 	                    		{
 	                    			modifiedLine += " " + line.split(" ")[i].split(",")[0] + "," + dateFormat + "," + "true";
-	                    			break;
+	         
 	                    		}
-		                     
+	                    	if (returnCounter == returnedList.size() )
+		                     modifiedLine += line.split(" ")[i]; //not returning this item now
 	                    }
 	                  
 	                    
@@ -299,10 +302,9 @@ public class Management {
 	        	 fileList.add(line); //adds the lines that are not modified from the database to the list to be rewritten later
 	        	 
 	      
-	       
+	       }
 	       textReader.close();
 	       fileR.close();
-	       }
 	 }
 	   
 	   //catches exceptions

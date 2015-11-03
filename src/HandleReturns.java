@@ -2,7 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class HandleReturns extends PointOfSale{
+public class HandleReturns
+{
 	
 	private static final String rentedDatabaseFile = "..\\Database\\rentalDatabase.txt";
 	private static final String saleDatabaseFile = "Database/itemDatabase.txt";
@@ -25,12 +26,12 @@ public class HandleReturns extends PointOfSale{
 		   while (((phone = s.nextLong())>9999999999l)||(phone<1000000000l)){ //checks to make sure phone is a 10 digit integer
 		     System.out.println("invalid phone num, please try a 10 digit integer");
 		   }
-		   s.close();
+		   //s.close();
 		   if (!management.checkUser(phone)){
 		     System.out.println("user doesnt exist in userDatabase, create new user? y - yes");
 		     s = new Scanner(System.in);
 		     String newUser = s.nextLine();
-		     s.close();
+		     //s.close();
 		     
 		     if(newUser.equals("y")){
 		       //System.out.println("creating new user..");
@@ -43,20 +44,20 @@ public class HandleReturns extends PointOfSale{
 		 		choice = input.nextLine();
 		 		if (choice.equals("r"))
 		 		{
-		 			//rented items (check return date)
-		 			startNew(rentedDatabaseFile);
-		 			returnList = management.getLatestReturnDate(phone);
-		 			endPOS(rentedDatabaseFile,false,returnList);
-		 			management.updateRentalStatus(phone,returnList);
+		 			PointOfSale point=new POH(phone);
+					point.addItems(rentedDatabaseFile);
+			        point.removeItems();
+			        point.coupon();
+			        point.endPOS(rentedDatabaseFile);
 		 			
 		 		}
 		 		
-		 		else if (choice.equals("i"))
+		 		/*else if (choice.equals("i"))
 		 		{
 		 			//Items not satisfied with
 		 			startNew(saleDatabaseFile);
 		 			endPOS(saleDatabaseFile,false,null);
-		 		}
+		 		}*/
 		 		
 		 		else
 		 		{
@@ -81,19 +82,19 @@ public class HandleReturns extends PointOfSale{
 				choice = input.nextLine();
 				if (choice.equals("r"))
 				{
-					//rented items (check return date)
-					startNew(rentedDatabaseFile);
-					returnList = management.getLatestReturnDate(phone);
-					endPOS(rentedDatabaseFile,false,returnList);
-					management.updateRentalStatus(phone,returnList);
+					PointOfSale point=new POH(phone);
+					point.addItems(rentedDatabaseFile);
+			        point.removeItems();
+			        point.coupon();
+			        point.endPOS(rentedDatabaseFile);
 				}
 				
-				else if (choice.equals("i"))
+				/*else if (choice.equals("i"))
 				{
 					//Items not satisfied with
 					startNew(saleDatabaseFile);
 					endPOS(saleDatabaseFile,false,null);
-				}
+				}*/
 				
 				else
 				{
@@ -105,6 +106,7 @@ public class HandleReturns extends PointOfSale{
 		
 		
 	}
+
 	
 	
 }

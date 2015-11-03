@@ -135,6 +135,13 @@ public class POSSystem{
               Rental rental=new Rental();
               rental.continueT(rentalDatabaseFile); 
             }
+            
+            else if(type.equals("Return")){
+                System.out.println("Return");
+                HandleReturns returns = new HandleReturns();
+                //returns.continueT(rentalDatabaseFile); got to make this happen
+              }
+            
             else{
               System.out.println("The log file is not valid"); 
             }

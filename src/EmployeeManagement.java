@@ -10,10 +10,11 @@ public class EmployeeManagement{
     readFile();
     Scanner scan= new Scanner (System.in);
     int username= (Integer.parseInt(employees.get(employees.size()-1).getUsername())+1);
-    System.out.println("Please enter the position");
+    System.out.println("Please enter the position--Admin or Cashier");
     String position = scan.next();
-    while (!(position.equals("Admin")&&position.equals("Cashier")))
+    while (!(position.equals("Admin")||position.equals("Cashier")))
     {
+      System.out.println("Please enter the position again--Admin or Cashier");
       position=scan.next();
     }
     System.out.println("Please enter the first name");
@@ -26,6 +27,8 @@ public class EmployeeManagement{
       FileWriter fw = new FileWriter(employeeDatabase,true);
       BufferedWriter bw = new BufferedWriter(fw);
       String log=Integer.toString(username)+" "+position+" " +fname+ " "+ lname+ " "+password;
+      //bw.write(System.getProperty( "line.separator" ));
+      bw.write(log);
       bw.write(System.getProperty( "line.separator" ));
       bw.close();
       
@@ -65,10 +68,8 @@ public class EmployeeManagement{
       BufferedReader reader = new BufferedReader(fileR);
       BufferedWriter writer = new BufferedWriter(new FileWriter(tempF));
       for (int i=0; i<employees.size();i++){
-        writer.write(employees.get(i).getUsername());
-        writer.write(employees.get(i).getPosition());    
-        writer.write(employees.get(i).getName());    
-        writer.write(employees.get(i).getPassword());
+        writer.write(employees.get(i).getUsername()+" "+employees.get(i).getPosition()+" "+employees.get(i).getName()+" "+employees.get(i).getPassword());
+        writer.write(System.getProperty( "line.separator" ));
       }
       fileR.close();
       writer.close(); 
@@ -114,23 +115,27 @@ public class EmployeeManagement{
     
     System.out.println("Which part of the information you would like to change? 0-I do not want to make change, 1-position, 2-name, 3-password");
     String choice=scan.next();
-    while (!(choice.equals("0")&&choice.equals("1")&&choice.equals("2")&&choice.equals("3"))){
+    while (!(choice.equals("0")||choice.equals("1")||choice.equals("2")||choice.equals("3"))){
+      System.out.println("Please enter 0 or 1 or 2 or 3. 0-I do not want to make change, 1-position, 2-name, 3-password");
       choice=scan.next();
     }
     while (!choice.equals("0")){
       if (choice.equals("1")){
         System.out.println("Please enter the new position");
         String position=scan.next();
-        while (!(position.equals("Admin")&&position.equals("Cashier")))
-        {
-          position=scan.next();
-        }
+        while (!(position.equals("Admin")||position.equals("Cashier")))
+    {
+      System.out.println("Please enter the position again--Admin or Cashier");
+      position=scan.next();
+    }
         employees.get(index).setPosition(position);
       }
       else  if (choice.equals("2")){
-        System.out.println("Please enter the new name");
-        String name=scan.nextLine();
-        employees.get(index).setName(name);
+        System.out.println("Please enter the first name");
+        String fname=scan.next();
+        System.out.println("Please enter the last name");
+        String lname=scan.next();
+        employees.get(index).setName(fname+" "+lname);
       }
       else if (choice.equals("3")){
         System.out.println("Please enter the new password");
@@ -139,7 +144,7 @@ public class EmployeeManagement{
       }
       System.out.println("Which part of the information you would like to change? 0-I do not want to make change, 1-position, 2-name, 3-password");
       choice= scan.next();
-      while (!(choice.equals("0")&&choice.equals("1")&&choice.equals("2")&&choice.equals("3"))){
+      while (!(choice.equals("0")||choice.equals("1")||choice.equals("2")||choice.equals("3"))){
         choice=scan.next();
       }
     }
@@ -150,10 +155,8 @@ public class EmployeeManagement{
       BufferedReader reader = new BufferedReader(fileR);
       BufferedWriter writer = new BufferedWriter(new FileWriter(tempF));
       for (int i=0; i<employees.size();i++){
-        writer.write(employees.get(i).getUsername());
-        writer.write(employees.get(i).getPosition());    
-        writer.write(employees.get(i).getName());    
-        writer.write(employees.get(i).getPassword());
+        writer.write(employees.get(i).getUsername()+" "+employees.get(i).getPosition()+" "+employees.get(i).getName()+" "+employees.get(i).getPassword());
+        writer.write(System.getProperty( "line.separator" ));
       }
       fileR.close();
       writer.close(); 

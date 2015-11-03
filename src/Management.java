@@ -155,6 +155,7 @@ public class Management {
   Calendar dayOne = (Calendar) day1.clone(),
              dayTwo = (Calendar) day2.clone();
 
+
      if (dayOne.get(Calendar.YEAR) == dayTwo.get(Calendar.YEAR)) {
          return (dayTwo.get(Calendar.DAY_OF_YEAR) - dayOne.get(Calendar.DAY_OF_YEAR));
      } else {
@@ -165,6 +166,7 @@ public class Management {
              dayTwo = temp;
          }
          int extraDays = 0;
+
 
          int dayOneOriginalYearDays = dayOne.get(Calendar.DAY_OF_YEAR);
 
@@ -194,7 +196,7 @@ public class Management {
    }
  }
  
- public static void addRental(long phone, List <Integer> rentalList)
+ public static void addRental(long phone, List <Item> rentalList)
  {
   long nextPhone = 0;
   List <String> fileList = new ArrayList<String>();
@@ -225,42 +227,10 @@ public class Management {
           } 
           if(nextPhone == phone)//finds the user in the database
           { 
-           //modifiedLine = line.split(" ")[0];
-           /*
-     if(line.split(" ").length >1)
-           {
-               
-     
-                   for(int i =1; i<line.split(" ").length; i++) 
-                   {
-                  String returnedBool = (line.split(" ")[i]).split(",")[2];
- 
-                     boolean b = returnedBool.equalsIgnoreCase("true");
-                     if (!b)//if item wasn't returned already
-                     { 
-                      for (returnCounter = 0 ; returnCounter < returnedList.size() ; returnCounter++) 
-                       if (Integer.parseInt(line.split(" ")[i].split(",")[0]) == returnedList.get(returnCounter).getItemID())
-                       {
-                        modifiedLine += " " + line.split(" ")[i].split(",")[0] + "," + dateFormat + "," + "true";
-          
-                       }
-                      if (returnCounter == returnedList.size() )
-                       modifiedLine += line.split(" ")[i]; //not returning this item now
-                     }
-                   
-                     
-                     else
-                     {
-                      modifiedLine += " " + line.split(" ")[i];
-                     }
-                   }
-       
-       
-           }*/
-     
+           
      //loop through each "ID" in rentalList
-     for (Integer id : rentalList){
-      line = line + " "+ id + ","+dateFormat+","+"false";
+     for (Item item : rentalList){
+      line = line + " "+ item.getItemID() + ","+dateFormat+","+"false";
      }
      
            fileList.add(line);
@@ -319,6 +289,7 @@ public class Management {
   
      
      //Reads from file to read the changes to make:
+
   try{
      ableToRead = true;
         FileReader fileR = new FileReader(userDatabase);
@@ -407,6 +378,7 @@ public class Management {
    }
   }
   
+
  }
  
  

@@ -2,8 +2,11 @@ import java.io.*;
 import java.util.*;
 
 public class POR extends PointOfSale {
-  public POR(){};
+  int phoneNum;
   
+  public POR(){
+    this.phoneNum = 0;
+  };
   public void deleteTempItem(int id){
     boolean ableToOpen=true;
     try{
@@ -16,8 +19,8 @@ public class POR extends PointOfSale {
       BufferedReader reader = new BufferedReader(fileR);
       BufferedWriter writer = new BufferedWriter(new FileWriter(tempF));
       String type= reader.readLine();
-      String phone;
-      phone=reader.readLine();
+      String phone=reader.readLine
+	  this.phoneNum = Integer.parseInt(phone);
       writer.write(type);
       writer.write(System.getProperty("line.separator"));
       writer.write(phone);
@@ -50,7 +53,10 @@ public class POR extends PointOfSale {
     
   }
   
-  public void endPOS(String textFile){
+public void endPOS(String textFile){
+    Management man = new Management();
+    man.addRental(this.phoneNum, this.transactionItem);
+    detectSystem();
     if (transactionItem.size()>0){
     totalPrice = totalPrice*taxCalculator(); //calculates price with tax
     //prints total with taxes

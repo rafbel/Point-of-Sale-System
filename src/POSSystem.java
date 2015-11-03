@@ -9,10 +9,7 @@ public class POSSystem{
   public static String employeeDatabase = "../Database/employeeDatabase.txt";
   public static String rentalDatabaseFile = "../Database/rentalDatabase.txt"; 
   public static String itemDatabaseFile = "../Database/itemDatabase.txt"; 
-  public List<String> usernames = new ArrayList<String>();
-  public List<String> positions = new ArrayList<String>();
-  public List<String> names = new ArrayList<String>();
-  public List<String> passwords = new ArrayList<String>();
+  public List<Employee> employees = new ArrayList<Employee>();
   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
   Calendar cal=null;
   private int index=-1;
@@ -38,10 +35,8 @@ public class POSSystem{
       while ((line = textReader.readLine()) != null)
       {
         lineSort = line.split(" "); //separates words    
-        usernames.add(lineSort[0]);
-        positions.add(lineSort[1]);
-        names.add(lineSort[2]+" "+lineSort[3]);
-        passwords.add(lineSort[4]);
+        String name=lineSort[2]+" "+lineSort[3];
+        employees.add(new Employee(lineSort[0],name,lineSort[1],lineSort[4]));
         numLine++;
       }
       textReader.close();
@@ -70,8 +65,8 @@ public class POSSystem{
     String username=scan.next();
     boolean find=false;
     do{
-      for(int i=0;i<usernames.size();i++){
-        if(username.equals(usernames.get(i))){
+      for(int i=0;i<employees.size();i++){
+        if(username.equals((employees.get(i)).getUsername())){
           find=true;
           index=i;
           break;
@@ -85,7 +80,7 @@ public class POSSystem{
     
     System.out.println("Please enter password.");
     String password=scan.next();
-    while(!password.equals(passwords.get(index))){
+    while(!password.equals((employees.get(index)).getPassword())){
       System.out.println("Wrong password. Please enter again.");
       password=scan.next();
     }
@@ -94,12 +89,12 @@ public class POSSystem{
     cal = Calendar.getInstance();
     System.out.print("Welcome to SG Technologies POS System ");
     System.out.println(dateFormat.format(cal.getTime()));
-    logInToFile(usernames.get(index),names.get(index),positions.get(index),cal);
+    logInToFile((employees.get(index)).getUsername(),(employees.get(index)).getName(),(employees.get(index)).getPosition(),cal);
     
-    if((positions.get(index)).equals("Cashier")){
+    if(((employees.get(index)).getPosition()).equals("Cashier")){
       cashier(); 
     }
-    else if((positions.get(index)).equals("Admin")){
+    else if(((employees.get(index)).getPosition()).equals("Admin")){
       admin();
     }  
     scan.close();
@@ -183,14 +178,14 @@ public class POSSystem{
         returns.newReturn();
       }
       else if(choice.equals("o")){
-        logOutToFile(usernames.get(index),names.get(index),positions.get(index),cal);
+        logOutToFile((employees.get(index)).getUsername(),(employees.get(index)).getName(),(employees.get(index)).getPosition(),cal);
       }
     }
     cashierInput.close();
   }
   
   private void admin(){
-     String choice="p";
+    /*String choice="p";
     Scanner cashierInput=new Scanner(System.in);
     while (!choice.equals("o"))
     {
@@ -214,10 +209,10 @@ public class POSSystem{
         e.update();
       }
       else if(choice.equals("o")){
-        logOutToFile(usernames.get(index),names.get(index),positions.get(index),cal);
+        logOutToFile((employees.get(index)).getUsername(),(employees.get(index)).getName(),(employees.get(index)).getPosition(),cal);
       }
     }
-    cashierInput.close();
+    cashierInput.close();*/
   }
   
   private void logInToFile(String username,String name,String position,Calendar cal){

@@ -14,7 +14,7 @@ public class PointOfSale {
   public static String rentalDatabaseFile = "../Database/rentalDatabase.txt"; 
   public static String couponNumber = "../Database/couponNumber.txt";
   public static String itemDatabaseFile = "../Database/itemDatabase.txt"; //determines the name of the databaseFile for sale
-  public static String tempFile="..\\Database\\temp.txt";
+  public static String tempFile="../Database/temp.txt";
   Inventory inventory = Inventory.getInstance();
   
   private List<Item> databaseItem = new ArrayList<Item>(); //creates a list of all items in the database
@@ -37,7 +37,7 @@ public class PointOfSale {
   {
     try{
       
-      totalPrice = 0;
+      //totalPrice = 0;
       int itemID; int amount;
       if (inventory.accessInventory(databaseFile, databaseItem) == true) //if can access inventory
       {
@@ -68,17 +68,7 @@ public class PointOfSale {
           do{
             System.out.println("Enter the item number you would like to remove");
             int remove=checkInt();
-            boolean inTheList=false;
-            for (int i=0; i<transactionItem.size();i++){
-              if (remove==transactionItem.get(i).getItemID())
-                inTheList=true;
-            }
-            if (inTheList==true){
-              removeItems(remove);
-              System.out.println("Press 'e' to insert another item. Press 'f' to close cart.");
-            }
-            else
-              System.out.println("The item is not in your cart.Press 'e' to try again");
+             removeItems(remove);
           }while(cashierInput.next().equals("e"));
         }
         //ask for coupon
@@ -170,14 +160,14 @@ public class PointOfSale {
   private void cancelSales(){
     databaseItem.clear();
     transactionItem.clear();
-    System.out.println("your sale has been cancelled.");
+    System.out.println("your transaction has bee complete");
     try{
-      File file = new File("..\\Database\\temp.txt");
+      File file = new File(tempFile);
       file.delete();
     }catch(Exception e){
       e.printStackTrace();
     }
-    System.exit(1);
+    //System.exit(1);
   }
   private boolean enterItem(int itemID, int amount) //might include in a "mother class" in the future
   {
@@ -193,7 +183,7 @@ public class PointOfSale {
     }
     
     if (foundItem == true)
-      updateTotal();
+      //updateTotal();
     return foundItem;
   }
   
@@ -207,7 +197,7 @@ public class PointOfSale {
     //shows running total on screen and item info
     for (int counter = 0; counter < transactionItem.size(); counter++)
       //prints item name - price
-      System.out.format("%s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemName(),
+      System.out.format("%d %s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemID(),transactionItem.get(counter).getItemName(),
                         transactionItem.get(counter).getAmount(), 
                         transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());
     
@@ -252,17 +242,7 @@ public class PointOfSale {
       }
       inventory.updateInventory(databaseFile, transactionItem, databaseItem,takeFromInventory);
     }
-    try{
-      
-      File file = new File("..\\Database\\temp.txt");
-      
-      file.delete();
-      
-    }catch(Exception e){
-      
-      e.printStackTrace();
-      
-    }
+    cancelSales();
     return totalPrice;
   }
   
@@ -277,14 +257,20 @@ public class PointOfSale {
     
     return Integer.parseInt(scan.nextLine());
   }
-  private void removeItems(int ID){
+  
+    private void removeItems(int ID){
     boolean ableToOpen=true;
     try{
+      
       //File inputFile = new File("myFile.txt");
-      File tempFile = new File("..\\Database\\newTemp.txt");
-      FileReader fileR = new FileReader("..\\Database\\temp.txt");
+      String temp = "../Database/newTemp.txt";
+  if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
+   temp = "..\\Database\\newTemp.txt"; 
+  }
+      File tempF = new File(temp);
+      FileReader fileR = new FileReader(tempFile);
       BufferedReader reader = new BufferedReader(fileR);
-      BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+      BufferedWriter writer = new BufferedWriter(new FileWriter(tempF));
       String type= reader.readLine();
       String phone;
       if(type.equals("Sale")){
@@ -313,9 +299,26 @@ public class PointOfSale {
       fileR.close();
       writer.close(); 
       reader.close(); 
-      File file = new File("..\\Database\\temp.txt");
+      File file = new File(tempFile);
       file.delete();
-      boolean successful = tempFile.renameTo(new File("..\\Database\\temp.txt"));
+      boolean successful = tempF.renameTo(new File(tempFile));
+      boolean inTheList=false;
+            int index=-1;
+            for (int i=0; i<transactionItem.size();i++){
+              if (ID==transactionItem.get(i).getItemID()){
+                index=i;
+                inTheList=true;
+                
+              }
+            }
+            if (inTheList==true&&index>=0){
+              
+             
+              transactionItem.remove(transactionItem.get(index));
+              System.out.println("Press 'e' to remove another item. Press 'f' to close cart.");
+            }
+            else
+              System.out.println("The item is not in your cart.Press 'e' to try again");
       System.out.println("success");
     }
     catch(FileNotFoundException ex) {
@@ -333,7 +336,7 @@ public class PointOfSale {
   {
     boolean ableToOpen=true;
     try{
-      FileReader fileR = new FileReader("../Database/temp.txt");
+      FileReader fileR = new FileReader(tempFile);
       BufferedReader textReader = new BufferedReader(fileR);
       String line=null;
       int numLine=0;
@@ -376,40 +379,60 @@ public class PointOfSale {
                          "Error reading file 'temp'");  
       ableToOpen = false;
     }
-    
-    int itemID; int amount;
-    
-    if (inventory.accessInventory(databaseFile, databaseItem) == true) //if can access inventory
-    {
-      Scanner cashierInput = new Scanner(System.in);
-      do //must register at least one item
+    try{
+   int itemID; int amount;
+      if (inventory.accessInventory(databaseFile, databaseItem) == true) //if can access inventory
       {
-        //Cashier enters itemID and amount
-        System.out.println("Enter itemID");
-        itemID=checkInt();
+        Scanner cashierInput = new Scanner(System.in);
+        System.out.println("Press 'e' to insert another item. Press 'f' to close cart.");//determines if there is more items to be added
+        while (cashierInput.next().equals("e")) 
+        {
+          FileWriter fw = new FileWriter(tempFile,true);
+          BufferedWriter bw = new BufferedWriter(fw);
+          //Cashier enters itemID and amount
+          System.out.println("Enter itemID");
+          itemID=checkInt();
+          
+          System.out.println("Enter amount");
+          amount =checkInt();
+          
+          //Calls the enterItem method
+          if (enterItem(itemID,amount) == false)
+            System.out.println("Item not found. Press 'e' to try again");
+          else{//add items and amount into temp
+            bw.write(itemID +" "+ amount);
+            bw.write(System.getProperty( "line.separator" ));
+            bw.close();
+            System.out.println("Press 'e' to insert another item. Press 'f' to close cart.");
+          }
+        } //press e to add more items
+        System.out.println("Do you want to remove any item? y-yes");
+        if (cashierInput.next().equals("y")){
+          do{
+            System.out.println("Enter the item number you would like to remove");
+            int remove=checkInt();
+             removeItems(remove);
+          }while(cashierInput.next().equals("e"));
+        }
+        //ask for coupon
+        coupon();
         
-        System.out.println("Enter amount");
-        amount =checkInt();
-        
-        //Calls the enterItem method
-        if (enterItem(itemID,amount) == false)
-          System.out.println("Item not found. Press e to try again");
-        
-      } while (cashierInput.next().equals("e")); //press e to add more items
-      
-      //ask for coupon
-      coupon();
-      
-      //cancel sale
-      System.out.println("Do you want to keep the sale?");
-      if (cashierInput.next().equals("no")){
-        cancelSales();}
-    }
+        //cancel sale
+        System.out.println("Do you want to keep the sale?");
+        if (cashierInput.next().equals("no")){
+          cancelSales();}
+      }
     else
-    {
-      System.out.println("Can't access database.");  
+      {
+        System.out.println("Can't access database.");  }
     }
-  } 
+    
+    catch (IOException e)
+    {
+      System.err.println("Error: " + e.getMessage());
+    }
+    
+  }
 
 
   public void taxCalculator ()

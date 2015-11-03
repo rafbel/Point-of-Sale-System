@@ -37,7 +37,9 @@ public class Sale extends PointOfSale{
  
  public void continueT(){
    continueTrans(itemDatabaseFile);
+   endPOS(itemDatabaseFile,true,null);
  }
+
   
 }
  

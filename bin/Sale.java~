@@ -1,46 +1,57 @@
-//latest push added operating system detection for pathing
-import java.io.*; 
-public class Sale extends PointOfSale{
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.io.FileNotFoundException;
+import java.io.*;
+import java.util.*;
 
- //attributes
- //private static String databaseFile = "..\\Database\\itemDatabase.txt"; //determines the name of the databaseFile for sale
- 
- //methods
- 
- //constructor
- public Sale() {
- }
- 
- public void newSale()
- {
-   try{
-    File file = new File("..\\Database\\temp.txt");
-
-   // if file doesnt exists, then create it
-   if (!file.exists()) {
-    file.createNewFile();
-   }
-
-   FileWriter fw = new FileWriter(file.getAbsoluteFile());
-   BufferedWriter bw = new BufferedWriter(fw);
-   bw.write("Sale");
-   bw.write(System.getProperty( "line.separator" ));
-   bw.close();
-
-
-  } catch (IOException e) {
-   e.printStackTrace();
+public class Sale{ 
+  public Sale() {
   }
-  startNew(itemDatabaseFile);
-  endPOS(itemDatabaseFile,true,null);
- }
- 
- public void continueT(){
-   continueTrans(itemDatabaseFile);
-   endPOS(itemDatabaseFile,true,null);
- }
-
   
+  public void startNew(String textFile){  
+    try{
+      String temp = "../Database/temp.txt";
+      if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
+        temp = "..\\Database\\temp.txt"; 
+      }
+      File file = new File(temp);
+      file.delete();
+      // if file doesnt exists, then create it
+      if (!file.exists()) {
+        file.createNewFile();
+      }
+      
+      FileWriter fw = new FileWriter(file.getAbsoluteFile());
+      BufferedWriter bw = new BufferedWriter(fw);
+      bw.write("Sale");
+      bw.write(System.getProperty( "line.separator" ));
+      bw.close();
+      
+      
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    
+    PointOfSale point=new POS();
+    point.detectSystem();
+    point.addItems(textFile);
+    point.removeItems();
+    point.coupon();
+    point.endPOS(textFile);
+  }
+  
+  public void continueT(String textFile){
+    PointOfSale point=new POS();
+    point.detectSystem();
+    point.retrieveTemp(textFile);
+    System.out.println("Do you want to continue adding items? y- Yes");
+    Scanner scan=new Scanner(System.in);
+    String bool=scan.next();
+    if(bool.equals("y")){
+      point.addItems(textFile);
+    }
+    point.removeItems();
+    point.coupon();
+    point.endPOS(textFile);
+  }
 }
- 
-

@@ -1,9 +1,9 @@
 import java.util.*;
 import java.io.*;
 public class EmployeeManagement{
-  String temp ="Database/newEmployeeDatabase.txt";
+  String temp ="../Database/newEmployeeDatabase.txt";
   public boolean unixOS = true; 
-  public static String employeeDatabase = "Database/employeeDatabase.txt";
+  public static String employeeDatabase = "../Database/employeeDatabase.txt";
   public List<Employee> employees = new ArrayList<Employee>();
   public EmployeeManagement(){}
   public void add(){

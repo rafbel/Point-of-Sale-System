@@ -10,7 +10,7 @@ public class Management {
  public Management(){
    
    if (System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-     userDatabase="..\\Database\\userDatabase.txt";
+     //userDatabase="..\\Database\\userDatabase.txt";
    }
    else{
      userDatabase= "../Database/userDatabase.txt";
@@ -225,6 +225,7 @@ public class Management {
           } catch (NumberFormatException e) {  
             continue;  
           } 
+          System.out.println("comparing "+ nextPhone+" == "+ phone);
           if(nextPhone == phone)//finds the user in the database
           { 
            

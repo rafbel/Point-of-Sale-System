@@ -10,9 +10,9 @@ public class Sale{
   
   public void startNew(String textFile){  
     try{
-      String temp = "../Database/temp.txt";
+      String temp = "Database/temp.txt";
       if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-        temp = "..\\Database\\temp.txt"; 
+        //temp = "..\\Database\\temp.txt";  //changed to support netbeans
       }
       File file = new File(temp);
       file.delete();

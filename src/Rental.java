@@ -11,9 +11,9 @@ public class Rental{
   
   public void startNew(String textFile){
     
-    String temp = "../Database/temp.txt";
+    String temp = "Database/temp.txt";
     if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-      temp = "..\\Database\\temp.txt"; 
+      //temp = "..\\Database\\temp.txt";  //commented to support netbeans
     }
     try{ 
       File file = new File(temp);

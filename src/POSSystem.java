@@ -6,9 +6,9 @@ import java.io.FileNotFoundException;
 
 public class POSSystem{
   public boolean unixOS = true; 
-  public static String employeeDatabase = "../Database/employeeDatabase.txt";
-  public static String rentalDatabaseFile = "../Database/rentalDatabase.txt"; 
-  public static String itemDatabaseFile = "../Database/itemDatabase.txt"; 
+  public static String employeeDatabase = "Database/employeeDatabase.txt";
+  public static String rentalDatabaseFile = "Database/rentalDatabase.txt"; 
+  public static String itemDatabaseFile = "Database/itemDatabase.txt"; 
   public List<Employee> employees = new ArrayList<Employee>();
   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
   Calendar cal=null;
@@ -16,10 +16,10 @@ public class POSSystem{
   
   private void readFile(){
     if (System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-      unixOS = false; 
-      employeeDatabase = "..\\Database\\employeeDatabase.txt";
-      rentalDatabaseFile = "..\\Database\\rentalDatabase.txt"; 
-      itemDatabaseFile = "..\\Database\\itemDatabase.txt";
+      //unixOS = false; //commented out to support netbeans 
+      //employeeDatabase = "..\\Database\\employeeDatabase.txt";
+      //rentalDatabaseFile = "..\\Database\\rentalDatabase.txt"; 
+      //itemDatabaseFile = "..\\Database\\itemDatabase.txt";
     }
     boolean ableToOpen = true;
     
@@ -106,9 +106,9 @@ public class POSSystem{
     //retrieve the incomplete transaction
     boolean ableToOpen = true;
     
-    String temp = "../Database/temp.txt";
+    String temp = "Database/temp.txt";
     if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-      temp = "..\\Database\\temp.txt"; 
+      //temp = "..\\Database\\temp.txt"; //commented out to support netbeans
     }
     
     File f=new File(temp);
@@ -224,9 +224,9 @@ public class POSSystem{
   
   private void logInToFile(String username,String name,String position,Calendar cal){
     try{
-      String temp = "../Database/employeeLogfile.txt";
+      String temp = "Database/employeeLogfile.txt";
       if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-        temp = "..\\Database\\employeeLogfile.txt"; 
+        //temp = "..\\Database\\employeeLogfile.txt";  //commented out to support netbeans
       }
       FileWriter fw = new FileWriter(temp,true);
       BufferedWriter bw = new BufferedWriter(fw);
@@ -245,9 +245,9 @@ public class POSSystem{
   
   private void logOutToFile(String username,String name,String position,Calendar cal){
     try{
-      String temp = "../Database/employeeLogfile.txt";
+      String temp = "Database/employeeLogfile.txt";
       if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-        temp = "..\\Database\\employeeLogfile.txt"; 
+        //temp = "..\\Database\\employeeLogfile.txt"; 
       }
       FileWriter fw = new FileWriter(temp,true);
       BufferedWriter bw = new BufferedWriter(fw);

@@ -9,9 +9,9 @@ abstract class PointOfSale {
   public double tax=0;
   
   //public static String rentalDatabaseFile = "../Database/rentalDatabase.txt"; 
-  public static String couponNumber = "../Database/couponNumber.txt";
+  public static String couponNumber = "Database/couponNumber.txt";
   //determines the name of the databaseFile for sale
-  public static String tempFile="../Database/temp.txt";
+  public static String tempFile="Database/temp.txt";
   //detects windows OS, changes databaseFile string to use "\" protocol
   /*if (System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
    unixOS = false; 
@@ -264,9 +264,9 @@ abstract class PointOfSale {
   
   public void detectSystem(){
     if (System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-      unixOS = false; 
-      couponNumber= "..\\Database\\couponNumber.txt"; 
-      tempFile="..\\Database\\temp.txt";
+      //unixOS = false; //these lines are commented out for running on netbeans, which uses a linux protocol despite OS
+      //couponNumber= "..\\Database\\couponNumber.txt"; 
+      //tempFile="..\\Database\\temp.txt";
     }
   }
   

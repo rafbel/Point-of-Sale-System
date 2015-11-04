@@ -10,9 +10,9 @@ public class POR extends PointOfSale {
   public void deleteTempItem(int id){
     boolean ableToOpen=true;
     try{
-      String temp = "../Database/newTemp.txt";
+      String temp = "Database/newTemp.txt";
       if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-        temp = "..\\Database\\newTemp.txt"; 
+        //temp = "..\\Database\\newTemp.txt"; 
       }
       File tempF = new File(temp);
       FileReader fileR = new FileReader(tempFile);

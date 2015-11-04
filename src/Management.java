@@ -10,10 +10,10 @@ public class Management {
  public Management(){
    
    if (System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-     userDatabase="..\\Database\\userDatabase.txt";
+     //userDatabase="..\\Database\\userDatabase.txt";
    }
    else{
-     userDatabase= "../Database/userDatabase.txt";
+     userDatabase= "Database/userDatabase.txt";
    }
    
  }

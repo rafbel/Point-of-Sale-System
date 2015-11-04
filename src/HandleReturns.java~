@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class HandleReturns
 {
  
- private static final String rentedDatabaseFile = "Database/rentalDatabase.txt";
- private static final String saleDatabaseFile = "Database/itemDatabase.txt";
+ private static final String rentedDatabaseFile = "../Database/rentalDatabase.txt";
+ private static final String saleDatabaseFile = "../Database/itemDatabase.txt";
  private double totalPrice;
  private Management management = new Management();
  

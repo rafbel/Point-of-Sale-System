@@ -9,9 +9,9 @@ public class POS extends PointOfSale {
   public void deleteTempItem(int id){
     boolean ableToOpen=true;
     try{
-      String temp = "../Database/newTemp.txt";
+      String temp = "Database/newTemp.txt";
       if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-        temp = "..\\Database\\newTemp.txt"; 
+        //temp = "..\\Database\\newTemp.txt"; 
       }
       File tempF = new File(temp);
       FileReader fileR = new FileReader(tempFile);
@@ -69,9 +69,9 @@ public class POS extends PointOfSale {
     try{
       DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
   Calendar cal = Calendar.getInstance();
-      String t = "../Database/saleInvoiceRecord.txt";
+      String t = "Database/saleInvoiceRecord.txt";
       if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-        t = "..\\Database\\saleInvoiceRecord.txt"; 
+        //t = "..\\Database\\saleInvoiceRecord.txt"; 
       }
       FileWriter fw2 = new FileWriter(t,true);
       BufferedWriter bw2 = new BufferedWriter(fw2);

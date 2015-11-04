@@ -2,17 +2,17 @@ import java.io.*;
 import java.util.*;
 
 public class POR extends PointOfSale {
-  int phoneNum;
+  long phoneNum;
   
-  public POR(){
-    this.phoneNum = 0;
+  public POR(long phoneNum){
+    this.phoneNum = phoneNum;
   };
   public void deleteTempItem(int id){
     boolean ableToOpen=true;
     try{
-      String temp = "../Database/newTemp.txt";
+      String temp = "Database/newTemp.txt";
       if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-        temp = "..\\Database\\newTemp.txt"; 
+        //temp = "..\\Database\\newTemp.txt"; 
       }
       File tempF = new File(temp);
       FileReader fileR = new FileReader(tempFile);
@@ -20,7 +20,8 @@ public class POR extends PointOfSale {
       BufferedWriter writer = new BufferedWriter(new FileWriter(tempF));
       String type= reader.readLine();
       String phone=reader.readLine();
-   this.phoneNum = Integer.parseInt(phone);
+      //this.phoneNum = Long.parseLong(phone);
+      //System.out.println(this.phoneNum);
       writer.write(type);
       writer.write(System.getProperty("line.separator"));
       writer.write(phone);

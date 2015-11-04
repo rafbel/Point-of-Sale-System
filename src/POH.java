@@ -81,8 +81,8 @@ public class POH extends PointOfSale
                //Applies a value to be payed depending on the amount of days it is late. If it is not late, no value is applied
                itemPrice = transactionItem.get(transactionCounter).getPrice()* 0.1 * returnList.get(returnCounter).getDays();
                totalPrice += itemPrice;
-               System.out.println("Item Name: " + transactionItem.get(transactionCounter).getItemName() + "Days Late: " 
-                                    + returnList.get(returnCounter).getDays() + "To be paid: " + itemPrice);
+               System.out.println("Item Name: " + transactionItem.get(transactionCounter).getItemName() + "    Days Late: " 
+                                    + returnList.get(returnCounter).getDays() + "   To be paid: " + itemPrice);
                System.out.println("Total: " + totalPrice);
              }
            }

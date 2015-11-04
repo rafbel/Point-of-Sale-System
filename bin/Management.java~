@@ -4,7 +4,7 @@ import java.text.*;
 
 public class Management {
  
- private static String userDatabase = "Database/userDatabase.txt" ;
+ private static String userDatabase;
  
  
  public Management(){
@@ -13,7 +13,7 @@ public class Management {
      //userDatabase="..\\Database\\userDatabase.txt";
    }
    else{
-     userDatabase= "Database/userDatabase.txt";
+     userDatabase= "../Database/userDatabase.txt";
    }
    
  }
@@ -67,7 +67,7 @@ public class Management {
    long nextPh = 0;
    boolean outstandingReturns = false;
    
-   SimpleDateFormat formatter =  new SimpleDateFormat("MM/dd/yy");
+   SimpleDateFormat formatter =  new SimpleDateFormat("MM/dd/yyyy");
    List<ReturnItem> returnList = new ArrayList<ReturnItem>(); //this list will store all items to be used in this sale
    
    String thisReturnDate = null;
@@ -108,23 +108,10 @@ public class Management {
                  thisReturnDate = line.split(" ")[i].split(",")[1];
                  
                  try {
-                	 
-                	 /*Calendar cal1 = new GregorianCalendar();
-                     Calendar cal2 = new GregorianCalendar();
-
-                     SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
-
-                     Date date = sdf.parse("your first date");
-                     cal1.setTime(date)
-                     date = sdf.parse("your second date");
-                     cal2.setTime(date);*/
-
-     //Calendar todaysDate = 
      Date returnDate = formatter.parse(thisReturnDate);
      Calendar with = Calendar.getInstance();
      with.setTime(returnDate);
-    if (( numberDaysPassed = daysBetween(with) )< 0)
-		numberDaysPassed = 0;
+     numberDaysPassed = daysBetween (with);
      ReturnItem returnItem = new ReturnItem(Integer.parseInt(line.split(" ")[i].split(",")[0]) , numberDaysPassed );
      returnList.add(returnItem);
      
@@ -192,9 +179,6 @@ public class Management {
          return extraDays - dayTwo.get(Calendar.DAY_OF_YEAR) + dayOneOriginalYearDays ;
      }
  }
- 
- //private int daysBetween(Date d1, Date d2) { return (int)( (d2.getTime() - d1.getTime()) / (1000 * 60 * 60 * 24));}
- 
  
  public boolean createUser(Long phone){
 
@@ -343,8 +327,8 @@ public class Management {
                         modifiedLine += " " + line.split(" ")[i].split(",")[0] + "," + dateFormat + "," + "true";
           
                        }
-                      /*if (returnCounter == returnedList.size() )
-                       modifiedLine += line.split(" ")[i]; //not returning this item now*/
+                      if (returnCounter == returnedList.size() )
+                       modifiedLine += line.split(" ")[i]; //not returning this item now
                      }
                    
                      

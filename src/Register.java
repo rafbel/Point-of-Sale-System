@@ -3,6 +3,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.io.*;
+import javax.swing.JFrame;
 
 public class Register {
   public static void main(String[] args)
@@ -20,7 +21,13 @@ public class Register {
     //EDIT ITEM DATABASE : add new items, delete existing items, override price, quantity 
     //EDIT COUPON DATABASE: add coupons, delete coupons, change coupons
     //EDIT CUSTOMER DATABASE: should have the same functionality as a regular cashier during a 
-    Scanner scan=new Scanner(System.in);
+	  
+	  
+	 Login_Interface loginInterface = new Login_Interface();
+	 loginInterface.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	 loginInterface.setVisible(true);
+	 
+    /*Scanner scan=new Scanner(System.in);
     boolean startUp=true;
     String func="";
     while(startUp==true){
@@ -42,7 +49,7 @@ public class Register {
           
       }
       
-    }
+    }*/
   }
   
 }

@@ -1,4 +1,7 @@
 import java.util.Scanner;
+
+import javax.swing.JFrame;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -21,12 +24,13 @@ public class Register {
     //EDIT ITEM DATABASE : add new items, delete existing items, override price, quantity 
     //EDIT COUPON DATABASE: add coupons, delete coupons, change coupons
     //EDIT CUSTOMER DATABASE: should have the same functionality as a regular cashier during a 
+	
+	//Starts the user interface for log in
 	  
+	Login_Interface loginInterface = new Login_Interface();
+	loginInterface.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	loginInterface.setVisible(true);
 	  
-	 Login_Interface loginInterface = new Login_Interface();
-	 loginInterface.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-	 loginInterface.setVisible(true);
-	 
     /*Scanner scan=new Scanner(System.in);
     boolean startUp=true;
     String func="";

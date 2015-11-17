@@ -6,7 +6,7 @@ abstract class PointOfSale {
   public double totalPrice=0;
   private static float discount = 0.90f;
   public boolean unixOS = true; 
-  public double tax=0;
+  public double tax=1.06;
   
   //public static String rentalDatabaseFile = "../Database/rentalDatabase.txt"; 
   public static String couponNumber = "Database/couponNumber.txt";
@@ -53,6 +53,14 @@ abstract class PointOfSale {
         }
       } while (cashierInput.next().equals("e")); //press e to add more items
     }
+  }
+  
+  public boolean startNew(String databaseFile)
+  {
+	  if (inventory.accessInventory(databaseFile, databaseItem) == true) //if can access inventory
+	    return true;
+	  
+	  return false;
   }
   
   public boolean enterItem(int itemID, int amount) //might include in a "mother class" in the future
@@ -313,6 +321,29 @@ abstract class PointOfSale {
     }
   }
   
+  public boolean removeItems(int itemID)
+  {
+	  boolean inTheList=false;
+      int index=-1;
+      for (int i=0; i<transactionItem.size();i++){
+        if (itemID==transactionItem.get(i).getItemID()){
+          index=i;
+          inTheList=true;                
+        }
+      }
+      if (inTheList==true){
+        deleteTempItem(itemID);
+        transactionItem.remove(transactionItem.get(index));
+        if (transactionItem.size()==0){
+          System.out.println("The cart is empty. Thank you");
+          File file=new File (tempFile);
+          file.delete();
+        }
+        return true;
+      }
+      return false;
+  }
+  
   public void detectSystem(){
     if (System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
       //unixOS = false; //these lines are commented out for running on netbeans, which uses a linux protocol despite OS
@@ -345,6 +376,7 @@ abstract class PointOfSale {
     return a;
   }
   
+  public Item lastAddedItem() {return transactionItem.get(transactionItem.size() - 1); }
   
   public abstract void endPOS(String textFile);
   public abstract void deleteTempItem(int id);

@@ -1,0 +1,141 @@
+import java.awt.Color;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextArea;
+
+public class Transaction_Interface extends JFrame implements ActionListener
+{
+	private PointOfSale transaction;
+	private Management management = new Management();
+	
+	private JButton addItem;
+	private JButton removeItem;
+	private JButton endTransaction;
+	private JButton cancelTransaction;
+	private String phone;	
+	private long phoneNum;
+	private JTextArea transactionDialog;
+	
+	private String databaseFile;
+	
+	public Transaction_Interface(String operation)
+	{
+		super ("SG Technologies - Transaction View");
+		setLayout(null);
+		
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		int xSize = ((int) tk.getScreenSize().getWidth());
+		int ySize = ((int) tk.getScreenSize().getHeight());
+		
+		setSize(xSize,ySize);
+		//setLocation(500,280);
+		
+		addItem = new JButton("Add Item");
+		addItem.setBounds(xSize*4/5,ySize/5,150,80);
+		add(addItem);
+		
+		removeItem = new JButton("Remove Item");
+		removeItem.setBounds(xSize*4/5,ySize*2/5,150,80);
+		add(removeItem);
+		
+		endTransaction = new JButton("End");
+		endTransaction.setBounds(xSize*4/5,ySize*3/5,150,80);
+		add(endTransaction);
+		
+		cancelTransaction = new JButton("Cancel");
+		cancelTransaction.setBounds(xSize*4/5,ySize*4/5,150,80);
+		add(cancelTransaction);
+		
+		addItem.addActionListener(this);
+		removeItem.addActionListener(this);
+		endTransaction.addActionListener(this);
+		cancelTransaction.addActionListener(this);
+		
+		
+		transactionDialog=new JTextArea(300,300);  
+		transactionDialog.setBounds(xSize/16,ySize/16,3*xSize/5,4*ySize/5);  
+
+		      
+		transactionDialog.setBackground(Color.white);  
+		transactionDialog.setForeground(Color.black);  
+		transactionDialog.setEditable(false);
+		add(transactionDialog);
+		
+		
+		if (operation.equals("Sale"))
+		{
+			transaction = new POS();
+			databaseFile = "Database/itemDatabase.txt";
+		}
+		
+		if (operation.equals("Rental"))
+		{
+			getCustomerPhone();
+			transaction = new POR(phoneNum);
+		}
+		
+		if (operation.equals("Return"))
+		{
+			
+			getCustomerPhone();
+			transaction = new POH(phoneNum);
+		}
+		
+		transaction.startNew(databaseFile);
+		
+	}
+	
+	public void actionPerformed(ActionEvent event)
+	{
+		if (event.getSource() == addItem)
+		{
+			EnterItem_Interface enterItem = new EnterItem_Interface(transaction,true,transactionDialog);
+			enterItem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			enterItem.setVisible(true);
+				
+		}
+		if (event.getSource() == removeItem)
+		{
+			EnterItem_Interface removeItem = new EnterItem_Interface(transaction,false,transactionDialog);
+			removeItem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			removeItem.setVisible(true);
+			
+		}
+		if (event.getSource() == endTransaction) //finish this
+		{
+			transaction.endPOS(databaseFile);
+		}
+		if (event.getSource() == cancelTransaction) //cancels transaction for customer
+		{
+			JOptionPane.showMessageDialog(null,"Transaction Has Been Cancelled");
+			Cashier_Interface cashier = new Cashier_Interface();
+			cashier.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			cashier.setVisible(true);
+			
+			this.setVisible(false);
+			dispose();
+		}
+	}
+	
+	private void getCustomerPhone()
+	{
+		phone = JOptionPane.showInputDialog("Please enter customer's phone number");
+		while ((phoneNum = Long.parseLong(phone)) > 9999999999l || (phoneNum < 1000000000l))
+		{
+			JOptionPane.showMessageDialog(null, "Invalid phone number. Please enter again");
+			phone = JOptionPane.showInputDialog("Please enter customer's phone number");
+		}
+		 if (!management.checkUser(phoneNum))
+		 {
+			 if(management.createUser(phoneNum))
+				 JOptionPane.showMessageDialog(null, "New customer was registered");
+			 else
+				 JOptionPane.showMessageDialog(null, "New customer couldn't be registered");
+		 }
+	}
+}

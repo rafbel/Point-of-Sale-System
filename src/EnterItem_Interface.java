@@ -1,5 +1,6 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -53,15 +54,15 @@ public class EnterItem_Interface extends JFrame implements ActionListener
 		itemToolTip.setBounds(90,30,150,20);
 		add(itemToolTip);
 		
-		if (true){ //if it is adding an item to list, also requests amount
-		amount = new JTextField(15);
-		amount.setToolTipText("amount");
-		amount.setBounds(180,65,150,20);
-		add(amount);
-		
-		amountToolTip = new JLabel("Amount:");
-		amountToolTip.setBounds(90,65,150,20);
-		add(amountToolTip);
+		if (addFlag){ //if it is adding an item to list, also requests amount
+			amount = new JTextField(15);
+			amount.setToolTipText("amount");
+			amount.setBounds(180,65,150,20);
+			add(amount);
+			
+			amountToolTip = new JLabel("Amount:");
+			amountToolTip.setBounds(90,65,150,20);
+			add(amountToolTip);
 		}
 		
 		//LoginHandler loginHandler = new LoginHandler();
@@ -85,7 +86,7 @@ public class EnterItem_Interface extends JFrame implements ActionListener
 				else //Add line to textbox
 				{
 					Item lastItem = transaction.lastAddedItem();
-					String itemString = lastItem.getItemName() + "  " + "x" + lastItem.getAmount() + "   $" + lastItem.getPrice() + "\n";
+					String itemString = lastItem.getItemID() + " \t" + lastItem.getItemName() + " \t" + "x" + lastItem.getAmount() + "\t$" + lastItem.getAmount()*lastItem.getPrice() + "\n";
 					transDialog.append(itemString);
 				}
 					
@@ -97,7 +98,16 @@ public class EnterItem_Interface extends JFrame implements ActionListener
 					JOptionPane.showMessageDialog(null, "No such item on cart");
 
 				else //Remove line from textbox
-					{}
+					{
+					transDialog.setText(null);
+					List <Item> transactionItem = transaction.getCart();
+					for (Item temp: transactionItem)
+					{
+						String itemString = temp.getItemID() + "\t" + temp.getItemName() + " \t" + "x" + temp.getAmount() + "\t$" + temp.getAmount()*temp.getPrice() + "\n";
+						transDialog.append(itemString);
+					}
+					
+					}
 			}
 			this.setVisible(false);
 			dispose();

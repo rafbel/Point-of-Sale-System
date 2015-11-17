@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -61,13 +62,12 @@ public class Transaction_Interface extends JFrame implements ActionListener
 		
 		
 		transactionDialog=new JTextArea();  
-		//transactionDialog.setBounds(xSize/16,ySize/16,3*xSize/5,4*ySize/5);  
-
-		      
 		transactionDialog.setBackground(Color.white);  
 		transactionDialog.setForeground(Color.black);  
 		transactionDialog.setEditable(false);
-		//add(transactionDialog);
+		Font font = transactionDialog.getFont();
+		float size = font.getSize() + 5.0f;
+		transactionDialog.setFont( font.deriveFont(size) );
 		
 		scroll = new JScrollPane (transactionDialog, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

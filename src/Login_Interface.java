@@ -87,7 +87,9 @@ public class Login_Interface extends JFrame implements ActionListener{
 					else if (System.logIn(userAuth, passwordAuth) == 2)	//Enters the system as admin
 					{
 						//Starts the admin interface
-						System.admin();
+						Admin_Interface admin = new Admin_Interface();
+						admin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						admin.setVisible(true);
 						this.setVisible(false);
 						dispose();
 						

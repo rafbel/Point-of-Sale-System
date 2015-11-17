@@ -1,19 +1,11 @@
 import java.util.*;
 import java.io.*;
 public class EmployeeManagement{
-  String temp ="Database/newEmployeeDatabase.txt";
+  String temp ="../Database/newEmployeeDatabase.txt";
   public boolean unixOS = true; 
-  public static String employeeDatabase = "Database/employeeDatabase.txt";
+  public static String employeeDatabase = "../Database/employeeDatabase.txt";
   public List<Employee> employees = new ArrayList<Employee>();
   public EmployeeManagement(){}
-  
-  public List<Employee> getEmployeeList()
-  {
-	  readFile();
-	  return employees;
-  }
-  
-  
   public void add(){
     readFile();
     Scanner scan= new Scanner (System.in);
@@ -47,34 +39,6 @@ public class EmployeeManagement{
       e.printStackTrace();
     }
   }
-  
-  
-  public void add(String name,String password, boolean employee)
-  {
-	  readFile();
-	  String toWrite = "";
-	  int username= (Integer.parseInt(employees.get(employees.size()-1).getUsername())+1);
-	  try{
-	      FileWriter fw = new FileWriter(employeeDatabase,true);
-	      BufferedWriter bw = new BufferedWriter(fw);
-	      if (employee)
-	    	  toWrite = Integer.toString(username) +" "+ "Cashier" +" " + name +" "+password;
-	      else
-	    	  toWrite = Integer.toString(username) +" "+ "Admin" +" " + name +" "+password;
-	      //bw.write(System.getProperty( "line.separator" ));
-	      bw.write(toWrite);
-	      bw.write(System.getProperty( "line.separator" ));
-	      bw.close();
-	      
-	    } catch (FileNotFoundException e) {
-	      System.out.println("Unable to open file Log File for logIn"); 
-	    }
-	    catch (IOException e) {
-	      e.printStackTrace();
-	    }
-  }
-  
-  
   public void delete(){
     readFile();
     Scanner scan= new Scanner (System.in);

@@ -1,26 +1,23 @@
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.io.FileNotFoundException;
-import java.io.*; 
-
+import java.io.*;
 import java.util.*;
 
-
-public class Rental extends PointOfSale{
+public class Rental{
   
   private Long phone;
-  
-  //private static String databaseFile = "..\\Database\\rentalDatabase.txt"; //Currently assumes windows OS, need to add OS detection
-  
   Management management = new Management();
   
-  public Rental(){
-    
+  public Rental() {
   }
   
-  public void newRental()
-  {
-    try{ File file = new File("..\\Database\\temp.txt");
+  public void startNew(String textFile){
+    
+    String temp = "../Database/temp.txt";
+    if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
+      //temp = "..\\Database\\temp.txt";  //commented to support netbeans
+    }
+    try{ 
+      File file = new File(temp);
+      file.delete();
       // if file doesnt exists, then create it
       if (!file.exists()) {
         file.createNewFile();
@@ -56,9 +53,11 @@ public class Rental extends PointOfSale{
             bw.write(System.getProperty( "line.separator" ));
             bw.close();//end temp log
             management.getLatestReturnDate(phone);
-            startNew(rentalDatabaseFile);
-            endPOS(rentalDatabaseFile,true,null);
-            returnDate();
+            PointOfSale point=new POR(phone);
+            point.addItems(textFile);
+            point.removeItems();
+            point.coupon();
+            point.endPOS(textFile);
           }
           else{
             System.out.println("Couldn't create new user.."); 
@@ -76,54 +75,33 @@ public class Rental extends PointOfSale{
         //returnDate();
         //checking last rented item:
         management.getLatestReturnDate(phone);
-        startNew(rentalDatabaseFile);
-        endPOS(rentalDatabaseFile,true,null);
-        returnDate();
-        //to do:
-        //1) query user for item id
-        //2) check to see if item id exists in rentalDatabase, if not go back to 1
-        //3) produce total$ to rent (no tax.. I'm pretty sure you dont pay tax for renting things
-        //4) add the item to the users line on the userDB
         
         
+        PointOfSale point=new POR(phone);
+        point.detectSystem();
+        point.addItems(textFile);
+        point.removeItems();
+        point.coupon();
+        point.endPOS(textFile);
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-  
-  
-  
-  
-  
-  
-  
-  private void returnDate()
-  {
-    DateFormat dateFormat = new SimpleDateFormat("EEE, MMM d, ''yy");
-    Calendar cal = Calendar.getInstance();
-    int year,month,day;
-    
-    System.out.print("Today's date: ");
-    System.out.println(dateFormat.format(cal.getTime())); //prints today's date
-    
-    System.out.print("Return Date: ");
-    
-    cal.add(Calendar.DAY_OF_MONTH, 14);
-    
-    System.out.println(dateFormat.format(cal.getTime())); //prints return date
-    
-    year = cal.get(Calendar.YEAR); //stores return year
-    month = cal.get(Calendar.MONTH) + 1; //stores return month
-    day = cal.get(Calendar.DAY_OF_MONTH); //stores return day
-    
-    //Matt add the return date values for the user rented items in your database. We decided to assume the return date will be fixed:
-    //2 weeks from now
     
   }
   
-  public void continueT(){
-    continueTrans(rentalDatabaseFile);
+  public void continueT(String textFile){
+    PointOfSale point=new POR(this.phone);
+    point.detectSystem();
+    point.retrieveTemp(textFile);
+    System.out.println("Do you want to continue adding items? y- Yes");
+    Scanner scan=new Scanner(System.in);
+    String bool=scan.next();
+    if(bool.equals("y")){
+      point.addItems(textFile);
+    }
+    point.removeItems();
+    point.coupon();
+    point.endPOS(textFile);
   }
-  
 }

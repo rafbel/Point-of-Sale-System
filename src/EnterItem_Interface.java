@@ -24,6 +24,7 @@ public class EnterItem_Interface extends JFrame implements ActionListener
 			
 			private JTextArea transDialog;
 			
+			
 	public EnterItem_Interface(PointOfSale transac,boolean addFlag,JTextArea transactionDialog)
 	{
 		super ("SG Technologies - Enter Item");

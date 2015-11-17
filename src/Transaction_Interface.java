@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextArea;
 
@@ -22,6 +23,8 @@ public class Transaction_Interface extends JFrame implements ActionListener
 	private JTextArea transactionDialog;
 	
 	private String databaseFile;
+	
+	JScrollPane scroll;
 	
 	public Transaction_Interface(String operation)
 	{
@@ -57,15 +60,19 @@ public class Transaction_Interface extends JFrame implements ActionListener
 		cancelTransaction.addActionListener(this);
 		
 		
-		transactionDialog=new JTextArea(300,300);  
-		transactionDialog.setBounds(xSize/16,ySize/16,3*xSize/5,4*ySize/5);  
+		transactionDialog=new JTextArea();  
+		//transactionDialog.setBounds(xSize/16,ySize/16,3*xSize/5,4*ySize/5);  
 
 		      
 		transactionDialog.setBackground(Color.white);  
 		transactionDialog.setForeground(Color.black);  
 		transactionDialog.setEditable(false);
-		add(transactionDialog);
+		//add(transactionDialog);
 		
+		scroll = new JScrollPane (transactionDialog, 
+				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scroll.setBounds(xSize/16,ySize/16,3*xSize/5,4*ySize/5);  
+		add(scroll);
 		
 		if (operation.equals("Sale"))
 		{

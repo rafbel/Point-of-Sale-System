@@ -100,7 +100,7 @@ public class POSSystem{
     scan.close();
   }
   
-  private void cashier(){
+  public void cashier(){
     String choice="p";
     Scanner cashierInput=new Scanner(System.in);
     //retrieve the incomplete transaction
@@ -191,7 +191,7 @@ public class POSSystem{
     cashierInput.close();
   }
   
-  private void admin(){
+  public void admin(){
     String choice="p";
     Scanner cashierInput=new Scanner(System.in);
     while (!choice.equals("o"))
@@ -199,6 +199,7 @@ public class POSSystem{
       System.out.println("Press a to add employee information");
       System.out.println("Press d to delete employee information");
       System.out.println("Press u to update employee information");
+      System.out.println("Press p to start POS");
       System.out.println("Press o to log out");
       
       choice = cashierInput.next();
@@ -214,6 +215,9 @@ public class POSSystem{
       else if (choice.equals("u")){
         EmployeeManagement e=new EmployeeManagement();
         e.update();
+      }
+      else if(choice.equals("p")){
+       cashier(); 
       }
       else if(choice.equals("o")){
         logOutToFile((employees.get(index)).getUsername(),(employees.get(index)).getName(),(employees.get(index)).getPosition(),cal);
@@ -263,4 +267,38 @@ public class POSSystem{
       e.printStackTrace();
     }
   }
+  
+  
+  public int logIn(String userAuth, String passAuth){
+     readFile();
+     String username=userAuth;
+     boolean find=false;
+     for(int i=0;i<employees.size();i++){
+       if(username.equals((employees.get(i)).getUsername())){
+          find=true;
+          index=i;
+          break;
+         }
+       }
+     if (find == true)
+     {
+      String password=passAuth;
+      if(!password.equals((employees.get(index)).getPassword())){
+        return 0; //didnt find employee password
+      }
+      
+      else if(((employees.get(index)).getPosition()).equals("Cashier")){
+        return 1;  //returns cashier status
+      }
+      else if(((employees.get(index)).getPosition()).equals("Admin")){
+        return 2; //returns admin status
+      }  
+     }
+     
+     return 0;//didnt find employee username
+  }
+  
+  
+  
+  
 }

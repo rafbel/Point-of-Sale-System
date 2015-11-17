@@ -39,7 +39,7 @@ public class POR extends PointOfSale {
       File file = new File(tempFile);
       file.delete();
       boolean successful = tempF.renameTo(new File(tempFile));
-
+      
     }
     catch(FileNotFoundException ex) {
       System.out.println(
@@ -54,22 +54,29 @@ public class POR extends PointOfSale {
     
   }
   
-public void endPOS(String textFile){
+  public void endPOS(String textFile){
+    boolean bool=true;
     Management man = new Management();
     man.addRental(this.phoneNum, this.transactionItem);
     detectSystem();
     if (transactionItem.size()>0){
-    totalPrice = totalPrice*taxCalculator(); //calculates price with tax
-    //prints total with taxes
-    for (int counter = 0; counter < transactionItem.size(); counter++){
-      //prints item name - price
-      System.out.format("%d %s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemID(),transactionItem.get(counter).getItemName(),
-                        transactionItem.get(counter).getAmount(), 
-                        transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());
+      totalPrice = totalPrice*taxCalculator(); //calculates price with tax
+      //prints total with taxes
+      bool=payment();
+      if(bool==true){
+        for (int counter = 0; counter < transactionItem.size(); counter++){
+          //prints item name - price
+          System.out.format("%d %s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemID(),transactionItem.get(counter).getItemName(),
+                            transactionItem.get(counter).getAmount(), 
+                            transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());
+        }
+        System.out.format("Total with taxes: %.2f\n", totalPrice);
+        inventory.updateInventory(textFile, transactionItem, databaseItem,true);
+      }
     }
-    System.out.format("Total with taxes: %.2f\n", totalPrice);
-    inventory.updateInventory(textFile, transactionItem, databaseItem,true);
-    }
+    //delete log file
+    File file = new File(tempFile);
+    file.delete();
     databaseItem.clear();
     transactionItem.clear();
   }
@@ -96,7 +103,7 @@ public void endPOS(String textFile){
         enterItem(itemNo,itemAmount);
         numLine++;
       }
-
+      
       updateTotal();
     }
     catch(FileNotFoundException ex) {

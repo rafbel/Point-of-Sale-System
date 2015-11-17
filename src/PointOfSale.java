@@ -93,6 +93,45 @@ abstract class PointOfSale {
     
   }
   
+  public boolean payment(){
+    boolean r=true;
+    System.out.println("The total price with tax is "+totalPrice);
+    System.out.println("What payment do you want to choose? 1-Cash 2-Credit Card");
+    Scanner scan=new Scanner(System.in);
+    String pay=scan.next();
+    while(!pay.equals("1")&&!pay.equals("2")){
+      System.out.println("Wrong number. Please enter again");
+      pay=scan.next();
+    }
+    if(pay.equals("1")){
+      r=cash();
+    }
+    else if(pay.equals("2")){
+      credit();
+    }
+    return r;
+  }
+  
+  public boolean cash(){
+    Scanner scan=new Scanner(System.in);
+    System.out.println("Please enter the number customer actual paid.");
+    double totalPay=checkDouble();
+    double remain=totalPrice-totalPay;
+    if(remain<0){
+      System.out.println("You don't have enough money. The transaction is cancelled.");
+      return false;
+    }
+    else{
+      System.out.println("The change is "+remain); 
+      return true;
+    }
+  }
+  
+  public void credit(){
+    System.out.println("Please enter the credit card number.");
+    String num=creditCard();
+  }
+  
   public void coupon(){
     detectSystem();
     if (transactionItem.size()>0){
@@ -173,6 +212,18 @@ abstract class PointOfSale {
     return Integer.parseInt(scan.next());
   }
   
+  private static double checkDouble(){
+    
+    Scanner scan=new Scanner(System.in);
+    while(!scan.hasNextDouble()){
+      System.out.println("The input is not valid. Please try again."); 
+      
+      scan.next();
+    }
+    
+    return Double.parseDouble(scan.next());
+  }
+  
   public double taxCalculator ()
   {
     System.out.println("Please select your state: 1. PA 2. NJ 3. NY");
@@ -223,43 +274,43 @@ abstract class PointOfSale {
       if(cancel.equals("c")){
         transactionItem.clear();
         System.out.println("The cart is empty. Thank you");
-            File file=new File (tempFile);
-            file.delete();
+        File file=new File (tempFile);
+        file.delete();
       }
       else{
-      
-      boolean e =false;
-      do{
-        System.out.println("Enter the item number you would like to remove");
-        int remove=checkInt();
-        boolean inTheList=false;
-        int index=-1;
-        for (int i=0; i<transactionItem.size();i++){
-          if (remove==transactionItem.get(i).getItemID()){
-            index=i;
-            inTheList=true;                
+        
+        boolean e =false;
+        do{
+          System.out.println("Enter the item number you would like to remove");
+          int remove=checkInt();
+          boolean inTheList=false;
+          int index=-1;
+          for (int i=0; i<transactionItem.size();i++){
+            if (remove==transactionItem.get(i).getItemID()){
+              index=i;
+              inTheList=true;                
+            }
           }
-        }
-        if (inTheList==true){
-          deleteTempItem(remove);
-          transactionItem.remove(transactionItem.get(index));
-          if (transactionItem.size()==0){
-            System.out.println("The cart is empty. Thank you");
-            File file=new File (tempFile);
-            file.delete();
-            e=false;
+          if (inTheList==true){
+            deleteTempItem(remove);
+            transactionItem.remove(transactionItem.get(index));
+            if (transactionItem.size()==0){
+              System.out.println("The cart is empty. Thank you");
+              File file=new File (tempFile);
+              file.delete();
+              e=false;
+            }
+            else if (transactionItem.size()>0){
+              updateTotal();
+              System.out.println("Press 'e' to remove another item. Press anything else to close cart.");
+              e=cashierInput.next().equals("e");
+            }
           }
-          else if (transactionItem.size()>0){
-            updateTotal();
-            System.out.println("Press 'e' to remove another item. Press anything else to close cart.");
-            e=cashierInput.next().equals("e");
-          }
-        }
-        else
-          System.out.println("The item is not in your cart.Press 'e' to try again");
-      }while(e&&transactionItem.size()>0);
+          else
+            System.out.println("The item is not in your cart.Press 'e' to try again");
+        }while(e&&transactionItem.size()>0);
+      }
     }
-  }
   }
   
   public void detectSystem(){
@@ -269,6 +320,31 @@ abstract class PointOfSale {
       //tempFile="..\\Database\\temp.txt";
     }
   }
+  
+  public static String creditCard(){
+    Scanner scan=new Scanner(System.in);
+    String a=scan.next();
+    int l=a.length();
+    int i=0;
+    while(l!=16){
+      System.out.println("Invalid credit card number. Please enter again.");
+      a=scan.next();
+      l=a.length();
+    }
+    while(i<l){
+      if(a.charAt(i)>'9'||a.charAt(i)<'0'){
+        System.out.println("Invalid credit card number. Please enter again.");
+        i=0;
+        a=scan.next();
+        l=a.length();
+      }
+      else{
+        i++;
+      }
+    }
+    return a;
+  }
+  
   
   public abstract void endPOS(String textFile);
   public abstract void deleteTempItem(int id);

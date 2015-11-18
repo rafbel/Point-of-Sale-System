@@ -144,22 +144,27 @@ public class Transaction_Interface extends JFrame implements ActionListener
 		
 		if (event.getSource() == endTransaction) //goes to payment screen
 		{
-			String coupon ="";
-			if (operation.equals("Sale"))
+			if (transaction.getCartSize() > 0)
 			{
-				coupon = JOptionPane.showInputDialog("Enter coupon code if user has one");
-				if (!coupon.equals(""))
-					if (!transaction.coupon(coupon))
-						JOptionPane.showMessageDialog(null, "Invalid coupon");
+				String coupon ="";
+				if (operation.equals("Sale"))
+				{
+					coupon = JOptionPane.showInputDialog("Enter coupon code if user has one");
+					if (!coupon.equals(""))
+						if (!transaction.coupon(coupon))
+							JOptionPane.showMessageDialog(null, "Invalid coupon");
+				}
+				
+				Payment_Interface payment = new Payment_Interface(transaction,databaseFile,operation,phone);
+				payment.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				payment.setVisible(true);
+				
+				this.setVisible(false);
+				this.dispose();
 			}
 			
-			Payment_Interface payment = new Payment_Interface(transaction,databaseFile,operation,phone);
-			payment.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			payment.setVisible(true);
-			
-			this.setVisible(false);
-			this.dispose();
-			
+			else
+				JOptionPane.showMessageDialog(null, "Cart is currently empty. Please add items before ending transaction");
 		}
 		
 		

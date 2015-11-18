@@ -443,6 +443,7 @@ abstract class PointOfSale {
   
   public Item lastAddedItem() {return transactionItem.get(transactionItem.size() - 1); }
   public List <Item> getCart(){return transactionItem;}
+  public int getCartSize(){return transactionItem.size();}
   
   public abstract double endPOS(String textFile);
   public abstract void deleteTempItem(int id);

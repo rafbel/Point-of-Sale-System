@@ -55,13 +55,10 @@ public class POS extends PointOfSale {
     if (transactionItem.size()>0){
     totalPrice = totalPrice*tax; //calculates price with tax
     //prints total with taxes
-    bool=payment();
+   // bool=payment();
     
-    if(bool==true)
-    {
     //System.out.format("Total with taxes: %.2f\n", totalPrice);
     inventory.updateInventory(textFile, transactionItem, databaseItem,false);
-    }
     }
     //delete log file
     File file = new File(tempFile);

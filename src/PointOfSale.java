@@ -139,6 +139,54 @@ abstract class PointOfSale {
     String num=creditCard();
   }
   
+  
+  public boolean coupon(String couponNo)
+  {
+	  boolean ableToOpen = true;
+      String line = null;
+      int numLine = 0;
+      String[] coupons=new String[1000];
+      try {
+        FileReader fileR = new FileReader(couponNumber);
+        BufferedReader textReader = new BufferedReader(fileR);
+        //reads the entire database
+        while ((line = textReader.readLine()) != null)
+        {
+          coupons[numLine]=line;
+          numLine++;
+        }        
+        
+        textReader.close();
+      }
+      
+      //catches exceptions
+      catch(FileNotFoundException ex) {
+        System.out.println(
+                           "Unable to open file 'couponNumber'"); 
+        ableToOpen = false;
+      }
+      catch(IOException ex) {
+        System.out.println(
+                           "Error reading file 'couponNumber'");  
+        ableToOpen = false;
+      }
+      
+      //check for coupon
+      
+      boolean valid=false;
+      for(int i=0;i<coupons.length;i++){
+        if(couponNo.equals(coupons[i]))
+        {
+          valid=true; 
+          break;
+        }
+      }
+      if (valid)
+    	  totalPrice *=discount;
+      
+      return valid;
+  }
+  
   public void coupon(){
     detectSystem();
     if (transactionItem.size()>0){
@@ -376,6 +424,21 @@ abstract class PointOfSale {
       }
     }
     return a;
+  }
+  
+  public boolean creditCard(String card)
+  {
+	  int length = card.length();
+	  if (length != 16)
+		  return false;
+	  int index = 0;
+	  while (index < length)
+	  {
+		  if (card.charAt(index)>'9' || card.charAt(index) < '0')
+			  return false;
+		  index++;
+	  }
+	  return true;
   }
   
   public Item lastAddedItem() {return transactionItem.get(transactionItem.size() - 1); }

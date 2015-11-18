@@ -24,12 +24,17 @@ public class Transaction_Interface extends JFrame implements ActionListener
 	
 	private String databaseFile;
 	
+	String operation = "";
+	
 	JScrollPane scroll;
 	
 	public Transaction_Interface(String operation)
 	{
 		super ("SG Technologies - Transaction View");
 		setLayout(null);
+		
+		
+		this.operation = operation;
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int xSize = ((int) tk.getScreenSize().getWidth());
@@ -82,6 +87,7 @@ public class Transaction_Interface extends JFrame implements ActionListener
 		if (operation.equals("Rental"))
 		{
 			getCustomerPhone();
+			databaseFile = "Database/rentalDatabase.txt";
 			transaction = new POR(phoneNum);
 		}
 		
@@ -89,6 +95,7 @@ public class Transaction_Interface extends JFrame implements ActionListener
 		{
 			
 			getCustomerPhone();
+			databaseFile = "Database/itemDatabase.txt";
 			transaction = new POH(phoneNum);
 		}
 		
@@ -113,9 +120,18 @@ public class Transaction_Interface extends JFrame implements ActionListener
 			
 		}
 		
-		if (event.getSource() == endTransaction) //finish this
+		if (event.getSource() == endTransaction) //goes to payment screen
 		{
-			Payment_Interface payment = new Payment_Interface(transaction,databaseFile);
+			String coupon ="";
+			if (operation.equals("Sale"))
+			{
+				coupon = JOptionPane.showInputDialog("Enter coupon code if user has one");
+				if (!coupon.equals(""))
+					if (!transaction.coupon(coupon))
+						JOptionPane.showMessageDialog(null, "Invalid coupon");
+			}
+			
+			Payment_Interface payment = new Payment_Interface(transaction,databaseFile,operation);
 			payment.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			payment.setVisible(true);
 			

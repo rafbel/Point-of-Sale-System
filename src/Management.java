@@ -4,7 +4,7 @@ import java.text.*;
 
 public class Management {
  
- private static String userDatabase;
+ private static String userDatabase = "Database/userDatabase.txt";
  
  
  public Management(){

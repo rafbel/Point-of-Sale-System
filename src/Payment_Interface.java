@@ -124,26 +124,28 @@ public class Payment_Interface extends JFrame implements ActionListener
 			cardNo = JOptionPane.showInputDialog("Card Number:");
 			if (!transaction.creditCard(cardNo))
 				JOptionPane.showMessageDialog(null, "Invalid credit card number");
-			
-			String cashBackString;
-			double cashBack;
-			cashBackString = JOptionPane.showInputDialog("If you desire cash back, type the quantity");
-			if (cashBackString.equals(""))
-				cashBack = 0;
 			else
-				cashBack = Double.parseDouble(cashBackString);
-			
-			transactionDialog.append("\n\nCash back: $" + String.format("%.2f",cashBack) + "\n");
-			transactionDialog.append("Total price: $" + String.format("%.2f", cashBack + transaction.getTotal()) + "\n");
-			
-			if (operation.equals("Rental"))
-				appendReturnDate();
-			
-			remove(PayCash);
-			remove(PayElectronic);
-			add(confirm);
-			this.revalidate();
-			this.repaint();
+			{
+				String cashBackString;
+				double cashBack;
+				cashBackString = JOptionPane.showInputDialog("If you desire cash back, type the quantity");
+				if (cashBackString.equals(""))
+					cashBack = 0;
+				else
+					cashBack = Double.parseDouble(cashBackString);
+				
+				transactionDialog.append("\n\nCash back: $" + String.format("%.2f",cashBack) + "\n");
+				transactionDialog.append("Total price: $" + String.format("%.2f", cashBack + transaction.getTotal()) + "\n");
+				
+				if (operation.equals("Rental"))
+					appendReturnDate();
+				
+				remove(PayCash);
+				remove(PayElectronic);
+				add(confirm);
+				this.revalidate();
+				this.repaint();
+			}
 		}
 		
 		if (event.getSource() == confirm)

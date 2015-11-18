@@ -63,10 +63,6 @@ public class Payment_Interface extends JFrame implements ActionListener
 		confirm = new JButton("Confirm Payment");
 		confirm.setBounds(xSize*4/5,ySize/4,150,80);
 		
-		/*cancelTransaction = new JButton("Cancel");
-		cancelTransaction.setBounds(xSize*4/5,ySize*3/4,150,80);
-		add(cancelTransaction);*/
-		
 		
 		transactionDialog=new JTextArea();  
 		transactionDialog.setBackground(Color.white);  
@@ -92,16 +88,6 @@ public class Payment_Interface extends JFrame implements ActionListener
 	
 	public void actionPerformed(ActionEvent event)
 	{
-		/*if (event.getSource() == cancelTransaction) //cancels transaction for customer
-		{
-			JOptionPane.showMessageDialog(null,"Transaction Has Been Cancelled");
-			Cashier_Interface cashier = new Cashier_Interface();
-			cashier.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			cashier.setVisible(true);
-			
-			this.setVisible(false);
-			dispose();
-		}*/
 		
 		if (event.getSource() == PayCash)
 		{

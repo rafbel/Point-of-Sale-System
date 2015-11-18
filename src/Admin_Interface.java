@@ -3,6 +3,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -136,6 +137,11 @@ public class Admin_Interface extends JFrame implements ActionListener{
 		
 		if (event.getSource() == LogOutButton) //logs out
 		{
+			//Registering logout
+			/*POSSystem system = new POSSystem();
+			system.logOutToFile(String username,String name,"Admin",Calendar cal);*/
+			
+			
 			Login_Interface login = new Login_Interface();
 			login.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			login.setVisible(true);

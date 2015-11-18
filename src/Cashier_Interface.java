@@ -1,9 +1,11 @@
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class Cashier_Interface extends JFrame implements ActionListener{
 	
@@ -45,6 +47,52 @@ public class Cashier_Interface extends JFrame implements ActionListener{
 		returnButton.addActionListener(this);
 		LogOutButton.addActionListener(this);
 		
+		POSSystem system = new POSSystem();
+		if (system.checkTemp())
+		{
+			int choice;
+			Object[] options = {"Yes", "No"};
+			
+			choice = JOptionPane.showOptionDialog(null, 
+	            "System was able to restore an unfinished transaction. Would you like to retrieve it?", 
+	            "Choose an option", 
+	            JOptionPane.YES_NO_OPTION, 
+	            JOptionPane.QUESTION_MESSAGE, 
+	            null, 
+	            options, 
+	            options[1]);
+			
+			if (choice == 1)
+			{
+				Management management = new Management();
+				long phoneNum;
+				String phone = JOptionPane.showInputDialog("Please enter customer's phone number");
+				while ((phoneNum = Long.parseLong(phone)) > 9999999999l || (phoneNum < 1000000000l))
+				{
+					JOptionPane.showMessageDialog(null, "Invalid phone number. Please enter again");
+					phone = JOptionPane.showInputDialog("Please enter customer's phone number");
+				}
+				 if (!management.checkUser(phoneNum))
+				 {
+					 if(management.createUser(phoneNum))
+						 JOptionPane.showMessageDialog(null, "New customer was registered");
+					 else
+						 JOptionPane.showMessageDialog(null, "New customer couldn't be registered");
+				 }
+				
+				String operation = system.continueFromTemp(phoneNum);
+				
+				transaction = new Transaction_Interface(operation);
+				transaction.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				transaction.setVisible(true);
+				this.setVisible(false);
+				dispose();
+				
+			}
+			
+		}
+		
+		
 	}
 	
 	public void actionPerformed(ActionEvent event)
@@ -82,6 +130,11 @@ public class Cashier_Interface extends JFrame implements ActionListener{
 		//If logout button is pressed
 		if (event.getSource() == LogOutButton)
 		{
+			//Registering log out in log
+			/*POSSystem system = new POSSystem();
+			system.logOutToFile(String username,String name,"Cashier",Calendar cal);*/
+			
+			
 			Login_Interface login = new Login_Interface();
 			login.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			login.setVisible(true);

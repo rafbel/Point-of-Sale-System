@@ -23,17 +23,18 @@ public class EnterItem_Interface extends JFrame implements ActionListener
 			private boolean checkFlag;
 			private JLabel amountToolTip;
 			private JLabel itemToolTip;
-			
+			private String operation;
 			private JTextArea transDialog;
 			
 			
-	public EnterItem_Interface(PointOfSale transac,boolean addFlag,JTextArea transactionDialog)
+	public EnterItem_Interface(PointOfSale transac,boolean addFlag,JTextArea transactionDialog, String operation)
 	{
 		super ("SG Technologies - Enter Item");
 		setLayout(null);
 		setSize(520,200);
 		setLocation(500,280);
 		
+		this.operation = operation;
 		transaction = transac;
 		checkFlag = addFlag;
 		transDialog = transactionDialog;
@@ -123,7 +124,11 @@ public class EnterItem_Interface extends JFrame implements ActionListener
 			String itemString = temp.getItemID() + "\t" + temp.getItemName() + " \t" + "x" + temp.getAmount() + "\t$" + String.format("%.2f", temp.getAmount()*temp.getPrice()) + "\n";
 			transDialog.append(itemString);
 		}
-		transDialog.append("\nTotal: $" + String.format("%.2f", transaction.getTotal()) + "\n" );
+		
+		if (operation.equals("Return"))
+			transDialog.append("\nTotal Price When Renting: $" + String.format("%.2f", transaction.getTotal()) + "\n" );
+		else
+			transDialog.append("\nTotal: $" + String.format("%.2f", transaction.getTotal()) + "\n" );
 	}
 	
 	public int getItemID() {return Integer.parseInt(ID); }

@@ -129,14 +129,14 @@ public class Transaction_Interface extends JFrame implements ActionListener
 	{
 		if (event.getSource() == addItem)
 		{
-			EnterItem_Interface enterItem = new EnterItem_Interface(transaction,true,transactionDialog);
+			EnterItem_Interface enterItem = new EnterItem_Interface(transaction,true,transactionDialog,operation);
 			enterItem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			enterItem.setVisible(true);
 				
 		}
 		if (event.getSource() == removeItem)
 		{
-			EnterItem_Interface removeItem = new EnterItem_Interface(transaction,false,transactionDialog);
+			EnterItem_Interface removeItem = new EnterItem_Interface(transaction,false,transactionDialog,operation);
 			removeItem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			removeItem.setVisible(true);
 			

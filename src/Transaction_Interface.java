@@ -18,7 +18,7 @@ public class Transaction_Interface extends JFrame implements ActionListener
 	private JButton removeItem;
 	private JButton endTransaction;
 	private JButton cancelTransaction;
-	private String phone;	
+	private String phone ="";	
 	private long phoneNum;
 	private JTextArea transactionDialog;
 	
@@ -90,16 +90,38 @@ public class Transaction_Interface extends JFrame implements ActionListener
 			databaseFile = "Database/rentalDatabase.txt";
 			transaction = new POR(phoneNum);
 		}
-		
+		int choice = 1;
 		if (operation.equals("Return"))
 		{
-			
 			getCustomerPhone();
-			databaseFile = "Database/itemDatabase.txt";
 			transaction = new POH(phoneNum);
+			
+			Object[] options = {"Rented Items",
+                    "Unsatisfactory items"};
+			
+			choice = JOptionPane.showOptionDialog(null, 
+                    "Returning rented items or unsatisfactory items?", 
+                    "Choose an option", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE, 
+                    null, 
+                    options, 
+                    options[0]);
+			
+			if (choice == 0)
+				databaseFile = "Database/rentalDatabase.txt";
+			else
+				databaseFile = "Database/itemDatabase.txt";
 		}
 		
 		transaction.startNew(databaseFile);
+		
+		if (operation.equals("Return") && choice != 0)
+		{
+			//Resets unecessary info for this operation
+			databaseFile = "";
+			operation = "";
+		}
 		
 	}
 	
@@ -131,7 +153,7 @@ public class Transaction_Interface extends JFrame implements ActionListener
 						JOptionPane.showMessageDialog(null, "Invalid coupon");
 			}
 			
-			Payment_Interface payment = new Payment_Interface(transaction,databaseFile,operation);
+			Payment_Interface payment = new Payment_Interface(transaction,databaseFile,operation,phone);
 			payment.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			payment.setVisible(true);
 			

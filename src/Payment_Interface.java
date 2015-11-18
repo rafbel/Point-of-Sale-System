@@ -21,7 +21,6 @@ public class Payment_Interface extends JFrame implements ActionListener
 	private JButton PayElectronic;
 	//private JButton cancelTransaction;
 	private JButton confirm;
-	private String phone;	
 	private long phoneNum;
 	private JTextArea transactionDialog;
 	
@@ -34,7 +33,7 @@ public class Payment_Interface extends JFrame implements ActionListener
 	String operation;
 	
 	
-	public Payment_Interface(PointOfSale transaction, String databaseFile, String operation)
+	public Payment_Interface(PointOfSale transaction, String databaseFile, String operation, String phone)
 	{
 		super ("SG Technologies - Payment View");
 		setLayout(null);
@@ -49,6 +48,9 @@ public class Payment_Interface extends JFrame implements ActionListener
 		setSize(xSize,ySize);
 		
 		this.operation = operation;
+		
+		if (operation.equals("Return"))
+			phoneNum = Long.parseLong(phone);
 		
 		PayCash = new JButton("Cash Payment");
 		PayCash.setBounds(xSize*4/5,ySize/4,150,80);
@@ -172,17 +174,46 @@ public class Payment_Interface extends JFrame implements ActionListener
 	
 	private void updateText()
 	{
-		transactionDialog.setText(null);
-		List <Item> transactionItem = transaction.getCart();
-		for (Item temp: transactionItem)
+		if (operation.equals("Return"))
 		{
-			String itemString = temp.getItemID() + "\t" + temp.getItemName() + " \t" + "x" + temp.getAmount() + "\t$" + String.format("%.2f", temp.getAmount()*temp.getPrice()) + "\n";
-			transactionDialog.append(itemString);
+			List<ReturnItem> returnList;
+			List<Item> transactionItem;
+			
+			Management management = new Management();
+		    returnList = management.getLatestReturnDate(phoneNum);
+		    transactionItem = transaction.getCart();
+		    
+		    double itemPrice = 0;
+		    transactionDialog.setText(null);
+		    for (int transactionCounter = 0; transactionCounter < transactionItem.size(); transactionCounter++)
+		             for (int returnCounter = 0; returnCounter < returnList.size(); returnCounter++)
+		             {
+			             if (transactionItem.get(transactionCounter).getItemID() == returnList.get(returnCounter).getItemID())
+			             {
+			               //Applies a value to be payed depending on the amount of days it is late. If it is not late, no value is applied
+			               itemPrice = transactionItem.get(transactionCounter).getAmount()*transactionItem.get(transactionCounter).getPrice()* 0.1 * returnList.get(returnCounter).getDays();
+			               transactionDialog.append("Item ID: " + transactionItem.get(transactionCounter).getItemID() + "    Item Name: " 
+			            		   					+ transactionItem.get(transactionCounter).getItemName() + "    Amount: x" + transactionItem.get(transactionCounter).getAmount() + 
+			            		   					"    Days Late: " + returnList.get(returnCounter).getDays() + "   To be paid: $" + itemPrice + "\n");
+			               
+			             }
+		             }
+		    transactionDialog.append("\nTotal: $" + String.format("%.2f", transaction.endPOS(database)) + "\n" );
 		}
-		transactionDialog.append("\nTotal: $" + String.format("%.2f", transaction.getTotal()) + "\n" );
-		
-		double totalWithTax = transaction.endPOS(database);
-		transactionDialog.append("Total with taxes: $" + String.format("%.2f", totalWithTax) + "\n");
+		else
+		{
+			transactionDialog.setText(null);
+			List <Item> transactionItem = transaction.getCart();
+			for (Item temp: transactionItem)
+			{
+				String itemString = temp.getItemID() + "\t" + temp.getItemName() + " \t" + "x" + temp.getAmount() + "\t$" + String.format("%.2f", temp.getAmount()*temp.getPrice()) + "\n";
+				transactionDialog.append(itemString);
+			}
+			transactionDialog.append("\nTotal: $" + String.format("%.2f", transaction.getTotal()) + "\n" );
+			
+			double totalWithTax = transaction.endPOS(database);
+			transactionDialog.append("Total with taxes: $" + String.format("%.2f", totalWithTax) + "\n");
+		}
 	}
 	
 	private void appendReturnDate()

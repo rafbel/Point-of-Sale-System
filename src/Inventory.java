@@ -95,7 +95,7 @@ public class Inventory
 		try
 		{
 			File file = new File(databaseFile);		
-			FileWriter fileR = new FileWriter(file.getAbsoluteFile());
+			FileWriter fileR = new FileWriter(file.getAbsoluteFile(),false);
 			BufferedWriter bWriter = new BufferedWriter(fileR);
 			PrintWriter writer = new PrintWriter(bWriter);
 			

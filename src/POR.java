@@ -54,7 +54,7 @@ public class POR extends PointOfSale {
     
   }
   
-  public void endPOS(String textFile){
+  public double endPOS(String textFile){
     boolean bool=true;
     Management man = new Management();
     man.addRental(this.phoneNum, this.transactionItem);
@@ -79,6 +79,7 @@ public class POR extends PointOfSale {
     file.delete();
     databaseItem.clear();
     transactionItem.clear();
+    return totalPrice;
   }
   
   public void retrieveTemp(String textFile){
@@ -116,6 +117,6 @@ public class POR extends PointOfSale {
                          "Error reading file 'temp'");  
       ableToOpen = false;
     }
-    
+
   }
 }

@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextArea;
 
 public class Transaction_Interface extends JFrame implements ActionListener
 {
@@ -40,19 +39,19 @@ public class Transaction_Interface extends JFrame implements ActionListener
 		//setLocation(500,280);
 		
 		addItem = new JButton("Add Item");
-		addItem.setBounds(xSize*4/5,ySize/5,150,80);
+		addItem.setBounds(xSize*4/5,ySize/6,150,80);
 		add(addItem);
 		
 		removeItem = new JButton("Remove Item");
-		removeItem.setBounds(xSize*4/5,ySize*2/5,150,80);
+		removeItem.setBounds(xSize*4/5,ySize*2/6,150,80);
 		add(removeItem);
 		
 		endTransaction = new JButton("End");
-		endTransaction.setBounds(xSize*4/5,ySize*3/5,150,80);
+		endTransaction.setBounds(xSize*4/5,ySize*3/6,150,80);
 		add(endTransaction);
 		
 		cancelTransaction = new JButton("Cancel");
-		cancelTransaction.setBounds(xSize*4/5,ySize*4/5,150,80);
+		cancelTransaction.setBounds(xSize*4/5,ySize*4/6,150,80);
 		add(cancelTransaction);
 		
 		addItem.addActionListener(this);
@@ -113,10 +112,19 @@ public class Transaction_Interface extends JFrame implements ActionListener
 			removeItem.setVisible(true);
 			
 		}
+		
 		if (event.getSource() == endTransaction) //finish this
 		{
-			transaction.endPOS(databaseFile);
+			Payment_Interface payment = new Payment_Interface(transaction,databaseFile);
+			payment.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			payment.setVisible(true);
+			
+			this.setVisible(false);
+			this.dispose();
+			
 		}
+		
+		
 		if (event.getSource() == cancelTransaction) //cancels transaction for customer
 		{
 			JOptionPane.showMessageDialog(null,"Transaction Has Been Cancelled");

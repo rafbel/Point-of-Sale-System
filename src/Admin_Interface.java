@@ -7,8 +7,11 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+
 
 public class Admin_Interface extends JFrame implements ActionListener{
 	
@@ -20,6 +23,7 @@ public class Admin_Interface extends JFrame implements ActionListener{
 	private JButton LogOutButton;
 	private JTextArea textShow;
 	private JScrollPane scroll;
+	
 	
 	private List <Employee> employeeList;
 	
@@ -37,27 +41,27 @@ public class Admin_Interface extends JFrame implements ActionListener{
 		setSize(xSize,ySize);
 		
 		addButton = new JButton("Add Cashier");
-		addButton.setBounds(xSize*4/5,ySize/7,150,80);
+		addButton.setBounds(xSize*4/5,ySize/8,150,80);
 		add(addButton);
 		
 		adminButton = new JButton("Add Admin");
-		adminButton.setBounds(xSize*4/5,ySize*2/7,150,80);
+		adminButton.setBounds(xSize*4/5,ySize*2/8,150,80);
 		add(adminButton);
 		
 		removeButton = new JButton("Remove Employee");
-		removeButton.setBounds(xSize*4/5,ySize*3/7,150,80);
+		removeButton.setBounds(xSize*4/5,ySize*3/8,150,80);
 		add(removeButton);
 		
 		updateButton = new JButton("Update Employee");
-		updateButton.setBounds(xSize*4/5,ySize*4/7,150,80);
+		updateButton.setBounds(xSize*4/5,ySize*4/8,150,80);
 		add(updateButton);
 		
 		cashierButton = new JButton("Cashier View");
-		cashierButton.setBounds(xSize*4/5,ySize*5/7,150,80);
+		cashierButton.setBounds(xSize*4/5,ySize*5/8,150,80);
 		add(cashierButton);
 		
 		LogOutButton = new JButton("Log Out");
-		LogOutButton.setBounds(xSize*4/5,ySize*6/7,150,80);
+		LogOutButton.setBounds(xSize*4/5,ySize*6/8,150,80);
 		add(LogOutButton);
 		
 		textShow=new JTextArea();  
@@ -83,36 +87,40 @@ public class Admin_Interface extends JFrame implements ActionListener{
 		LogOutButton.addActionListener(this);
 	}
 	
-	private void updateTextArea()
-	{
-		textShow.setText(null);
-		employeeList = management.getEmployeeList();
-		for (Employee temp: employeeList)
-		{
-			String employeeString = temp.getUsername() + "\t" + temp.getPosition() + " \t" + "x" + temp.getName() + "\t" + temp.getPassword() + "\n";
-			textShow.append(employeeString);
-		}
-	}
 	
 	public void actionPerformed(ActionEvent event)
 	{
 		if (event.getSource() == addButton)
 		{
-			
+			AddEmployee_Interface empInterface = new AddEmployee_Interface(true,this);
+			empInterface.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			empInterface.setVisible(true);
 		}
 		
 		if (event.getSource() == adminButton)
 		{
-			
+			AddEmployee_Interface empInterface = new AddEmployee_Interface(false,this);
+			empInterface.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			empInterface.setVisible(true);
 		}
 		
 		if (event.getSource() == removeButton)
 		{
+			String employeeID = JOptionPane.showInputDialog("Enter employee ID");
+			if (!management.delete(employeeID))
+				JOptionPane.showMessageDialog(null, "No employee with such ID");
+			else
+			{
+				updateTextArea();
+			}
 			
 		}
 		
 		if (event.getSource() == updateButton)
 		{
+			UpdateEmployee_Interface update = new UpdateEmployee_Interface(this);
+			update.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			update.setVisible(true);
 			
 		}
 		
@@ -136,6 +144,17 @@ public class Admin_Interface extends JFrame implements ActionListener{
 			dispose();
 		}
 		
+	}
+	
+	private void updateTextArea()
+	{
+		textShow.setText(null);
+		employeeList = management.getEmployeeList();
+		for (Employee temp: employeeList)
+		{
+			String employeeString = temp.getUsername() + "\t" + temp.getPosition() + " \t"  + temp.getName() + "\t" + temp.getPassword() + "\n";
+			textShow.append(employeeString);
+		}
 	}
 
 }

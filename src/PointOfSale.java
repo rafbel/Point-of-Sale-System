@@ -82,23 +82,22 @@ abstract class PointOfSale {
     return foundItem;
   }
   
-  public void updateTotal() 
+  public double updateTotal() 
   {
     //updates total value to be displayed on the screen
     totalPrice += transactionItem.get(transactionItem.size() - 1).getPrice()
       *transactionItem.get(transactionItem.size() - 1).getAmount();
     
     //shows running total on screen and item info
-    for (int counter = 0; counter < transactionItem.size(); counter++){
+    //for (int counter = 0; counter < transactionItem.size(); counter++){
       //prints item name - price
-      System.out.format("%d %s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemID(),transactionItem.get(counter).getItemName(),
+      /*System.out.format("%d %s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemID(),transactionItem.get(counter).getItemName(),
                         transactionItem.get(counter).getAmount(), 
-                        transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());
-    }
+                        transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());*/
     
     //prints running total
-    System.out.format("Total: %.2f\n", totalPrice);
-    
+   // System.out.format("Total: %.2f\n", totalPrice);
+    return totalPrice;
   }
   
   public boolean payment(){
@@ -331,11 +330,12 @@ abstract class PointOfSale {
           inTheList=true;                
         }
       }
-      if (inTheList==true){
+      if (inTheList==true)
+      {
+        totalPrice -= transactionItem.get(index).getPrice()*transactionItem.get(index).getAmount();
         deleteTempItem(itemID);
         transactionItem.remove(transactionItem.get(index));
         if (transactionItem.size()==0){
-          System.out.println("The cart is empty. Thank you");
           File file=new File (tempFile);
           file.delete();
         }
@@ -343,6 +343,8 @@ abstract class PointOfSale {
       }
       return false;
   }
+  
+  public double getTotal() {return totalPrice;}
   
   public void detectSystem(){
     if (System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
@@ -379,7 +381,7 @@ abstract class PointOfSale {
   public Item lastAddedItem() {return transactionItem.get(transactionItem.size() - 1); }
   public List <Item> getCart(){return transactionItem;}
   
-  public abstract void endPOS(String textFile);
+  public abstract double endPOS(String textFile);
   public abstract void deleteTempItem(int id);
   public abstract void retrieveTemp(String textFile);
 }

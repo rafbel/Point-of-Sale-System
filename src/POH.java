@@ -68,7 +68,7 @@ public class POH extends PointOfSale
       
     }
     
-    public void endPOS(String textFile){
+    public double endPOS(String textFile){
       detectSystem();
       if (transactionItem.size() > 0)
       {
@@ -98,6 +98,7 @@ public class POH extends PointOfSale
       }
       databaseItem.clear();
       transactionItem.clear();
+      return totalPrice; 
     }
     
     public void retrieveTemp(String textFile){
@@ -135,6 +136,6 @@ public class POH extends PointOfSale
                            "Error reading file 'temp'");  
         ableToOpen = false;
       }
-      
+
     }
   }

@@ -48,21 +48,18 @@ public class POS extends PointOfSale {
     
   }
   
-  public void endPOS(String textFile){
+  public double endPOS(String textFile)
+  {
     detectSystem();
     boolean bool=true;
     if (transactionItem.size()>0){
-    totalPrice = totalPrice*taxCalculator(); //calculates price with tax
+    totalPrice = totalPrice*tax; //calculates price with tax
     //prints total with taxes
     bool=payment();
-    if(bool==true){
-    for (int counter = 0; counter < transactionItem.size(); counter++){
-      //prints item name - price
-      System.out.format("%d %s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemID(),transactionItem.get(counter).getItemName(),
-                        transactionItem.get(counter).getAmount(), 
-                        transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());
-    }
-    System.out.format("Total with taxes: %.2f\n", totalPrice);
+    
+    if(bool==true)
+    {
+    //System.out.format("Total with taxes: %.2f\n", totalPrice);
     inventory.updateInventory(textFile, transactionItem, databaseItem,false);
     }
     }
@@ -102,6 +99,7 @@ public class POS extends PointOfSale {
       }
      databaseItem.clear();
     transactionItem.clear();
+    return totalPrice;
   }
   
   public void retrieveTemp(String textFile){

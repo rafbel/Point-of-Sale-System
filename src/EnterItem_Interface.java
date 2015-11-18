@@ -16,6 +16,7 @@ public class EnterItem_Interface extends JFrame implements ActionListener
 			private JTextField amount;
 			private JButton enterButton;
 			private JButton exitButton;
+			
 			private String ID = "";
 			private String quantity = "";
 			private PointOfSale transaction;
@@ -85,9 +86,8 @@ public class EnterItem_Interface extends JFrame implements ActionListener
 
 				else //Add line to textbox
 				{
-					Item lastItem = transaction.lastAddedItem();
-					String itemString = lastItem.getItemID() + " \t" + lastItem.getItemName() + " \t" + "x" + lastItem.getAmount() + "\t$" + lastItem.getAmount()*lastItem.getPrice() + "\n";
-					transDialog.append(itemString);
+					transaction.updateTotal();
+					updateTextArea();
 				}
 					
 			}
@@ -99,14 +99,7 @@ public class EnterItem_Interface extends JFrame implements ActionListener
 
 				else //Remove line from textbox
 					{
-					transDialog.setText(null);
-					List <Item> transactionItem = transaction.getCart();
-					for (Item temp: transactionItem)
-					{
-						String itemString = temp.getItemID() + "\t" + temp.getItemName() + " \t" + "x" + temp.getAmount() + "\t$" + temp.getAmount()*temp.getPrice() + "\n";
-						transDialog.append(itemString);
-					}
-					
+						updateTextArea();
 					}
 			}
 			this.setVisible(false);
@@ -118,6 +111,19 @@ public class EnterItem_Interface extends JFrame implements ActionListener
 			dispose();
 		
 		}
+	}
+	
+	
+	private void updateTextArea()
+	{
+		transDialog.setText(null);
+		List <Item> transactionItem = transaction.getCart();
+		for (Item temp: transactionItem)
+		{
+			String itemString = temp.getItemID() + "\t" + temp.getItemName() + " \t" + "x" + temp.getAmount() + "\t$" + String.format("%.2f", temp.getAmount()*temp.getPrice()) + "\n";
+			transDialog.append(itemString);
+		}
+		transDialog.append("\nTotal: $" + String.format("%.2f", transaction.getTotal()) + "\n" );
 	}
 	
 	public int getItemID() {return Integer.parseInt(ID); }

@@ -8,15 +8,18 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Cashier_Interface extends JFrame implements ActionListener{
+
 	
 	private JButton saleButton;
 	private JButton rentalButton;
 	private JButton returnButton;
 	private JButton LogOutButton;
 	private Transaction_Interface transaction;
+        POSSystem system1;
 	
-	public Cashier_Interface()
+	public Cashier_Interface(POSSystem system2)
 	{
+            
 		super ("SG Technologies - Cashier View");
 		setLayout(null);
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -26,6 +29,8 @@ public class Cashier_Interface extends JFrame implements ActionListener{
 		setSize(xSize,ySize);
 		//setLocation(500,280);
 		
+                this.system1=system2;
+                
 		saleButton = new JButton("Sale");
 		saleButton.setBounds(0,ySize/5,xSize,100);
 		add(saleButton);
@@ -132,8 +137,8 @@ public class Cashier_Interface extends JFrame implements ActionListener{
 		{
 			//Registering log out in log
 			/*POSSystem system = new POSSystem();
-			system.logOutToFile(String username,String name,"Cashier",Calendar cal);*/
-			
+			system.logOutToFile(username,name,"Cashier",cal);*/
+			system1.logOut("Cashier");
 			
 			Login_Interface login = new Login_Interface();
 			login.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

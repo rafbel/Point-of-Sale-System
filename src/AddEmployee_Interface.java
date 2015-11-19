@@ -73,7 +73,8 @@ public class AddEmployee_Interface extends JFrame implements ActionListener
 			admin.setVisible(false);
 			admin.dispose();
 			
-			admin = new Admin_Interface();
+                        POSSystem sys=new POSSystem();
+			admin = new Admin_Interface(sys);
 			admin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			admin.setVisible(true);
 			

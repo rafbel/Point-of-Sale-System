@@ -151,7 +151,8 @@ public class Payment_Interface extends JFrame implements ActionListener
 		if (event.getSource() == confirm)
 		{
 			JOptionPane.showMessageDialog(null, "Payment confirmed");
-			Cashier_Interface cashier = new Cashier_Interface();
+                        POSSystem sys=new POSSystem();
+			Cashier_Interface cashier = new Cashier_Interface(sys);
 			cashier.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			cashier.setVisible(true);
 			

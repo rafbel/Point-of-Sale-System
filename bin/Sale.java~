@@ -12,7 +12,7 @@ public class Sale{
     try{
       String temp = "../Database/temp.txt";
       if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-        temp = "..\\Database\\temp.txt"; 
+        //temp = "..\\Database\\temp.txt";  //changed to support netbeans
       }
       File file = new File(temp);
       file.delete();
@@ -54,4 +54,6 @@ public class Sale{
     point.coupon();
     point.endPOS(textFile);
   }
+  
+  
 }

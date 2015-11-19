@@ -1,0 +1,67 @@
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.io.*;
+
+public class System(){
+  public boolean unixOS = true; 
+  public static String employeeDatabase = "../Database/employeeDatabase.txt";
+  public List<String> usernames = new ArrayList<String>();
+  public List<String> positions = new ArrayList<String>();
+  public List<String> names = new ArrayList<String>();
+  public List<String> passwords = new ArrayList<String>();
+  
+  public void readFile(){
+    if (System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
+      unixOS = false; 
+      employeeDatabase = "..\\Database\\employeeDatabase.txt";
+    }
+    boolean ableToOpen = true;
+    
+    String line = null;
+    String[] lineSort;
+    int numLine = 0;
+    
+    //Checks database file for the item  
+    try {
+      FileReader fileR = new FileReader(employeeDatabase);
+      BufferedReader textReader = new BufferedReader(fileR);
+      //reads the entire database
+      while ((line = textReader.readLine()) != null)
+      {
+        lineSort = line.split(" "); //separates words    
+        usernames.add(lineSort[0]);
+        positions.add(lineSort[1]);
+        names.add(lineSort[2]+" "+lineSort[3]);
+        passwords.add(lineSort[4]);
+        numLine++;
+      }
+      textReader.close();
+      
+    }
+    
+    //catches exceptions
+    catch(FileNotFoundException ex) {
+      System.out.println(
+                         "Unable to open file '" + 
+                         databaseFile + "'"); 
+      ableToOpen = false;
+    }
+    catch(IOException ex) {
+      System.out.println(
+                         "Error reading file '" 
+                           + databaseFile + "'");  
+      ableToOpen = false;
+    }
+  }
+  
+  public void logIn(){
+    Scanner scan=new Scanner(System.in);
+    System.out.println("Please enter username");
+    String username=scan.next();
+    
+  }
+  
+  
+  
+}

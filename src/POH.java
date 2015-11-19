@@ -67,37 +67,37 @@ public class POH extends PointOfSale
       }
       
     }
-    
-    public void endPOS(String textFile){
+    public double endPOS(String textFile){
       detectSystem();
-      if (transactionItem.size() > 0)
+      if (transactionItem.size() > 0 && !textFile.equals(""))
       {
-       Management management = new Management();
-    returnList = management.getLatestReturnDate(phone);
-    double itemPrice = 0;
-    totalPrice = 0;
-    
-    for (int transactionCounter = 0; transactionCounter < transactionItem.size(); transactionCounter++)
-             for (int returnCounter = 0; returnCounter < returnList.size(); returnCounter++)
-           {
-             if (transactionItem.get(transactionCounter).getItemID() == returnList.get(returnCounter).getItemID())
-             {
-               //Applies a value to be payed depending on the amount of days it is late. If it is not late, no value is applied
-               itemPrice = transactionItem.get(transactionCounter).getPrice()* 0.1 * returnList.get(returnCounter).getDays();
-               totalPrice += itemPrice;
-               System.out.println("Item Name: " + transactionItem.get(transactionCounter).getItemName() + "    Days Late: " 
-                                    + returnList.get(returnCounter).getDays() + "   To be paid: " + itemPrice);
-               System.out.println("Total: " + totalPrice);
-             }
-           }
-   
-    inventory.updateInventory(textFile, transactionItem, databaseItem,false);
-    
-    management.updateRentalStatus(phone,returnList);
-       
+	    Management management = new Management();
+	    returnList = management.getLatestReturnDate(phone);
+	    double itemPrice = 0;
+	    totalPrice = 0;
+	    
+	    for (int transactionCounter = 0; transactionCounter < transactionItem.size(); transactionCounter++)
+	             for (int returnCounter = 0; returnCounter < returnList.size(); returnCounter++)
+	           {
+	             if (transactionItem.get(transactionCounter).getItemID() == returnList.get(returnCounter).getItemID())
+	             {
+	               //Applies a value to be payed depending on the amount of days it is late. If it is not late, no value is applied
+	               itemPrice = transactionItem.get(transactionCounter).getAmount()*transactionItem.get(transactionCounter).getPrice()* 0.1 * returnList.get(returnCounter).getDays();
+	               totalPrice += itemPrice;
+	               System.out.println("Item Name: " + transactionItem.get(transactionCounter).getItemName() + "    Days Late: " 
+	                                    + returnList.get(returnCounter).getDays() + "   To be paid: " + itemPrice);
+	               System.out.println("Total: " + totalPrice);
+	             }
+	           }
+	   
+	    inventory.updateInventory(textFile, transactionItem, databaseItem,false);
+	    
+	    management.updateRentalStatus(phone,returnList);
+
       }
       databaseItem.clear();
       transactionItem.clear();
+      return totalPrice; 
     }
     
     public void retrieveTemp(String textFile){
@@ -135,6 +135,6 @@ public class POH extends PointOfSale
                            "Error reading file 'temp'");  
         ableToOpen = false;
       }
-      
+
     }
   }

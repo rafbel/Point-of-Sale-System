@@ -4,7 +4,7 @@ import java.text.*;
 
 public class Management {
  
- private static String userDatabase;
+ private static String userDatabase = "Database/userDatabase.txt";
  
  
  public Management(){
@@ -67,7 +67,7 @@ public class Management {
    long nextPh = 0;
    boolean outstandingReturns = false;
    
-   SimpleDateFormat formatter =  new SimpleDateFormat("MM/dd/yyyy");
+   SimpleDateFormat formatter =  new SimpleDateFormat("MM/dd/yy");
    List<ReturnItem> returnList = new ArrayList<ReturnItem>(); //this list will store all items to be used in this sale
    
    String thisReturnDate = null;
@@ -327,8 +327,8 @@ public class Management {
                         modifiedLine += " " + line.split(" ")[i].split(",")[0] + "," + dateFormat + "," + "true";
           
                        }
-                      if (returnCounter == returnedList.size() )
-                       modifiedLine += line.split(" ")[i]; //not returning this item now
+                     /* if (returnCounter == returnedList.size() )
+                       modifiedLine += line.split(" ")[i]; //not returning this item now*/
                      }
                    
                      

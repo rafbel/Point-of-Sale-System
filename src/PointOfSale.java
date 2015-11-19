@@ -6,7 +6,7 @@ abstract class PointOfSale {
   public double totalPrice=0;
   private static float discount = 0.90f;
   public boolean unixOS = true; 
-  public double tax=0;
+  public double tax=1.06;
   
   //public static String rentalDatabaseFile = "../Database/rentalDatabase.txt"; 
   public static String couponNumber = "Database/couponNumber.txt";
@@ -55,6 +55,14 @@ abstract class PointOfSale {
     }
   }
   
+  public boolean startNew(String databaseFile)
+  {
+	  if (inventory.accessInventory(databaseFile, databaseItem) == true) //if can access inventory
+	    return true;
+	  
+	  return false;
+  }
+  
   public boolean enterItem(int itemID, int amount) //might include in a "mother class" in the future
   {
     detectSystem();
@@ -74,23 +82,22 @@ abstract class PointOfSale {
     return foundItem;
   }
   
-  public void updateTotal() 
+  public double updateTotal() 
   {
     //updates total value to be displayed on the screen
     totalPrice += transactionItem.get(transactionItem.size() - 1).getPrice()
       *transactionItem.get(transactionItem.size() - 1).getAmount();
     
     //shows running total on screen and item info
-    for (int counter = 0; counter < transactionItem.size(); counter++){
+    //for (int counter = 0; counter < transactionItem.size(); counter++){
       //prints item name - price
-      System.out.format("%d %s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemID(),transactionItem.get(counter).getItemName(),
+      /*System.out.format("%d %s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemID(),transactionItem.get(counter).getItemName(),
                         transactionItem.get(counter).getAmount(), 
-                        transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());
-    }
+                        transactionItem.get(counter).getPrice()*transactionItem.get(counter).getAmount());*/
     
     //prints running total
-    System.out.format("Total: %.2f\n", totalPrice);
-    
+   // System.out.format("Total: %.2f\n", totalPrice);
+    return totalPrice;
   }
   
   public boolean payment(){
@@ -130,6 +137,54 @@ abstract class PointOfSale {
   public void credit(){
     System.out.println("Please enter the credit card number.");
     String num=creditCard();
+  }
+  
+  
+  public boolean coupon(String couponNo)
+  {
+	  boolean ableToOpen = true;
+      String line = null;
+      int numLine = 0;
+      String[] coupons=new String[1000];
+      try {
+        FileReader fileR = new FileReader(couponNumber);
+        BufferedReader textReader = new BufferedReader(fileR);
+        //reads the entire database
+        while ((line = textReader.readLine()) != null)
+        {
+          coupons[numLine]=line;
+          numLine++;
+        }        
+        
+        textReader.close();
+      }
+      
+      //catches exceptions
+      catch(FileNotFoundException ex) {
+        System.out.println(
+                           "Unable to open file 'couponNumber'"); 
+        ableToOpen = false;
+      }
+      catch(IOException ex) {
+        System.out.println(
+                           "Error reading file 'couponNumber'");  
+        ableToOpen = false;
+      }
+      
+      //check for coupon
+      
+      boolean valid=false;
+      for(int i=0;i<coupons.length;i++){
+        if(couponNo.equals(coupons[i]))
+        {
+          valid=true; 
+          break;
+        }
+      }
+      if (valid)
+    	  totalPrice *=discount;
+      
+      return valid;
   }
   
   public void coupon(){
@@ -313,6 +368,32 @@ abstract class PointOfSale {
     }
   }
   
+  public boolean removeItems(int itemID)
+  {
+	  boolean inTheList=false;
+      int index=-1;
+      for (int i=0; i<transactionItem.size();i++){
+        if (itemID==transactionItem.get(i).getItemID()){
+          index=i;
+          inTheList=true;                
+        }
+      }
+      if (inTheList==true)
+      {
+        totalPrice -= transactionItem.get(index).getPrice()*transactionItem.get(index).getAmount();
+        deleteTempItem(itemID);
+        transactionItem.remove(transactionItem.get(index));
+        if (transactionItem.size()==0){
+          File file=new File (tempFile);
+          file.delete();
+        }
+        return true;
+      }
+      return false;
+  }
+  
+  public double getTotal() {return totalPrice;}
+  
   public void detectSystem(){
     if (System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
       //unixOS = false; //these lines are commented out for running on netbeans, which uses a linux protocol despite OS
@@ -345,8 +426,26 @@ abstract class PointOfSale {
     return a;
   }
   
+  public boolean creditCard(String card)
+  {
+	  int length = card.length();
+	  if (length != 16)
+		  return false;
+	  int index = 0;
+	  while (index < length)
+	  {
+		  if (card.charAt(index)>'9' || card.charAt(index) < '0')
+			  return false;
+		  index++;
+	  }
+	  return true;
+  }
   
-  public abstract void endPOS(String textFile);
+  public Item lastAddedItem() {return transactionItem.get(transactionItem.size() - 1); }
+  public List <Item> getCart(){return transactionItem;}
+  public int getCartSize(){return transactionItem.size();}
+  
+  public abstract double endPOS(String textFile);
   public abstract void deleteTempItem(int id);
   public abstract void retrieveTemp(String textFile);
 }

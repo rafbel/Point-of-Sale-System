@@ -54,17 +54,17 @@ public class POR extends PointOfSale {
     
   }
   
-  public void endPOS(String textFile){
+  public double endPOS(String textFile){
     boolean bool=true;
     Management man = new Management();
     man.addRental(this.phoneNum, this.transactionItem);
     detectSystem();
     if (transactionItem.size()>0){
-      totalPrice = totalPrice*taxCalculator(); //calculates price with tax
+      totalPrice = totalPrice*tax; //calculates price with tax
       //prints total with taxes
-      bool=payment();
-      if(bool==true){
-        for (int counter = 0; counter < transactionItem.size(); counter++){
+      //bool=payment();
+      //f(bool==true){
+        /*for (int counter = 0; counter < transactionItem.size(); counter++){
           //prints item name - price
           System.out.format("%d %s x %d  --- $ %.2f\n", transactionItem.get(counter).getItemID(),transactionItem.get(counter).getItemName(),
                             transactionItem.get(counter).getAmount(), 
@@ -72,13 +72,14 @@ public class POR extends PointOfSale {
         }
         System.out.format("Total with taxes: %.2f\n", totalPrice);
         inventory.updateInventory(textFile, transactionItem, databaseItem,true);
-      }
+      }*/
     }
     //delete log file
     File file = new File(tempFile);
     file.delete();
     databaseItem.clear();
     transactionItem.clear();
+    return totalPrice;
   }
   
   public void retrieveTemp(String textFile){
@@ -116,6 +117,6 @@ public class POR extends PointOfSale {
                          "Error reading file 'temp'");  
       ableToOpen = false;
     }
-    
+
   }
 }

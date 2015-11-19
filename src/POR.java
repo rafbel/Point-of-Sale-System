@@ -73,6 +73,7 @@ public class POR extends PointOfSale {
         System.out.format("Total with taxes: %.2f\n", totalPrice);
         inventory.updateInventory(textFile, transactionItem, databaseItem,true);
       }*/
+      inventory.updateInventory(textFile, transactionItem, databaseItem,true);
     }
     //delete log file
     File file = new File(tempFile);

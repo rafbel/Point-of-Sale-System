@@ -24,6 +24,7 @@ public class Admin_Interface extends JFrame implements ActionListener{
 	private JButton LogOutButton;
 	private JTextArea textShow;
 	private JScrollPane scroll;
+
 	POSSystem system1;
 	
 	private List <Employee> employeeList;
@@ -31,6 +32,7 @@ public class Admin_Interface extends JFrame implements ActionListener{
 	private EmployeeManagement management = new EmployeeManagement();
 	
 	
+
 	public Admin_Interface(POSSystem system2)
 	{
 		super ("SG Technologies - Administrator View");
@@ -38,6 +40,7 @@ public class Admin_Interface extends JFrame implements ActionListener{
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int xSize = ((int) tk.getScreenSize().getWidth());
 		int ySize = ((int) tk.getScreenSize().getHeight());
+
                 
                 system1=system2;
 		
@@ -129,8 +132,10 @@ public class Admin_Interface extends JFrame implements ActionListener{
 		
 		if (event.getSource() == cashierButton) //enter cashier interface
 		{
+
                     POSSystem sys=new POSSystem();
 			Cashier_Interface cashier = new Cashier_Interface(sys);
+
 			cashier.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			cashier.setVisible(true);
 			
@@ -143,6 +148,7 @@ public class Admin_Interface extends JFrame implements ActionListener{
 			//Registering logout
 			/*POSSystem system = new POSSystem();
 			system.logOutToFile(String username,String name,"Admin",Calendar cal);*/
+
 			system1.logOut("Admin");
 			
 			Login_Interface login = new Login_Interface();

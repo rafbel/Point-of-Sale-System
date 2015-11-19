@@ -1,0 +1,33 @@
+2015-11-17 20:33:06.997
+1002 SkirtSteak 3 45.0
+Total with tax: 47.7
+2015-11-17 20:34:29.595
+1002 SkirtSteak 1 15.0
+Total with tax: 15.9
+2015-11-17 20:34:32.464
+Total with tax: 15.9
+2015-11-17 20:34:39.862
+Total with tax: 15.9
+2015-11-17 20:35:13.027
+1002 SkirtSteak 2 30.0
+Total with tax: 31.8
+2015-11-17 20:37:55.949
+Total with tax: 15.9
+2015-11-17 20:58:15.281
+1000 Potato 2 2.0
+Total with tax: 2.12
+2015-11-17 22:59:56.529
+1020 BabyFormula 2 4.400000095367432
+Total with tax: 4.664000101089478
+2015-11-17 23:02:25.834
+1019 Seafood 2 20.0
+Total with tax: 21.200000000000003
+2015-11-17 23:11:33.093
+1021 CornSyrup 1 1.0
+Total with tax: 1.06
+2015-11-17 23:14:23.604
+1024 Bacon 1 5.5
+Total with tax: 5.83
+2015-11-17 23:28:46.873
+1023 SeasoningMix 1 8.800000190734863
+Total with tax: 9.328000202178956

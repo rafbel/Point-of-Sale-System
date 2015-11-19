@@ -78,7 +78,9 @@ public class Login_Interface extends JFrame implements ActionListener{
 					{
 						//Starts the cashier interface
 						//System.cashier();
+
 						Cashier_Interface cashier = new Cashier_Interface(System);
+
 						cashier.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						cashier.setVisible(true);
 						this.setVisible(false);
@@ -87,7 +89,9 @@ public class Login_Interface extends JFrame implements ActionListener{
 					else if (System.logIn(userAuth, passwordAuth) == 2)	//Enters the system as admin
 					{
 						//Starts the admin interface
+
 						Admin_Interface admin = new Admin_Interface(System);
+
 						admin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						admin.setVisible(true);
 						this.setVisible(false);

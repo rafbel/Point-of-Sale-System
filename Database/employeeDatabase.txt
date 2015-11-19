@@ -1,6 +1,16 @@
-110001 Admin Christy Hughes 1
+110001 Admin Harry Larry 1
 110002 Cashier Debra Cooper lehigh2016
 110003 Admin Clayton Watson lehigh2017
 110004 Cashier Seth Moss lehigh2018
 110005 Admin Amy Adams 110
 110006 Cashier Mike Spears lehigh
+110009 Admin John Candle candles
+110011 Cashier Anthony Hopkins theman
+110012 Cashier Robert Lek huehue
+110013 Cashier Johnny Cage mortalkombat
+110014 Cashier Eim Lou cowboybebop
+110015 Cashier Michael Scott thatswhatshesaid
+110016 Cashier Dwight Schrute beets
+110017 Cashier John Cena areyoukidding
+110018 Cashier Lara Piloto l1lahfel1pe
+110019 Cashier Christina Ryan philosopher

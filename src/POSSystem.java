@@ -92,10 +92,12 @@ public class POSSystem{
      if(f.exists() && !f.isDirectory())
       return true;
      return false;
+
   }
   
   public String continueFromTemp(long phone)
   {
+
      String temp = "Database/temp.txt";
      File f=new File(temp);
 

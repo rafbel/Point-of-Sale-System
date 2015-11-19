@@ -33,6 +33,7 @@ public class Transaction_Interface extends JFrame implements ActionListener
 		super ("SG Technologies - Transaction View");
 		setLayout(null);
 		
+                
 		
 		this.operation = operation;
 		
@@ -108,10 +109,15 @@ public class Transaction_Interface extends JFrame implements ActionListener
                     options, 
                     options[0]);
 			
-			if (choice == 0)
+			if (choice == 0){
 				databaseFile = "Database/rentalDatabase.txt";
-			else
+                                transaction.returnSale=false;
+
+                        }
+                        else{
 				databaseFile = "Database/itemDatabase.txt";
+                                transaction.returnSale=true;
+                        }
 		}
 		
 		transaction.startNew(databaseFile);

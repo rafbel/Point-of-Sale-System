@@ -8,6 +8,8 @@ abstract class PointOfSale {
   public boolean unixOS = true; 
   public double tax=1.06;
   
+  public boolean returnSale=true;
+  
   //public static String rentalDatabaseFile = "../Database/rentalDatabase.txt"; 
   public static String couponNumber = "Database/couponNumber.txt";
   //determines the name of the databaseFile for sale
@@ -255,7 +257,7 @@ abstract class PointOfSale {
     }
   }
   
-  private static int checkInt(){
+  protected static int checkInt(){
     
     Scanner scan=new Scanner(System.in);
     while(!scan.hasNextInt()){
@@ -267,7 +269,7 @@ abstract class PointOfSale {
     return Integer.parseInt(scan.next());
   }
   
-  private static double checkDouble(){
+  protected static double checkDouble(){
     
     Scanner scan=new Scanner(System.in);
     while(!scan.hasNextDouble()){

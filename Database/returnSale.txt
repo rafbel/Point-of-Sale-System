@@ -1,2 +1,2 @@
-1026 Noodles 2.0 1
-1027 Pasta 1.5 1
+1001 PlasticCup 1 0.5
+

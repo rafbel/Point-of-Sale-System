@@ -11,7 +11,7 @@ import java.util.List;
 public class POH extends PointOfSale
 {
  List <ReturnItem> returnList = new ArrayList<ReturnItem>();
- long phone = 0;
+ long phone;
  
  public POH(){
    this.phone=0;
@@ -22,12 +22,15 @@ public class POH extends PointOfSale
   this.phone = phone;
  }
  
+ 
+ 
+ 
   public void deleteTempItem(int id){
       boolean ableToOpen=true;
       try{
         String temp = "Database/newTemp.txt";
         if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
-          temp = "..\\Database\\newTemp.txt"; 
+         // temp = "..\\Database\\newTemp.txt"; 
         }
         File tempF = new File(temp);
         FileReader fileR = new FileReader(tempFile);
@@ -68,7 +71,31 @@ public class POH extends PointOfSale
       
     }
     public double endPOS(String textFile){
-      detectSystem();
+      //detectSystem();
+        if(returnSale==true){
+                try{
+      String t = "Database/returnSale.txt";
+      
+      FileWriter fw2 = new FileWriter(t,true);
+      BufferedWriter bw2 = new BufferedWriter(fw2);
+      bw2.write(System.getProperty( "line.separator" ));
+      for(int i=0;i<transactionItem.size();i++){
+       String log=Integer.toString(transactionItem.get(i).getItemID())+" "+transactionItem.get(i).getItemName()+" "+
+                        Integer.toString(transactionItem.get(i).getAmount())+" "+
+                        Double.toString(transactionItem.get(i).getPrice()*transactionItem.get(i).getAmount());
+       bw2.write(log);
+      bw2.write(System.getProperty( "line.separator" ));
+      }
+      bw2.newLine();
+      bw2.close();
+      
+    } catch (FileNotFoundException e) {
+      System.out.println("Unable to open file Log File for logout"); 
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }  
+        }
       if (transactionItem.size() > 0 && !textFile.equals(""))
       {
 	    Management management = new Management();
@@ -76,7 +103,11 @@ public class POH extends PointOfSale
 	    double itemPrice = 0;
 	    totalPrice = 0;
 	    
-	    for (int transactionCounter = 0; transactionCounter < transactionItem.size(); transactionCounter++)
+	    
+            
+            
+           
+                for (int transactionCounter = 0; transactionCounter < transactionItem.size(); transactionCounter++)
 	             for (int returnCounter = 0; returnCounter < returnList.size(); returnCounter++)
 	           {
 	             if (transactionItem.get(transactionCounter).getItemID() == returnList.get(returnCounter).getItemID())
@@ -89,12 +120,14 @@ public class POH extends PointOfSale
 	               System.out.println("Total: " + totalPrice);
 	             }
 	           }
+            
 	   
 	    inventory.updateInventory(textFile, transactionItem, databaseItem,false);
 	    
 	    management.updateRentalStatus(phone,returnList);
 
       }
+      
       databaseItem.clear();
       transactionItem.clear();
       return totalPrice; 

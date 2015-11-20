@@ -101,7 +101,7 @@ public class POH extends PointOfSale
 	    Management management = new Management();
 	    returnList = management.getLatestReturnDate(phone);
 	    double itemPrice = 0;
-	    totalPrice = 0;
+	  //  totalPrice = 0;
 	    
 	    
             

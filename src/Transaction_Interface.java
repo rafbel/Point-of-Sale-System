@@ -174,6 +174,9 @@ public class Transaction_Interface extends JFrame implements ActionListener
 		 			Cashier_Interface cashier = new Cashier_Interface(sys);
 		 			cashier.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		 			cashier.setVisible(true);
+		 			
+		 			this.setVisible(false);
+		 			this.dispose();
 				}
 				
 				

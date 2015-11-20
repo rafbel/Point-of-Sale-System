@@ -29,3 +29,9 @@
 1000 Potato 2 2.0
 1003 PotatoChips 4 4.800000190734863
 
+
+1002 SkirtSteak 2 30.0
+
+
+1024 Bacon 3 16.5
+

@@ -32,7 +32,7 @@ public class AddEmployee_Interface extends JFrame implements ActionListener
 		
 		registeringCashier = regCashier;
 		this.admin = admin;
-		
+	
 		enterButton = new JButton("Enter");
 		enterButton.setBounds(170,100,80,20);
 		add(enterButton);

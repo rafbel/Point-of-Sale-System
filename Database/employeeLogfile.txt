@@ -12,3 +12,26 @@ Christy Hughes (110001 Admin) logs out of POS System. Time: 2015-11-03 19:14:27.
 Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-19 22:38:56.421
 Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-19 22:38:56.422
 Harry Larry (110001 Admin) logs out of POS System. Time: 2015-11-19 22:39:40.582
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 23:07:16.492
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-20 11:16:12.714
+Debra Cooper (110002 Cashier) logs out of POS System. Time: 2015-11-20 11:16:15.129
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:16:21.005
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:16:21.006
+Harry Larry (110001 Admin) logs out of POS System. Time: 2015-11-20 11:16:58.573
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:17:59.748
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:17:59.749
+Harry Larry (110001 Admin) logs out of POS System. Time: 2015-11-20 11:26:21.195
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:30:00.053
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:30:00.054
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:31:48.704
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:31:48.705
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:32:13.017
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:32:13.018
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:32:31.185
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:32:31.186
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:34:34.207
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:34:34.208
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:34:55.685
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:34:55.686
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:35:09.888
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-20 11:35:09.889

@@ -166,12 +166,26 @@ public class Transaction_Interface extends JFrame implements ActionListener
 							JOptionPane.showMessageDialog(null, "Invalid coupon");
 				}
 				
-				Payment_Interface payment = new Payment_Interface(transaction,databaseFile,operation,phone);
-				payment.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				payment.setVisible(true);
+				if (operation.equals("Unsatisfactory"))
+				{
+					transaction.endPOS(databaseFile);
+					JOptionPane.showMessageDialog(null, "Returning items is complete");
+		             POSSystem sys=new POSSystem();
+		 			Cashier_Interface cashier = new Cashier_Interface(sys);
+		 			cashier.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		 			cashier.setVisible(true);
+				}
 				
-				this.setVisible(false);
-				this.dispose();
+				
+				else {
+				
+					Payment_Interface payment = new Payment_Interface(transaction,databaseFile,operation,phone);
+					payment.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					payment.setVisible(true);
+					
+					this.setVisible(false);
+					this.dispose();
+				}
 			}
 			
 			else

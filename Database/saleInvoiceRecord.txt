@@ -31,3 +31,6 @@ Total with tax: 5.83
 2015-11-17 23:28:46.873
 1023 SeasoningMix 1 8.800000190734863
 Total with tax: 9.328000202178956
+2015-11-19 20:38:47.725
+1000 Potato 1 1.0
+Total with tax: 1.06

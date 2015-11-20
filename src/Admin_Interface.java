@@ -163,7 +163,7 @@ public class Admin_Interface extends JFrame implements ActionListener{
 		{
 			//Organizes the scrollable text area
 			String employeeString;
-			if (temp.getName().length() >= 12 && temp.getPassword().length() < 16)
+			if (temp.getName().length() >= 12)
 				employeeString = temp.getUsername() + "\t" + temp.getPosition() + " \t"  + temp.getName() + "\t" + temp.getPassword() + "\n";
 			else
 				employeeString = temp.getUsername() + "\t" + temp.getPosition() + " \t"  + temp.getName() + "\t\t" + temp.getPassword() + "\n";

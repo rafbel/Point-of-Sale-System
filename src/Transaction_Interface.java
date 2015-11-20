@@ -101,7 +101,11 @@ public class Transaction_Interface extends JFrame implements ActionListener
 		
 		if (operation.equals("Return"))
 		{
+<<<<<<< HEAD
 			returnOrNot=true;
+=======
+			
+>>>>>>> origin/master
 			Object[] options = {"Rented Items",
                     "Unsatisfactory items"};
 			
@@ -187,7 +191,11 @@ public class Transaction_Interface extends JFrame implements ActionListener
 				
 				else {
 				
+<<<<<<< HEAD
 					Payment_Interface payment = new Payment_Interface(transaction,databaseFile,operation,phone,returnOrNot);
+=======
+					Payment_Interface payment = new Payment_Interface(transaction,databaseFile,operation,phone);
+>>>>>>> origin/master
 					payment.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					payment.setVisible(true);
 					

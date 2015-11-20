@@ -9,7 +9,37 @@ Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-03 18:50:19.32
 Debra Cooper (110002 Cashier) logs out of POS System. Time: 2015-11-03 18:50:19.320
 Christy Hughes (110001 Admin) logs into POS System. Time: 2015-11-03 19:14:27.694
 Christy Hughes (110001 Admin) logs out of POS System. Time: 2015-11-03 19:14:27.694
+<<<<<<< HEAD
 
 Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-19 22:38:56.421
 Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-19 22:38:56.422
 Harry Larry (110001 Admin) logs out of POS System. Time: 2015-11-19 22:39:40.582
+=======
+Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 19:15:02.846
+Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 19:17:17.308
+Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 19:18:39.544
+Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 19:19:40.454
+Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 19:22:11.771
+Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 19:49:04.042
+Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 19:53:10.518
+Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 20:03:54.267
+Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 20:07:50.706
+Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 20:15:52.710
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 20:38:31.572
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 20:44:03.921
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 20:48:43.560
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 20:51:19.823
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 20:52:02.984
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 20:53:58.654
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 20:58:24.731
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 20:59:22.681
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 21:01:00.022
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 21:30:25.117
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 21:31:26.072
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 21:32:13.309
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 21:33:25.633
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 21:34:23.107
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 21:36:14.220
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 21:51:24.158
+Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-19 21:54:49.425
+>>>>>>> origin/master

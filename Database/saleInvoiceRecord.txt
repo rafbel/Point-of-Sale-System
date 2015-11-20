@@ -43,6 +43,7 @@ Total with tax: 1.06
 2015-11-19 21:31:14.815
 1000 Potato 2 2.0
 Total with tax: 2.12
+<<<<<<< HEAD
 2015-11-19 22:10:37.933
 1001 PlasticCup 1 0.5
 Total with tax: 0.53
@@ -58,3 +59,5 @@ Total with tax: 2.12
 2015-11-19 22:22:46.240
 1001 PlasticCup 1 0.5
 Total with tax: 0.53
+=======
+>>>>>>> origin/master

@@ -34,3 +34,12 @@ Total with tax: 9.328000202178956
 2015-11-19 20:38:47.725
 1000 Potato 1 1.0
 Total with tax: 1.06
+2015-11-19 20:51:34.957
+1002 SkirtSteak 2 30.0
+Total with tax: 31.8
+2015-11-19 21:01:35.685
+1001 PlasticCup 2 1.0
+Total with tax: 1.06
+2015-11-19 21:31:14.815
+1000 Potato 2 2.0
+Total with tax: 2.12

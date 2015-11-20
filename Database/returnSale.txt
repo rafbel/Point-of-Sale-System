@@ -1,2 +1,27 @@
 1001 PlasticCup 1 0.5
 
+
+1004 Curry 2 4.599999904632568
+
+
+1002 SkirtSteak 2 30.0
+
+
+1001 PlasticCup 2 1.0
+
+
+1000 Potato 1 1.0
+
+
+1000 Potato 2 2.0
+1080 Tuna 3 21.0
+
+
+1000 Potato 2 2.0
+
+
+1000 Potato 2 2.0
+
+
+1024 Bacon 2 11.0
+

@@ -26,8 +26,9 @@ public class EnterItem_Interface extends JFrame implements ActionListener
 			private String operation;
 			private JTextArea transDialog;
 			
+			private int choice;
 			
-	public EnterItem_Interface(PointOfSale transac,boolean addFlag,JTextArea transactionDialog, String operation)
+	public EnterItem_Interface(PointOfSale transac,boolean addFlag,JTextArea transactionDialog, String operation, int choice)
 	{
 		super ("SG Technologies - Enter Item");
 		setLayout(null);
@@ -35,6 +36,7 @@ public class EnterItem_Interface extends JFrame implements ActionListener
 		setLocation(500,280);
 		
 		this.operation = operation;
+		this.choice = choice;
 		transaction = transac;
 		checkFlag = addFlag;
 		transDialog = transactionDialog;
@@ -114,7 +116,6 @@ public class EnterItem_Interface extends JFrame implements ActionListener
 		}
 	}
 	
-	
 	private void updateTextArea()
 	{
 		transDialog.setText(null);
@@ -125,8 +126,8 @@ public class EnterItem_Interface extends JFrame implements ActionListener
 			transDialog.append(itemString);
 		}
 		
-		if (operation.equals("Return"))
-			transDialog.append("\nTotal Price When Renting: $" + String.format("%.2f", transaction.getTotal()) + "\n" );
+		if (operation.equals("Return") && (choice == 0))
+			transDialog.append("\nTotal Price When Items Were Rented: $" + String.format("%.2f", transaction.getTotal()) + "\n" );
 		else
 			transDialog.append("\nTotal: $" + String.format("%.2f", transaction.getTotal()) + "\n" );
 	}

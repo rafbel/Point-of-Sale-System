@@ -9,13 +9,7 @@ Debra Cooper (110002 Cashier) logs into POS System. Time: 2015-11-03 18:50:19.32
 Debra Cooper (110002 Cashier) logs out of POS System. Time: 2015-11-03 18:50:19.320
 Christy Hughes (110001 Admin) logs into POS System. Time: 2015-11-03 19:14:27.694
 Christy Hughes (110001 Admin) logs out of POS System. Time: 2015-11-03 19:14:27.694
-Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 19:15:02.846
-Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 19:17:17.308
-Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 19:18:39.544
-Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 19:19:40.454
-Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 19:22:11.771
-Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 19:49:04.042
-Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 19:53:10.518
-Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 20:03:54.267
-Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 20:07:50.706
-Mike Spears (110006 Cashier) logs into POS System. Time: 2015-11-03 20:15:52.710
+
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-19 22:38:56.421
+Harry Larry (110001 Admin) logs into POS System. Time: 2015-11-19 22:38:56.422
+Harry Larry (110001 Admin) logs out of POS System. Time: 2015-11-19 22:39:40.582

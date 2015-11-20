@@ -58,7 +58,7 @@ public class POS extends PointOfSale {
    // bool=payment();
     
     //System.out.format("Total with taxes: %.2f\n", totalPrice);
-    inventory.updateInventory(textFile, transactionItem, databaseItem,false);
+    inventory.updateInventory(textFile, transactionItem, databaseItem,true);
     }
     //delete log file
     File file = new File(tempFile);

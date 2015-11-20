@@ -31,3 +31,30 @@ Total with tax: 5.83
 2015-11-17 23:28:46.873
 1023 SeasoningMix 1 8.800000190734863
 Total with tax: 9.328000202178956
+2015-11-19 20:38:47.725
+1000 Potato 1 1.0
+Total with tax: 1.06
+2015-11-19 20:51:34.957
+1002 SkirtSteak 2 30.0
+Total with tax: 31.8
+2015-11-19 21:01:35.685
+1001 PlasticCup 2 1.0
+Total with tax: 1.06
+2015-11-19 21:31:14.815
+1000 Potato 2 2.0
+Total with tax: 2.12
+2015-11-19 22:10:37.933
+1001 PlasticCup 1 0.5
+Total with tax: 0.53
+2015-11-19 22:12:04.565
+1001 PlasticCup 1 0.5
+Total with tax: 0.53
+2015-11-19 22:15:57.651
+1001 PlasticCup 1 0.5
+Total with tax: 0.53
+2015-11-19 22:21:00.638
+1011 Corn 1 2.0
+Total with tax: 2.12
+2015-11-19 22:22:46.240
+1001 PlasticCup 1 0.5
+Total with tax: 0.53

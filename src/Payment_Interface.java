@@ -19,7 +19,7 @@ public class Payment_Interface extends JFrame implements ActionListener
 	
 	private JButton PayCash;
 	private JButton PayElectronic;
-	//private JButton cancelTransaction;
+	private JButton cancelTransaction;
 	private JButton confirm;
 	private long phoneNum;
 	private JTextArea transactionDialog;
@@ -31,15 +31,22 @@ public class Payment_Interface extends JFrame implements ActionListener
 	PointOfSale transaction;
 	String database;
 	String operation;
+    
+    boolean returnOrNot;
+
 	
 	
-	public Payment_Interface(PointOfSale transaction, String databaseFile, String operation, String phone)
+    public Payment_Interface(PointOfSale transaction, String databaseFile, String operation, String phone,boolean r)
+
 	{
 		super ("SG Technologies - Payment View");
 		setLayout(null);
+        
+        returnOrNot=true;
 		
 		this.transaction = transaction;
 		this.database = databaseFile;
+                returnOrNot=r;
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int xSize = ((int) tk.getScreenSize().getWidth());
@@ -63,6 +70,9 @@ public class Payment_Interface extends JFrame implements ActionListener
 		confirm = new JButton("Confirm Payment");
 		confirm.setBounds(xSize*4/5,ySize/4,150,80);
 		
+		cancelTransaction = new JButton("Cancel");
+		cancelTransaction.setBounds(xSize*4/5,ySize*3/4,150,80);
+		add(cancelTransaction);
 		
 		transactionDialog=new JTextArea();  
 		transactionDialog.setBackground(Color.white);  
@@ -81,7 +91,7 @@ public class Payment_Interface extends JFrame implements ActionListener
 		
 		PayCash.addActionListener(this);
 		PayElectronic.addActionListener(this);
-		//cancelTransaction.addActionListener(this);
+		cancelTransaction.addActionListener(this);
 		confirm.addActionListener(this);
 		
 	}
@@ -112,6 +122,7 @@ public class Payment_Interface extends JFrame implements ActionListener
 			
 			remove(PayCash);
 			remove(PayElectronic);
+			remove(cancelTransaction);
 			add(confirm);	
 			this.revalidate();
 			this.repaint();
@@ -126,6 +137,7 @@ public class Payment_Interface extends JFrame implements ActionListener
 				JOptionPane.showMessageDialog(null, "Invalid credit card number");
 			else
 			{
+                if(returnOrNot==false){
 				String cashBackString;
 				double cashBack;
 				cashBackString = JOptionPane.showInputDialog("If you desire cash back, type the quantity");
@@ -139,19 +151,33 @@ public class Payment_Interface extends JFrame implements ActionListener
 				
 				if (operation.equals("Rental"))
 					appendReturnDate();
-				
+                }
 				remove(PayCash);
 				remove(PayElectronic);
+				remove(cancelTransaction);
 				add(confirm);
 				this.revalidate();
 				this.repaint();
 			}
 		}
 		
+		if (event.getSource() == cancelTransaction)
+		{
+			JOptionPane.showMessageDialog(null, "Transaction canceled");
+			POSSystem sys=new POSSystem();
+			Cashier_Interface cashier = new Cashier_Interface(sys);
+			cashier.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			cashier.setVisible(true);
+			
+			this.setVisible(false);
+			this.dispose();
+			
+		}
+		
 		if (event.getSource() == confirm)
 		{
 			JOptionPane.showMessageDialog(null, "Payment confirmed");
-                        POSSystem sys=new POSSystem();
+            POSSystem sys=new POSSystem();
 			Cashier_Interface cashier = new Cashier_Interface(sys);
 			cashier.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			cashier.setVisible(true);

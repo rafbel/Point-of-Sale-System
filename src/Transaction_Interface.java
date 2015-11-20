@@ -22,11 +22,15 @@ public class Transaction_Interface extends JFrame implements ActionListener
 	private long phoneNum;
 	private JTextArea transactionDialog;
 	
+        
+        public boolean returnOrNot;
 	private String databaseFile;
 	
 	String operation = "";
 	
 	JScrollPane scroll;
+	
+	private int choice = 3;
 	
 	public Transaction_Interface(String operation)
 	{
@@ -81,22 +85,23 @@ public class Transaction_Interface extends JFrame implements ActionListener
 		
 		if (operation.equals("Sale"))
 		{
+                    returnOrNot=false;
 			transaction = new POS();
+                        
 			databaseFile = "Database/itemDatabase.txt";
 		}
 		
 		if (operation.equals("Rental"))
 		{
+                    returnOrNot=false;
 			getCustomerPhone();
 			databaseFile = "Database/rentalDatabase.txt";
 			transaction = new POR(phoneNum);
 		}
-		int choice = 1;
+		
 		if (operation.equals("Return"))
 		{
-			getCustomerPhone();
-			transaction = new POH(phoneNum);
-			
+			returnOrNot=true;
 			Object[] options = {"Rented Items",
                     "Unsatisfactory items"};
 			
@@ -111,13 +116,18 @@ public class Transaction_Interface extends JFrame implements ActionListener
 			
 			if (choice == 0){
 				databaseFile = "Database/rentalDatabase.txt";
-                                transaction.returnSale=false;
+                                
+                getCustomerPhone();
+                transaction = new POH(phoneNum);
+                transaction.returnSale=false;
 
-                        }
-                        else{
-				databaseFile = "Database/itemDatabase.txt";
-                                transaction.returnSale=true;
-                        }
+            }
+            else{
+                  transaction = new POH();
+                  databaseFile = "Database/itemDatabase.txt";
+                  transaction.returnSale=true;
+                  phone = "0000000000";
+                }
 		}
 		
 		transaction.startNew(databaseFile);
@@ -126,7 +136,7 @@ public class Transaction_Interface extends JFrame implements ActionListener
 		{
 			//Resets unecessary info for this operation
 			databaseFile = "";
-			operation = "";
+			this.operation = "Unsatisfactory";
 		}
 		
 	}
@@ -135,14 +145,14 @@ public class Transaction_Interface extends JFrame implements ActionListener
 	{
 		if (event.getSource() == addItem)
 		{
-			EnterItem_Interface enterItem = new EnterItem_Interface(transaction,true,transactionDialog,operation);
+			EnterItem_Interface enterItem = new EnterItem_Interface(transaction,true,transactionDialog,operation, choice);
 			enterItem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			enterItem.setVisible(true);
 				
 		}
 		if (event.getSource() == removeItem)
 		{
-			EnterItem_Interface removeItem = new EnterItem_Interface(transaction,false,transactionDialog,operation);
+			EnterItem_Interface removeItem = new EnterItem_Interface(transaction,false,transactionDialog,operation, choice);
 			removeItem.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			removeItem.setVisible(true);
 			
@@ -161,12 +171,29 @@ public class Transaction_Interface extends JFrame implements ActionListener
 							JOptionPane.showMessageDialog(null, "Invalid coupon");
 				}
 				
-				Payment_Interface payment = new Payment_Interface(transaction,databaseFile,operation,phone);
-				payment.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				payment.setVisible(true);
+				if (operation.equals("Unsatisfactory"))
+				{
+					transaction.endPOS(databaseFile);
+					JOptionPane.showMessageDialog(null, "Returning items is complete");
+		             POSSystem sys=new POSSystem();
+		 			Cashier_Interface cashier = new Cashier_Interface(sys);
+		 			cashier.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		 			cashier.setVisible(true);
+		 			
+		 			this.setVisible(false);
+		 			this.dispose();
+				}
 				
-				this.setVisible(false);
-				this.dispose();
+				
+				else {
+				
+					Payment_Interface payment = new Payment_Interface(transaction,databaseFile,operation,phone,returnOrNot);
+					payment.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+					payment.setVisible(true);
+					
+					this.setVisible(false);
+					this.dispose();
+				}
 			}
 			
 			else

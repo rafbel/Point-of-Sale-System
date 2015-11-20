@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-1000 TheoryOfEverything 30.0 244
-1001 AdventuresOfTomSawyer 40.5 398
-=======
-=======
->>>>>>> origin/master
 1000 TheoryOfEverything 30.0 247
 1001 AdventuresOfTomSawyer 40.5 390
->>>>>>> origin/master
 1002 PrideAndPrejudice 30.0 995
 1003 MarleyAndMe 35.0 199
 1004 TheMummy 30.0 98
@@ -29,4 +21,4 @@
 1020 IllusionistsLive 20.0 100
 1021 KissFromTheRose 5.0 400
 1022 TheHulk 20.0 200
-1023 Avengers 30.0 400
+1023 Avengers 30.0 399

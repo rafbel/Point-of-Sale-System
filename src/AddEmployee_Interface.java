@@ -9,6 +9,10 @@ import javax.swing.JTextField;
 
 public class AddEmployee_Interface extends JFrame implements ActionListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField name;      
 	private JPasswordField password;
 	private JButton enterButton;

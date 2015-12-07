@@ -9,6 +9,10 @@ import javax.swing.JOptionPane;
 
 public class Login_Interface extends JFrame implements ActionListener{
 
+		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 		//GUI widgets for this interface
 		private JTextField username;      
 		private JPasswordField password;

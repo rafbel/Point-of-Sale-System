@@ -7,7 +7,6 @@ public class POS extends PointOfSale {
   public POS(){};
   
   public void deleteTempItem(int id){
-    boolean ableToOpen=true;
     try{
       String temp = "Database/newTemp.txt";
       if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
@@ -18,7 +17,6 @@ public class POS extends PointOfSale {
       BufferedReader reader = new BufferedReader(fileR);
       BufferedWriter writer = new BufferedWriter(new FileWriter(tempF));
       String type= reader.readLine();
-      String phone;
       writer.write(type);
       writer.write(System.getProperty("line.separator"));
       for (int i =0; i<transactionItem.size();i++){
@@ -32,18 +30,16 @@ public class POS extends PointOfSale {
       reader.close(); 
       File file = new File(tempFile);
       file.delete();
-      boolean successful = tempF.renameTo(new File(tempFile));
+      tempF.renameTo(new File(tempFile));
 
     }
     catch(FileNotFoundException ex) {
       System.out.println(
                          "Unable to open file 'temp'"); 
-      ableToOpen = false;
     }
     catch(IOException ex) {
       System.out.println(
                          "Error reading file 'temp'");  
-      ableToOpen = false;
     }
     
   }
@@ -100,12 +96,10 @@ public class POS extends PointOfSale {
   }
   
   public void retrieveTemp(String textFile){
-    boolean ableToOpen=true;
     try{
       FileReader fileR = new FileReader(tempFile);
       BufferedReader textReader = new BufferedReader(fileR);
       String line=null;
-      int numLine=0;
      
       String[] lineSort;
       line=textReader.readLine();
@@ -117,20 +111,17 @@ public class POS extends PointOfSale {
         int itemNo = Integer.parseInt(lineSort[0]);
         int itemAmount = Integer.parseInt(lineSort[1]);
         enterItem(itemNo,itemAmount);
-        numLine++;
       }
-      
+      textReader.close();
       updateTotal();
     }
     catch(FileNotFoundException ex) {
       System.out.println(
                          "Unable to open file 'temp'"); 
-      ableToOpen = false;
     }
     catch(IOException ex) {
       System.out.println(
                          "Error reading file 'temp'");  
-      ableToOpen = false;
     }
     
   }

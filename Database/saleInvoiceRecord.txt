@@ -59,3 +59,8 @@ Total with tax: 2.12
 1001 PlasticCup 1 0.5
 Total with tax: 0.53
 
+2015-11-20 14:33:41.035
+1020 BabyFormula 2 4.400000095367432
+1080 Tuna 3 21.0
+1087 VegetablesFrozen 3 13.5
+Total with tax: 41.23400010108948

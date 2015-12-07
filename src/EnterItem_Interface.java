@@ -11,7 +11,11 @@ import javax.swing.JTextField;
 
 public class EnterItem_Interface extends JFrame implements ActionListener
 {
-	//GUI widgets for this interface
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+			//GUI widgets for this interface
 			private JTextField itemID;      
 			private JTextField amount;
 			private JButton enterButton;

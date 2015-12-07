@@ -29,7 +29,6 @@ public class Inventory
 		
 		String line = null;
 		String[] lineSort;
-		int numLine = 0;
 		
 		//Checks database file for the item		
 		try {
@@ -41,7 +40,6 @@ public class Inventory
 				lineSort = line.split(" "); //separates words
 				databaseItem.add(new Item(Integer.parseInt(lineSort[0]),lineSort[1],Float.parseFloat(lineSort[2]),
 						Integer.parseInt(lineSort[3])));
-				numLine++;
 			}
 			textReader.close();
 			

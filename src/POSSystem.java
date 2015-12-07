@@ -24,11 +24,9 @@ public class POSSystem{
       //rentalDatabaseFile = "..\\Database\\rentalDatabase.txt"; 
       //itemDatabaseFile = "..\\Database\\itemDatabase.txt";
     }
-    boolean ableToOpen = true;
     
     String line = null;
     String[] lineSort;
-    int numLine = 0;
     
     //Checks database file for the item  
     try {
@@ -40,7 +38,6 @@ public class POSSystem{
         lineSort = line.split(" "); //separates words    
         String name=lineSort[2]+" "+lineSort[3];
         employees.add(new Employee(lineSort[0],name,lineSort[1],lineSort[4]));
-        numLine++;
       }
       textReader.close();
       
@@ -51,13 +48,11 @@ public class POSSystem{
       System.out.println(
                          "Unable to open file '" + 
                          employeeDatabase + "'"); 
-      ableToOpen = false;
     }
     catch(IOException ex) {
       System.out.println(
                          "Error reading file '" 
                            + employeeDatabase + "'");  
-      ableToOpen = false;
     }
   } 
   
@@ -112,12 +107,14 @@ public class POSSystem{
                //System.out.println("Sale");
                POS sale=new POS();
                sale.retrieveTemp(itemDatabaseFile); 
+               textReader.close();
                return "Sale";
              }
              else if(type.equals("Rental")){
                //System.out.println("Rental");
                POR rental=new POR(phone);
                rental.retrieveTemp(rentalDatabaseFile); 
+               textReader.close();
                return "Rental";
              }
              
@@ -130,6 +127,7 @@ public class POSSystem{
                }
              
            }
+           textReader.close();
          }
          catch(FileNotFoundException ex) {
            //System.out.println(

@@ -14,40 +14,6 @@ public class EmployeeManagement{
   }
   
   
-  public void add(){
-    readFile();
-    Scanner scan= new Scanner (System.in);
-    int username= (Integer.parseInt(employees.get(employees.size()-1).getUsername())+1);
-    System.out.println("Please enter the position--Admin or Cashier");
-    String position = scan.next();
-    while (!(position.equals("Admin")||position.equals("Cashier")))
-    {
-      System.out.println("Please enter the position again--Admin or Cashier");
-      position=scan.next();
-    }
-    System.out.println("Please enter the first name");
-    String fname=scan.next();
-    System.out.println("Please enter the last name");
-    String lname=scan.next();
-    System.out.println("Please enter the password");
-    String password=scan.next();
-    try{
-      FileWriter fw = new FileWriter(employeeDatabase,true);
-      BufferedWriter bw = new BufferedWriter(fw);
-      String log=Integer.toString(username)+" "+position+" " +fname+ " "+ lname+ " "+password;
-      //bw.write(System.getProperty( "line.separator" ));
-      bw.write(log);
-      bw.write(System.getProperty( "line.separator" ));
-      bw.close();
-      
-    } catch (FileNotFoundException e) {
-      System.out.println("Unable to open file Log File for logIn"); 
-    }
-    catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-  
   
   public void add(String name,String password, boolean employee)
   {
@@ -125,56 +91,7 @@ public class EmployeeManagement{
 	  
   }
   
-  public void delete(){
-    readFile();
-    Scanner scan= new Scanner (System.in);
-    System.out.println("Please enter the username that you want to delete");
-    String username=scan.next();
-    int index=-1;
-    boolean find=false;
-    do{
-      for(int i=0;i<employees.size();i++){
-        if(username.equals((employees.get(i)).getUsername())){
-          find=true;
-          index=i;
-          break;
-        }
-      }
-      if(find==false){
-        System.out.println("The username is invalid. Please enter again.");
-        username=scan.next();
-      }
-    }while(find==false);
-    employees.remove(index);
-
-    boolean ableToOpen=true;
-    try{
-      File tempF= new File (temp);
-      FileReader fileR = new FileReader(employeeDatabase);
-      BufferedReader reader = new BufferedReader(fileR);
-      BufferedWriter writer = new BufferedWriter(new FileWriter(tempF));
-      for (int i=0; i<employees.size();i++){
-        writer.write(employees.get(i).getUsername()+" "+employees.get(i).getPosition()+" "+employees.get(i).getName()+" "+employees.get(i).getPassword());
-        writer.write(System.getProperty( "line.separator" ));
-      }
-      fileR.close();
-      writer.close(); 
-      reader.close(); 
-      File file = new File(employeeDatabase);
-      file.delete();
-      boolean successful = tempF.renameTo(new File(employeeDatabase));
-    }
-    catch(FileNotFoundException ex) {
-      System.out.println(
-                         "Unable to open file 'temp'"); 
-      ableToOpen = false;
-    }
-    catch(IOException ex) {
-      System.out.println(
-                         "Error reading file 'temp'");  
-      ableToOpen = false;
-    }
-  }
+ 
   
   public int update(String username, String password, String position, String name)
   {
@@ -206,7 +123,6 @@ public class EmployeeManagement{
 	    	  employees.get(index).setName(name);
 	      
 	      
-	      boolean ableToOpen=true;
 	      try{
 	        File tempF= new File (temp);
 	        FileReader fileR = new FileReader(employeeDatabase);
@@ -221,108 +137,21 @@ public class EmployeeManagement{
 	        reader.close(); 
 	        File file = new File(employeeDatabase);
 	        file.delete();
-	        boolean successful = tempF.renameTo(new File(employeeDatabase));
+	        tempF.renameTo(new File(employeeDatabase));
 	      }
 	      catch(FileNotFoundException ex) {
 	        System.out.println(
 	                           "Unable to open file 'temp'"); 
-	        ableToOpen = false;
 	      }
 	      catch(IOException ex) {
 	        System.out.println(
 	                           "Error reading file 'temp'");  
-	        ableToOpen = false;
 	      }
 		  
 	  }
 	  return userFound;
   }
   
-  public void update(){
-    readFile();
-    System.out.println("Please enter the username whose information you would like to change");
-    Scanner scan= new Scanner (System.in);
-    String username=scan.next();
-    int index=-1;
-    boolean find=false;
-    do{
-      for(int i=0;i<employees.size();i++){
-        if(username.equals((employees.get(i)).getUsername())){
-          find=true;
-          index=i;
-          break;
-        }
-      }
-      if(find==false){
-        System.out.println("The username is invalid. Please enter again.");
-        username=scan.next();
-      }
-    }while(find==false);
-    
-    
-    System.out.println("Which part of the information you would like to change? 0-I do not want to make change, 1-position, 2-name, 3-password");
-    String choice=scan.next();
-    while (!(choice.equals("0")||choice.equals("1")||choice.equals("2")||choice.equals("3"))){
-      System.out.println("Please enter 0 or 1 or 2 or 3. 0-I do not want to make change, 1-position, 2-name, 3-password");
-      choice=scan.next();
-    }
-    while (!choice.equals("0")){
-      if (choice.equals("1")){
-        System.out.println("Please enter the new position");
-        String position=scan.next();
-        while (!(position.equals("Admin")||position.equals("Cashier")))
-    {
-      System.out.println("Please enter the position again--Admin or Cashier");
-      position=scan.next();
-    }
-        employees.get(index).setPosition(position);
-      }
-      else  if (choice.equals("2")){
-        System.out.println("Please enter the first name");
-        String fname=scan.next();
-        System.out.println("Please enter the last name");
-        String lname=scan.next();
-        employees.get(index).setName(fname+" "+lname);
-      }
-      else if (choice.equals("3")){
-        System.out.println("Please enter the new password");
-        String password=scan.next();
-        employees.get(index).setPassword(password);
-      }
-      System.out.println("Which part of the information you would like to change? 0-I do not want to make change, 1-position, 2-name, 3-password");
-      choice= scan.next();
-      while (!(choice.equals("0")||choice.equals("1")||choice.equals("2")||choice.equals("3"))){
-        choice=scan.next();
-      }
-    }
-    boolean ableToOpen=true;
-    try{
-      File tempF= new File (temp);
-      FileReader fileR = new FileReader(employeeDatabase);
-      BufferedReader reader = new BufferedReader(fileR);
-      BufferedWriter writer = new BufferedWriter(new FileWriter(tempF));
-      for (int i=0; i<employees.size();i++){
-        writer.write(employees.get(i).getUsername()+" "+employees.get(i).getPosition()+" "+employees.get(i).getName()+" "+employees.get(i).getPassword());
-        writer.write(System.getProperty( "line.separator" ));
-      }
-      fileR.close();
-      writer.close(); 
-      reader.close(); 
-      File file = new File(employeeDatabase);
-      file.delete();
-      boolean successful = tempF.renameTo(new File(employeeDatabase));
-    }
-    catch(FileNotFoundException ex) {
-      System.out.println(
-                         "Unable to open file 'temp'"); 
-      ableToOpen = false;
-    }
-    catch(IOException ex) {
-      System.out.println(
-                         "Error reading file 'temp'");  
-      ableToOpen = false;
-    }
-  }
   
   
   
@@ -333,11 +162,9 @@ public class EmployeeManagement{
       //unixOS = false; 
       //employeeDatabase = "..\\Database\\employeeDatabase.txt";
     }
-    boolean ableToOpen = true;
     
     String line = null;
     String[] lineSort;
-    int numLine = 0;
     
     
     //Checks database file for the item  
@@ -352,7 +179,6 @@ public class EmployeeManagement{
         lineSort = line.split(" "); //separates words    
         String name=lineSort[2]+" "+lineSort[3];
         employees.add(new Employee(lineSort[0],name,lineSort[1],lineSort[4]));
-        numLine++;
       }
       textReader.close();
       
@@ -363,13 +189,13 @@ public class EmployeeManagement{
       System.out.println(
                          "Unable to open file '" + 
                          employeeDatabase + "'"); 
-      ableToOpen = false;
+
     }
     catch(IOException ex) {
       System.out.println(
                          "Error reading file '" 
                            + employeeDatabase + "'");  
-      ableToOpen = false;
+
     }
   }
 }

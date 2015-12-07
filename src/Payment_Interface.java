@@ -17,14 +17,16 @@ import javax.swing.JTextArea;
 public class Payment_Interface extends JFrame implements ActionListener
 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton PayCash;
 	private JButton PayElectronic;
 	private JButton cancelTransaction;
 	private JButton confirm;
 	private long phoneNum;
 	private JTextArea transactionDialog;
-	
-	private String databaseFile = "";
 	
 	JScrollPane scroll;
 	

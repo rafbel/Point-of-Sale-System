@@ -11,6 +11,10 @@ import javax.swing.JTextArea;
 
 public class Transaction_Interface extends JFrame implements ActionListener
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private PointOfSale transaction;
 	private Management management = new Management();
 	

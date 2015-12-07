@@ -200,7 +200,6 @@ public class Management {
  {
   long nextPhone = 0;
   List <String> fileList = new ArrayList<String>();
-  String modifiedLine;
   Date date = new Date();
      Format formatter = new SimpleDateFormat("MM/dd/yy");
      String dateFormat = formatter.format(date);
@@ -213,7 +212,6 @@ public class Management {
         FileReader fileR = new FileReader(userDatabase);
         BufferedReader textReader = new BufferedReader(fileR);
         String line;
-        int returnCounter = 0;
         //reads the entire database
         line = textReader.readLine(); //skips the first line, which explains how the DB is formatted. 
         fileList.add(line); //but stores it since it is the first line of the DB

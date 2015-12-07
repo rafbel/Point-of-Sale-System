@@ -1,7 +1,6 @@
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,6 +9,10 @@ import javax.swing.JOptionPane;
 public class Cashier_Interface extends JFrame implements ActionListener{
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton saleButton;
 	private JButton rentalButton;
 	private JButton returnButton;

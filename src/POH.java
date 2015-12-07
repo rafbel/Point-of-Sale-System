@@ -26,7 +26,6 @@ public class POH extends PointOfSale
  
  
   public void deleteTempItem(int id){
-      boolean ableToOpen=true;
       try{
         String temp = "Database/newTemp.txt";
         if(System.getProperty("os.name").startsWith("W")||System.getProperty("os.name").startsWith("w")){
@@ -55,18 +54,16 @@ public class POH extends PointOfSale
         reader.close(); 
         File file = new File(tempFile);
         file.delete();
-        boolean successful = tempF.renameTo(new File(tempFile));
+        tempF.renameTo(new File(tempFile));
 
       }
       catch(FileNotFoundException ex) {
         System.out.println(
                            "Unable to open file 'temp'"); 
-        ableToOpen = false;
       }
       catch(IOException ex) {
         System.out.println(
                            "Error reading file 'temp'");  
-        ableToOpen = false;
       }
       
     }
@@ -134,12 +131,10 @@ public class POH extends PointOfSale
     }
     
     public void retrieveTemp(String textFile){
-      boolean ableToOpen=true;
       try{
         FileReader fileR = new FileReader(tempFile);
         BufferedReader textReader = new BufferedReader(fileR);
         String line=null;
-        int numLine=0;
         String[] lineSort;
         line=textReader.readLine();
         inventory.accessInventory(textFile, databaseItem);
@@ -153,20 +148,18 @@ public class POH extends PointOfSale
           int itemNo = Integer.parseInt(lineSort[0]);
           int itemAmount = Integer.parseInt(lineSort[1]);
           enterItem(itemNo,itemAmount);
-          numLine++;
         }
 
         updateTotal();
+        textReader.close();
       }
       catch(FileNotFoundException ex) {
         System.out.println(
                            "Unable to open file 'temp'"); 
-        ableToOpen = false;
       }
       catch(IOException ex) {
         System.out.println(
                            "Error reading file 'temp'");  
-        ableToOpen = false;
       }
 
     }

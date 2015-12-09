@@ -1,11 +1,13 @@
 SG Technologies POS System
 Alpha Release 
 CSE216 - Software Engineering
-Nov.3, 2015
+Dec 9, 2015
 
 Overview:
 
-This folder contains the Alpha release of SG Technologies’ project prototype for group submission #3. 
+This folder contains the final version of our Software Engineering project, a fully functioning and robust Point of Sale system.
+Project documentation and class submissions are in the Documentation directory
+
 Databases: CouponNumber, employeeDatabase,employee log file, itemDatabase,rentalDatabase,saleinvoiceRecord,userDatabase
 
 Source code:Employee.java, EmployeeManagement.java,HandleReturns.java,Inventory.java,Management.java, POH.java,PointOfSales.java,PointOfSalesTest.java, POR.java, POS.java,POSSystem.java,Register.java,ReturnItem.java,Sale.java
@@ -38,4 +40,5 @@ Rental.java - this class gets into the rental database, find the user in the dat
 ReturnItem.java - finds the itemID in the DB and mark the return date. 
  
 Sale.java - this class gets into the rental database, find the user in the database, or create an account if doesn’t exists. Then it allow users to add, remove rental items. 
+
 
